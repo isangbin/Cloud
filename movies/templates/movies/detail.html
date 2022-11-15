@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Detail</h1>
   <h2>{{ movie.title }}</h2>
-  <img src="{{ movie.poster_path }}" alt="">
+  <img src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
   <p>장르 : 
       {% for genre in movie.genres.all %}
       <span>{{ genre.name }}</span>
