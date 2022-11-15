@@ -2,11 +2,43 @@
 
 {% block content %}
   <h1>MOVIE</h1>
+  <button id='get-button'>get movie</button>
   {% for movie in movies %}
-    <h1>{{ movie.title }}</h1>
-    <a href="{% url 'movies:detail' movie.pk %}">DETAIL</a>
-    <p>{{ movie.overview }}</p>
-    <hr>
+    <div class="movie">  
+      <h1>{{ movie.title }}</h1>
+      <img src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
+      <a href="{% url 'movies:detail' movie.pk %}">DETAIL</a>
+      <p>{{ movie.overview }}</p>
+      <hr>
+    </div>
   {% endfor %}
   
 {% endblock content %}
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    {% comment %} const url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=e67fd4cae34071117f73a8090324311b&language=en-US&page=1' {% endcomment %}
+    {% comment %} const btn = document.querySelector('button') {% endcomment %}
+    const key = "e67fd4cae34071117f73a8090324311b";
+
+    document.getElementById("get-button").onclick = function () {
+      const fetchTrending = async() => {
+        const url = "https://api.themoviedb.org/3/trending/all/week?api_key=" + key + "&language=ko-KR"
+        const response = await axios.get(url);
+        for(let i=0; i<10; i++) {
+          if (response.data.results[i].title == undefined) {
+            newH3 = document.createElement('h3')
+            newH3.textContent = response.data.results[i].name
+            document.body.appendChild(newH3);
+          }
+          else {
+            newH3 = document.createElement('h3')
+            newH3.textContent = response.data.results[i].title
+            document.body.appendChild(newH3);
+          }
+        }
+      }
+      fetchTrending()
+    };
+  </script>
+{% endblock script %}
