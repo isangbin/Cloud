@@ -8,12 +8,24 @@
 </head>
 <body>
   <div class="container">
-    <h3>Hello, {{ user }}</h3>
-    <a href="{% url 'accounts:login' %}">Login</a>
-    <form action="{% url 'accounts:logout' %}" method="POST">
-      {% csrf_token %}
-      <input type="submit" value-"Logout">
-    </form>
+    {% comment %} login 했을 때 화면 구성 {% endcomment %}
+    {% if request.user.is_authenticated %}
+      <h3>Hello, {{ user }}</h3>
+      <a href="{% url 'accounts:profile' user.username %}">내 프로필</a>
+      <form action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+      </form>
+      <a href="{% url 'accounts:update' %}">회원정보 수정</a>
+      <form action="{% url 'accounts:delete' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="회원 탈퇴">
+      </form>
+    {% comment %} login 안 했을 때 화면 구성 {% endcomment %}
+    {% else %}
+      <a href="{% url 'accounts:login' %}">Login</a>
+      <a href="{% url 'accounts:signup' %}">Signup</a>
+    {% endif %}
     <hr>
     {% block content %}
     {% endblock content %}

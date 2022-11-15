@@ -5,6 +5,8 @@
   {% for movie in movies %}
     <h1>{{ movie.title }}</h1>
     <a href="{% url 'movies:detail' movie.pk %}">DETAIL</a>
+    <p>{{ movie.overview }}</p>
+    <hr>
   {% endfor %}
   
 {% endblock content %}
