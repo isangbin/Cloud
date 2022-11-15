@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Detail</h1>
+  <h2>{{ movie.title }}</h2>
+  <img src="{{ movie.poster_path }}" alt="">
+  <p>장르 : 
+      {% for genre in movie.genres.all %}
+      <span>{{ genre.name }}</span>
+      {% endfor %}
+    </p>
+    <p>{{ movie.popularity }}</p>
+    <p>{{ movie.overview }}</p>
+    <hr>
+    <a href="{% url 'movies:index' %}">back</a>
+{% endblock %}
