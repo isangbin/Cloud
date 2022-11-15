@@ -1,5 +1,157 @@
 [
 	{
+		"pk": 28,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 28,
+			"name": "Action"
+		}
+	},
+	{
+		"pk": 12,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 12,
+			"name": "Adventure"
+		}
+	},
+	{
+		"pk": 16,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 16,
+			"name": "Animation"
+		}
+	},
+	{
+		"pk": 35,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 35,
+			"name": "Comedy"
+		}
+	},
+	{
+		"pk": 80,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 80,
+			"name": "Crime"
+		}
+	},
+	{
+		"pk": 99,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 99,
+			"name": "Documentary"
+		}
+	},
+	{
+		"pk": 18,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 18,
+			"name": "Drama"
+		}
+	},
+	{
+		"pk": 10751,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 10751,
+			"name": "Family"
+		}
+	},
+	{
+		"pk": 14,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 14,
+			"name": "Fantasy"
+		}
+	},
+	{
+		"pk": 36,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 36,
+			"name": "History"
+		}
+	},
+	{
+		"pk": 27,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 27,
+			"name": "Horror"
+		}
+	},
+	{
+		"pk": 10402,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 10402,
+			"name": "Music"
+		}
+	},
+	{
+		"pk": 9648,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 9648,
+			"name": "Mystery"
+		}
+	},
+	{
+		"pk": 10749,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 10749,
+			"name": "Romance"
+		}
+	},
+	{
+		"pk": 878,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 878,
+			"name": "Science Fiction"
+		}
+	},
+	{
+		"pk": 10770,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 10770,
+			"name": "TV Movie"
+		}
+	},
+	{
+		"pk": 53,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 53,
+			"name": "Thriller"
+		}
+	},
+	{
+		"pk": 10752,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 10752,
+			"name": "War"
+		}
+	},
+	{
+		"pk": 37,
+		"model": "movies.genre",
+		"fields": {
+			"genre_id": 37,
+			"name": "Western"
+		}
+	},
+	{
 		"pk": 505642,
 		"model": "movies.movie",
 		"fields": {
@@ -8,7 +160,12 @@
 			"released_date": "2022-11-09",
 			"popularity": 4853.507,
 			"overview": "Queen Ramonda, Shuri, M’Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T’Challa’s death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia and Everett Ross and forge a new path for the kingdom of Wakanda.",
-			"poster_path": "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg"
+			"poster_path": "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+			"genres": [
+				28,
+				12,
+				878
+			]
 		}
 	},
 	{
@@ -20,7 +177,11 @@
 			"released_date": "2022-10-06",
 			"popularity": 3396.717,
 			"overview": "After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.",
-			"poster_path": "/b6IRp6Pl2Fsq37r9jFhGoLtaqHm.jpg"
+			"poster_path": "/b6IRp6Pl2Fsq37r9jFhGoLtaqHm.jpg",
+			"genres": [
+				27,
+				53
+			]
 		}
 	},
 	{
@@ -32,7 +193,12 @@
 			"released_date": "2022-11-04",
 			"popularity": 3224.502,
 			"overview": "Now a detective-for-hire like her infamous brother, Enola Holmes takes on her first official case to find a missing girl, as the sparks of a dangerous conspiracy ignite a mystery that requires the help of friends — and Sherlock himself — to unravel.",
-			"poster_path": "/tegBpjM5ODoYoM1NjaiHVLEA0QM.jpg"
+			"poster_path": "/tegBpjM5ODoYoM1NjaiHVLEA0QM.jpg",
+			"genres": [
+				9648,
+				12,
+				80
+			]
 		}
 	},
 	{
@@ -44,7 +210,12 @@
 			"released_date": "2022-10-19",
 			"popularity": 3660.328,
 			"overview": "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.",
-			"poster_path": "/3zXceNTtyj5FLjwQXuPvLYK5YYL.jpg"
+			"poster_path": "/3zXceNTtyj5FLjwQXuPvLYK5YYL.jpg",
+			"genres": [
+				28,
+				14,
+				878
+			]
 		}
 	},
 	{
@@ -56,7 +227,12 @@
 			"released_date": "2022-10-26",
 			"popularity": 2794.744,
 			"overview": "A group of teenagers must face a zombie apocalypse, and help reestablish order.",
-			"poster_path": "/85zufUxhD97k2s5Bu2u101Qd8Sg.jpg"
+			"poster_path": "/85zufUxhD97k2s5Bu2u101Qd8Sg.jpg",
+			"genres": [
+				27,
+				28,
+				35
+			]
 		}
 	},
 	{
@@ -68,7 +244,12 @@
 			"released_date": "2022-10-07",
 			"popularity": 2428.602,
 			"overview": "Paul Baumer and his friends Albert and Muller, egged on by romantic dreams of heroism, voluntarily enlist in the German army. Full of excitement and patriotic fervour, the boys enthusiastically march into a war they believe in. But once on the Western Front, they discover the soul-destroying horror of World War I.",
-			"poster_path": "/hYqOjJ7Gh1fbqXrxlIao1g8ZehF.jpg"
+			"poster_path": "/hYqOjJ7Gh1fbqXrxlIao1g8ZehF.jpg",
+			"genres": [
+				10752,
+				18,
+				28
+			]
 		}
 	},
 	{
@@ -80,7 +261,11 @@
 			"released_date": "2022-10-25",
 			"popularity": 2002.3,
 			"overview": "In this sequel to \"47 Ronin,\" a new class of warriors emerges among the Samurai clans to keep a sought-after sword from falling into the wrong hands.",
-			"poster_path": "/kjFDIlUCJkcpFxYKtE6OsGcAfQQ.jpg"
+			"poster_path": "/kjFDIlUCJkcpFxYKtE6OsGcAfQQ.jpg",
+			"genres": [
+				28,
+				14
+			]
 		}
 	},
 	{
@@ -92,7 +277,10 @@
 			"released_date": "2022-08-11",
 			"popularity": 1741.806,
 			"overview": "For best friends Becky and Hunter, life is all about conquering fears and pushing limits. But after they climb 2,000 feet to the top of a remote, abandoned radio tower, they find themselves stranded with no way down. Now Becky and Hunter’s expert climbing skills will be put to the ultimate test as they desperately fight to survive the elements, a lack of supplies, and vertigo-inducing heights",
-			"poster_path": "/spCAxD99U1A6jsiePFoqdEcY0dG.jpg"
+			"poster_path": "/spCAxD99U1A6jsiePFoqdEcY0dG.jpg",
+			"genres": [
+				53
+			]
 		}
 	},
 	{
@@ -104,7 +292,11 @@
 			"released_date": "2022-07-27",
 			"popularity": 1639.315,
 			"overview": "After escaping from an Estonian psychiatric facility, Leena Klammer travels to America by impersonating Esther, the missing daughter of a wealthy family. But when her mask starts to slip, she is put against a mother who will protect her family from the murderous “child” at any cost.",
-			"poster_path": "/pHkKbIRoCe7zIFvqan9LFSaQAde.jpg"
+			"poster_path": "/pHkKbIRoCe7zIFvqan9LFSaQAde.jpg",
+			"genres": [
+				27,
+				53
+			]
 		}
 	},
 	{
@@ -116,7 +308,12 @@
 			"released_date": "2022-09-15",
 			"popularity": 1487.516,
 			"overview": "Forced to travel with her boyfriend to a horror festival, Laine begins to experience disturbing visions associated with the urban legend of The Creeper. As the festival arrives and the blood-soaked entertainment builds to a frenzy, she becomes the center of it while something unearthly has been summoned.",
-			"poster_path": "/aGBuiirBIQ7o64FmJxO53eYDuro.jpg"
+			"poster_path": "/aGBuiirBIQ7o64FmJxO53eYDuro.jpg",
+			"genres": [
+				27,
+				53,
+				9648
+			]
 		}
 	},
 	{
@@ -128,7 +325,11 @@
 			"released_date": "2022-10-28",
 			"popularity": 1359.047,
 			"overview": "When two corrupt police officers investigate the brutal murder of a young girl, tensions come to a head in their small, racially-segregated town.",
-			"poster_path": "/rITxQBtnMpneZf8QzH1dqONQocx.jpg"
+			"poster_path": "/rITxQBtnMpneZf8QzH1dqONQocx.jpg",
+			"genres": [
+				80,
+				18
+			]
 		}
 	},
 	{
@@ -140,7 +341,12 @@
 			"released_date": "2022-11-01",
 			"popularity": 1341.62,
 			"overview": "Self-proclaimed ethical hacker Mel Bandison's life is turned upside down when she stops a data breach on a high-tech self-driving bus that also happens to shut down an international criminal network. She then becomes a target and is framed with a deepfake video that “shows” that she murders someone.",
-			"poster_path": "/g7rdcofib7HqdlDP1LT7Hmf1f2o.jpg"
+			"poster_path": "/g7rdcofib7HqdlDP1LT7Hmf1f2o.jpg",
+			"genres": [
+				28,
+				80,
+				53
+			]
 		}
 	},
 	{
@@ -152,7 +358,11 @@
 			"released_date": "2022-08-24",
 			"popularity": 1193.908,
 			"overview": "After the death of her mother, Evie is approached by an unknown cousin who invites her to a lavish wedding in the English countryside. Soon, she realizes a gothic conspiracy is afoot and must fight for survival as she uncovers twisted secrets in her family’s history.",
-			"poster_path": "/jcTq6gIskCsHlKDvCKKouEfiU66.jpg"
+			"poster_path": "/jcTq6gIskCsHlKDvCKKouEfiU66.jpg",
+			"genres": [
+				27,
+				53
+			]
 		}
 	},
 	{
@@ -164,7 +374,11 @@
 			"released_date": "2016-03-15",
 			"popularity": 1159.662,
 			"overview": "On Halloween night, a young woman finds herself as the obsession of a sadistic murderer known as Art the Clown.",
-			"poster_path": "/nfRlQCl590F30L37aihuqBGBvaO.jpg"
+			"poster_path": "/nfRlQCl590F30L37aihuqBGBvaO.jpg",
+			"genres": [
+				27,
+				53
+			]
 		}
 	},
 	{
@@ -176,7 +390,12 @@
 			"released_date": "2022-09-27",
 			"popularity": 1225.705,
 			"overview": "29 years since the Black Flame Candle was last lit, the 17th-century Sanderson sisters are resurrected, and they are looking for revenge. Now it's up to three high school students to stop the ravenous witches from wreaking a new kind of havoc on Salem before dawn on All Hallow's Eve.",
-			"poster_path": "/7ze7YNmUaX81ufctGqt0AgHxRtL.jpg"
+			"poster_path": "/7ze7YNmUaX81ufctGqt0AgHxRtL.jpg",
+			"genres": [
+				14,
+				35,
+				10751
+			]
 		}
 	},
 	{
@@ -188,7 +407,11 @@
 			"released_date": "2022-05-24",
 			"popularity": 1180.077,
 			"overview": "After more than thirty years of service as one of the Navy’s top aviators, and dodging the advancement in rank that would ground him, Pete “Maverick” Mitchell finds himself training a detachment of TOP GUN graduates for a specialized mission the likes of which no living pilot has ever seen.",
-			"poster_path": "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"
+			"poster_path": "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+			"genres": [
+				28,
+				18
+			]
 		}
 	},
 	{
@@ -200,7 +423,10 @@
 			"released_date": "2022-01-06",
 			"popularity": 1135.198,
 			"overview": "After depleting Earth's resources for centuries, humankind's survival requires an exodus to outer space. An international expedition is quickly formed to find a suitable new planet, but when plans go awry, the crew is suddenly stranded without power on a strange planet, where something unimaginable lies in wait.",
-			"poster_path": "/rFljUdOozFEv6HDHIFpFvcYW0ec.jpg"
+			"poster_path": "/rFljUdOozFEv6HDHIFpFvcYW0ec.jpg",
+			"genres": [
+				878
+			]
 		}
 	},
 	{
@@ -212,7 +438,12 @@
 			"released_date": "2022-07-06",
 			"popularity": 1192.811,
 			"overview": "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now wields Mjolnir as the Mighty Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
-			"poster_path": "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg"
+			"poster_path": "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+			"genres": [
+				14,
+				28,
+				35
+			]
 		}
 	},
 	{
@@ -224,7 +455,11 @@
 			"released_date": "2022-06-17",
 			"popularity": 1123.346,
 			"overview": "Follows the Arsenaults, a small-time poach family in Témiscouata, Quebec.",
-			"poster_path": "/2symxAMYXpJ9mJ8YOc2b5ZEKIAQ.jpg"
+			"poster_path": "/2symxAMYXpJ9mJ8YOc2b5ZEKIAQ.jpg",
+			"genres": [
+				53,
+				18
+			]
 		}
 	},
 	{
@@ -236,7 +471,12 @@
 			"released_date": "2022-06-24",
 			"popularity": 1128.456,
 			"overview": "The Elric brothers’ long and winding journey comes to a close in this epic finale, where they must face off against an unworldly, nationwide threat.",
-			"poster_path": "/AeyiuQUUs78bPkz18FY3AzNFF8b.jpg"
+			"poster_path": "/AeyiuQUUs78bPkz18FY3AzNFF8b.jpg",
+			"genres": [
+				28,
+				12,
+				14
+			]
 		}
 	}
 ]

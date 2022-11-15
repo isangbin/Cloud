@@ -15,7 +15,7 @@ def get_movie():
                 'popularity': movie['popularity'],
                 'overview': movie['overview'],
                 'poster_path': movie['poster_path'],
-                # 'genres': movie['genre_ids'],
+                'genres': movie['genre_ids'],
                 # 'actors': movie[]
             }
 
@@ -27,7 +27,7 @@ def get_movie():
 
             total_data.append(data)
 
-    with open("movie_data.json", "w", encoding="utf-8") as w:
-        json.dump(total_data, w, indent="\t", ensure_ascii=False)
+    with open("movie_data.json", "a", encoding="utf-8") as a:
+        json.dump(total_data, a, indent="\t", ensure_ascii=False)
 
 get_movie()
