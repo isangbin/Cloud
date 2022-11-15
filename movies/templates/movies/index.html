@@ -4,6 +4,9 @@
   <h1>MOVIE</h1>
   {% for movie in movies %}
     <h1>{{ movie.title }}</h1>
+    <p>{{ movie.overview }}</p>
+    {% comment %} <a href="{% url 'movies:detail' movie.pk %}">DETAIL</a> {% endcomment %}
+    <hr>
   {% endfor %}
   
 {% endblock content %}
