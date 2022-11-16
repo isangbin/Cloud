@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Movie
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 # import requests
 # import json
 
@@ -18,3 +20,29 @@ def detail(request, movie_pk):
         'movie': movie,
     }
     return render(request, 'movies/detail.html', context)
+
+
+def select(request):
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
+    return render(request, 'movies/select.html', context)
+
+
+@require_POST
+def likes(request, movie_pk):
+    if request.user.is_authenticated:
+        movie = Movie.objects.get(pk=movie_pk)
+
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            movie.like_users.remove(request.user)
+            is_liked = False
+        else:
+            movie.like_users.add(request.user)
+            is_liked = True
+        context = {
+            'is_liked': is_liked,
+        }
+        return JsonResponse(context)
+    return redirect('accounts:login')

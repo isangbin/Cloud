@@ -18,7 +18,7 @@ class Movie(models.Model):
     released_date = models.DateTimeField()
     popularity = models.IntegerField()
     poster_path = models.TextField()
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movies')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     genres = models.ManyToManyField(Genre, related_name='movies')
     # actors = models.ManyToManyField(Actor, related_name='movies')
     # created_at = models.DateTimeField(auto_now_add=True)
