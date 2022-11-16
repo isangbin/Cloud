@@ -53,7 +53,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('movies:index')
+            return redirect('movies:select')
     else:
         form = CustomUserCreationForm()
     context = {
