@@ -2,7 +2,7 @@ import requests
 import json
 
 def get_movie():
-    url = 'https://api.themoviedb.org/3/movie/popular?api_key=e67fd4cae34071117f73a8090324311b&language=en-US'
+    url = 'https://api.themoviedb.org/3/movie/popular?api_key=e67fd4cae34071117f73a8090324311b&language=ko-KR'
     movies = requests.get(url).json()
     total_data = []
 

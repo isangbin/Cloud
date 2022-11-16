@@ -2,7 +2,7 @@ import requests
 import json
 
 def get_genre():
-    url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=e67fd4cae34071117f73a8090324311b&language=en-US'
+    url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=e67fd4cae34071117f73a8090324311b&language=ko-KR'
     genres = requests.get(url).json()
     total_data = []
 

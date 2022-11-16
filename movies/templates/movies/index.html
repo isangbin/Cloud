@@ -5,7 +5,7 @@
   a{text-decoration:none; color:inherit;}
   #tab ul{white-space:nowrap; 
   overflow-x: auto; text-align:center}
-  #tab ul li{display:inline-block; padding: 10px 20px; background: #ccc; margin-right:10px;}
+  #tab ul li{display:inline-block; padding: 5px 10px; margin-right:10px;}
   
 {% endblock style %}
 
@@ -14,6 +14,7 @@
   <h1>MOVIE</h1>
   <button id="get-button">get movie</button>
   <div id="nowShow"></div>
+  <hr>
 
   {% comment %} <div class="box">
     <div id="tab">
@@ -32,6 +33,7 @@
       </ul>
     </div>
   </div> {% endcomment %}
+  <h1>추천 영화</h1>
   <div id="tab">
     <ul>
       {% for movie in movies %}    
@@ -42,12 +44,44 @@
           </a>
           {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
         </li>
-        {% comment %} <hr> {% endcomment %}
-    {% endfor %}
-    </ul>
-  </div> 
+        {% endfor %}
+      </ul>
+    </div> 
+  <hr>
 
-  {% for movie in movies %}
+  <h1>장르별 영화</h1>
+  <div id="tab">
+    <ul>
+      {% for movie in movies %}    
+        <li>
+          {% comment %} <h1>{{ movie.title }}</h1> {% endcomment %}
+          <a href="{% url 'movies:detail' movie.pk %}">
+            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
+          </a>
+          {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div> 
+  <hr>
+
+  <h1>모든 영화</h1>
+  <div id="tab">
+    <ul>
+      {% for movie in movies %}    
+        <li>
+          {% comment %} <h1>{{ movie.title }}</h1> {% endcomment %}
+          <a href="{% url 'movies:detail' movie.pk %}">
+            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
+          </a>
+          {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div> 
+  <hr>
+
+  {% comment %} {% for movie in movies %}
     <div class="movie">  
       <h1>{{ movie.title }}</h1>
       <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
@@ -55,7 +89,7 @@
       <p>{{ movie.overview }}</p>
       <hr>
     </div>
-  {% endfor %}
+  {% endfor %} {% endcomment %}
   
 {% endblock content %}
 {% block script %}
