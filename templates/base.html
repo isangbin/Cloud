@@ -14,7 +14,8 @@
     {% endblock style %}
   </style>
 </head>
-<body>
+<body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');">
+<div class="bg-image" style="background-image: url('https://image.tmdb.org/t/p/w400/sv1xJUazXeYqALzczSZ3O6nkH75.jpg'); height: 50vh;">
   <div class="container">
     {% comment %} login 했을 때 화면 구성 {% endcomment %}
     {% if request.user.is_authenticated %}
@@ -35,9 +36,10 @@
       <a href="{% url 'accounts:signup' %}">Signup</a>
     {% endif %}
     <hr>
-    {% block content %}
-    {% endblock content %}
   </div>
+  </div>
+  {% block content %}
+  {% endblock content %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   {% block script %}
   {% endblock script %}
