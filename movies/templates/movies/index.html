@@ -12,9 +12,6 @@
   
 {% block content %}
   <h1>MOVIE</h1>
-  <button id="get-button">get movie</button>
-  <div id="nowShow"></div>
-  <hr>
 
   {% comment %} <div class="box">
     <div id="tab">
@@ -35,18 +32,10 @@
   </div> {% endcomment %}
   <h1>추천 영화</h1>
   <div id="tab">
-    <ul>
-      {% for movie in movies %}    
-        <li>
-          {% comment %} <h1>{{ movie.title }}</h1> {% endcomment %}
-          <a href="{% url 'movies:detail' movie.pk %}">
-            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
-          </a>
-          {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
-        </li>
-        {% endfor %}
-      </ul>
-    </div> 
+    <ul id="recommended">
+      
+    </ul>
+  </div> 
   <hr>
 
   <h1>장르별 영화</h1>
@@ -60,9 +49,9 @@
           </a>
           {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
         </li>
-        {% endfor %}
-      </ul>
-    </div> 
+      {% endfor %}
+    </ul>
+  </div> 
   <hr>
 
   <h1>모든 영화</h1>
@@ -76,9 +65,9 @@
           </a>
           {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
         </li>
-        {% endfor %}
-      </ul>
-    </div> 
+      {% endfor %}
+    </ul>
+  </div> 
   <hr>
 
   {% comment %} {% for movie in movies %}
@@ -92,36 +81,39 @@
   {% endfor %} {% endcomment %}
   
 {% endblock content %}
+
+
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     
     const key = "e67fd4cae34071117f73a8090324311b";
 
-    document.getElementById("get-button").onclick = function () {
-      const fetchTrending = async() => {
-        const url = "https://api.themoviedb.org/3/trending/all/week?api_key=" + key + "&language=ko-KR"
-        const response = await axios.get(url);
-        const nowShow = document.querySelector('#nowShow')
-        
-        console.log(nowShow.firstChild)
-        if (nowShow.firstChild === null) {
+    const fetchTrending = async() => {
+      const url = "https://api.themoviedb.org/3/trending/all/week?api_key=" + key + "&language=ko-KR"
+      const response = await axios.get(url);
+      const recUlTag = document.querySelector('#recommended')
 
-          for(let i=0; i<10; i++) {
-            newH3 = document.createElement('h3')
-            nowShow.appendChild(newH3)
-            if (response.data.results[i].title == undefined) {
-              newH3.innerText = response.data.results[i].name
-              console.log(response.data.results[i])
-            }
-            else {
-              newH3.innerText = response.data.results[i].title
-              console.log(response.data.results[i])
-            }
-          }
-        }
-      }
-      fetchTrending()
+      for(let i=0; i<10; i++) {  
+        console.log(response.data.results[i])
+        newliTag = document.createElement('li')
+        newaTag = document.createElement('a')
+        newimgTag = document.createElement('img')
+
+        imgLink = response.data.results[i].poster_path
+        recMovieId = response.data.results[i].id
+        
+        console.log(recMovieId)
+        console.log(imgLink)
+        newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200'+imgLink)
+        
+        
+        newaTag.appendChild(newimgTag)
+        newliTag.appendChild(newaTag)
+        recUlTag.appendChild(newliTag)
+      }              
     }
+    fetchTrending()
+    
   </script>
 {% endblock script %}
