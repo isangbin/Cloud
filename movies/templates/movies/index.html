@@ -1,10 +1,52 @@
 {% extends 'base.html' %}
+{% block style %}
+  *{margin:0; padding:0;}
+  ul{list-style:none;}
+  a{text-decoration:none; color:inherit;}
+  #tab ul{white-space:nowrap; 
+  overflow-x: auto; text-align:center}
+  #tab ul li{display:inline-block; padding: 10px 20px; background: #ccc; margin-right:10px;}
+  
+{% endblock style %}
 
+  
 {% block content %}
   <h1>MOVIE</h1>
-  <button id='get-button'>get movie</button>
-  <div id='nowShow'>
-  </div>
+  <button id="get-button">get movie</button>
+  <div id="nowShow"></div>
+
+  {% comment %} <div class="box">
+    <div id="tab">
+      <ul>
+        <li class="on"><a href="#">tab1</a> </li>
+        <li><a href="#">tab2</a></li>
+        <li><a href="#">tab3</a></li>
+        <li><a href="#">tab4</a></li>
+        <li><a href="#">tab5</a></li>
+        <li><a href="#">tab6</a></li>
+        <li><a href="#">tab6</a></li>
+        <li><a href="#">tab7</a></li>
+        <li><a href="#">tab8</a></li>
+        <li><a href="#">tab9</a></li>
+        <li><a href="#">tab10</a></li>
+      </ul>
+    </div>
+  </div> {% endcomment %}
+  <div id="tab">
+    <ul>
+      {% for movie in movies %}    
+        <li>
+          {% comment %} <h1>{{ movie.title }}</h1> {% endcomment %}
+          <a href="{% url 'movies:detail' movie.pk %}">
+            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
+          </a>
+          {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
+        </li>
+        {% comment %} <hr> {% endcomment %}
+    {% endfor %}
+    </ul>
+  </div> 
+
   {% for movie in movies %}
     <div class="movie">  
       <h1>{{ movie.title }}</h1>
@@ -26,24 +68,26 @@
       const fetchTrending = async() => {
         const url = "https://api.themoviedb.org/3/trending/all/week?api_key=" + key + "&language=ko-KR"
         const response = await axios.get(url);
-        for(let i=0; i<10; i++) {
-          if (response.data.results[i].title == undefined) {
-            nowShow = document.querySelector('#nowShow')
+        const nowShow = document.querySelector('#nowShow')
+        
+        console.log(nowShow.firstChild)
+        if (nowShow.firstChild === null) {
+
+          for(let i=0; i<10; i++) {
             newH3 = document.createElement('h3')
-            nowShow.appendChild(newH3);
-            newH3.innerText = response.data.results[i].name
-            console.log(response.data.results[i])
-          }
-          else {
-            nowShow = document.querySelector('#nowShow')
-            newH3 = document.createElement('h3')
-            nowShow.appendChild(newH3);
-            newH3.innerText = response.data.results[i].title
-            console.log(response.data.results[i])
+            nowShow.appendChild(newH3)
+            if (response.data.results[i].title == undefined) {
+              newH3.innerText = response.data.results[i].name
+              console.log(response.data.results[i])
+            }
+            else {
+              newH3.innerText = response.data.results[i].title
+              console.log(response.data.results[i])
+            }
           }
         }
       }
       fetchTrending()
-    };
+    }
   </script>
 {% endblock script %}
