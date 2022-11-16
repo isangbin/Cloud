@@ -1,0 +1,9 @@
+.slider {
+  display: flex;
+  gap: .5rem;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+}
