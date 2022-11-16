@@ -6,7 +6,7 @@
   {% for movie in movies %}
     <div class="movie">  
       <h1>{{ movie.title }}</h1>
-      <img src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
+      <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
       <a href="{% url 'movies:detail' movie.pk %}">DETAIL</a>
       <p>{{ movie.overview }}</p>
       <hr>
@@ -30,11 +30,13 @@
             newH3 = document.createElement('h3')
             newH3.textContent = response.data.results[i].name
             document.body.appendChild(newH3);
+            console.log(response.data.results[i])
           }
           else {
             newH3 = document.createElement('h3')
             newH3.textContent = response.data.results[i].title
             document.body.appendChild(newH3);
+            console.log(response.data.results[i])
           }
         }
       }
