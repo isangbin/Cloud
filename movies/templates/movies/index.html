@@ -3,6 +3,8 @@
 {% block content %}
   <h1>MOVIE</h1>
   <button id='get-button'>get movie</button>
+  <div id='nowShow'>
+  </div>
   {% for movie in movies %}
     <div class="movie">  
       <h1>{{ movie.title }}</h1>
@@ -17,8 +19,7 @@
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    {% comment %} const url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=e67fd4cae34071117f73a8090324311b&language=en-US&page=1' {% endcomment %}
-    {% comment %} const btn = document.querySelector('button') {% endcomment %}
+    
     const key = "e67fd4cae34071117f73a8090324311b";
 
     document.getElementById("get-button").onclick = function () {
@@ -27,15 +28,17 @@
         const response = await axios.get(url);
         for(let i=0; i<10; i++) {
           if (response.data.results[i].title == undefined) {
+            nowShow = document.querySelector('#nowShow')
             newH3 = document.createElement('h3')
-            newH3.textContent = response.data.results[i].name
-            document.body.appendChild(newH3);
+            nowShow.appendChild(newH3);
+            newH3.innerText = response.data.results[i].name
             console.log(response.data.results[i])
           }
           else {
+            nowShow = document.querySelector('#nowShow')
             newH3 = document.createElement('h3')
-            newH3.textContent = response.data.results[i].title
-            document.body.appendChild(newH3);
+            nowShow.appendChild(newH3);
+            newH3.innerText = response.data.results[i].title
             console.log(response.data.results[i])
           }
         }

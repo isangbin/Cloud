@@ -19,8 +19,8 @@
     </div>
   {% endif %}
 
-  <h2>{{ person.username }}'s 게시글</h2>
+  {% comment %} <h2>{{ person.username }}'s 게시글</h2>
   {% for article in person.article_set.all %}
     <div>{{ article.title }}</div>
-  {% endfor %}
+  {% endfor %} {% endcomment %}
 {% endblock content %}
