@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
 {% block content %}
-  <h1>회원정보수정</h1>
-  <form action="{% url 'accounts:update' %}" methods="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-  </form>
+  <div class="container d-flex justify-content-center">
+    <div class="row">
+      <h1 class="col text-center text-white">Edit</h1>
+      <form action="{% url 'accounts:update' %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary justify-content-center">변경</button>
+      </form>
+    </div>
+  </div>
 {% endblock content %}

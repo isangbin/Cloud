@@ -9,13 +9,40 @@
   <style>
     body {
       background-color: #b6dbdb;
+      margin-top: 3rem;
+    }
+    nav {
+      background-color: #b6dbdb;
     }
     {% block style %}
     {% endblock style %}
   </style>
 </head>
 <body>
-  <div class="container">
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Cloud Movie</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
+          <a class="nav-link" href="#">Community</a>
+          <a class="nav-link" href="#">Game</a>
+          {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
+          
+        </div>
+      </div>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+
+  <div class="container" id="topDiv">
     {% comment %} login 했을 때 화면 구성 {% endcomment %}
     {% if request.user.is_authenticated %}
       <h3>Hello, {{ user }}</h3>
