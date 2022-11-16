@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
 {% block content %}
-  <h1>Sign Up</h1>
-  <form action="{% url 'accounts:signup' %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-  </form>
+  <div class="container d-flex justify-content-center">
+    <div class="row">
+      <h1 class="col text-center text-white">Sign Up</h1>
+      <form action="{% url 'accounts:signup' %}" method="POST">
+        {% csrf_token %}
+        {% comment %} {{ bootstrap_form form }} {% endcomment %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary justify-content-center">가입</button>
+        {% comment %} <input type="submit"> {% endcomment %}
+      </form>
+    </div>
+  </div>
 {% endblock content %}
