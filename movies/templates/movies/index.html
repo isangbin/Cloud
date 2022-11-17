@@ -48,17 +48,39 @@
   </div> 
   <hr>
 
-  <h1>취향 맞는 영화(가제)</h1>
-  {{ pickedmovies }}
+  {% comment %} {% for recommend in recommends %}
+    {{ recommend.title }}
+  {% endfor %} {% endcomment %}
+  <h1>좋아요 누른 영화(가제)</h1>
+  <div id="tab">
+    {% comment %} {{ recommends }}
+    {{ max_genre }} {% endcomment %}
+    {% comment %} {{ genre_ids }} {% endcomment %}
+    <ul>
+      {% for pickedmovie in pickedmovies %}
+        {% comment %} {{ pickedmovie.genres.all }} {% endcomment %}
+        {% for genre in pickedmovie.genres.all %}
+          {{ genre.id }}
+        {% endfor %}
+        {% comment %} {{ genre_ids }} {% endcomment %}
+        <li>         
+          <a href="#">
+            <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="">
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div> 
+  <hr>
+
+  <h1>나에게 맞을지도 모르는 영화(가제)</h1>
   <div id="tab">
     <ul>
-      {% for movie in movies %}    
-        <li>
-          {% comment %} <h1>{{ movie.title }}</h1> {% endcomment %}
-          <a href="{% url 'movies:detail' movie.pk %}">
-            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
+      {% for recommend in recommends %}
+        <li>         
+          <a href="#">
+            <img src="https://image.tmdb.org/t/p/w200{{ recommend.poster_path }}" alt="">
           </a>
-          {% comment %} <p>{{ movie.overview }}</p> {% endcomment %}
         </li>
       {% endfor %}
     </ul>
