@@ -1,51 +1,90 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 {% block style %}
-.m_container {
-  position: relative;
-}
-.m_container:hover .image {
-  opacity: 0.3;
-}
+  .m_container {
+    position: relative;
+  }
+  .m_container:hover .image {
+    opacity: 0.3;
+  }
 
-.m_container:hover .middle {
-  opacity: 1;
-}
+  .m_container:hover .middle {
+    opacity: 1;
+  }
 
-.image {
-  opacity: 1;
-  display: block;
-  width: auto;
-  height: auto;
-  object-fit: cover;
-  transition: .5s ease;
-  backface-visibility: hidden;
-}
+  .image {
+    opacity: 1;
+    display: block;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
 
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
 
-.container {
-  overflow: hidden;
-}
+  .container {
+    overflow: hidden;
+  }
 
-.container > img {
-  width: 100%;
-}
+  .container > img {
+    width: 100%;
+  }
+
+  img {
+    border-radius: 5%;
+  }
+
+  .floating {
+    position: fixed; 
+    right: 50%; 
+    top: 180px; 
+    margin-right: -720px;
+    text-align:center;
+    width: 120px;
+  }
+
+  #aside {
+    position: sticky;
+    top: 100px;
+    right: 300px;
+  }
+
+  #fin_btn {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background: #3399ff;
+  }
+
+  {% comment %} .floatdiv {
+    position:fixed; 
+    width:175px;
+    display:inline-block;
+    right:0px; /* 창에서 오른쪽 길이 */
+    top:94%; /* 창에서 위에서 부터의 높이 */
+    background-color: transparent;
+    margin:0;
+} {% endcomment %}
 {% endblock style %}
 {% block content %}
-    <h1 class="text-center my-3">Select Movies</h1>
+    <h1 class="text-center text-light mt-5 my-5">Select Movies</h1>
+    <button id="fin_btn" type="button" onclick="location.href='{% url 'movies:index' %}'" class="my-3">선택 완료</button>
     <div class="container">
       <div class="row justify-content-center">
-        <button type="button" onclick="location.href='{% url 'movies:index' %}'" class="my-3">선택 완료</button>
       {% comment %} </div>
       <div class="row"> {% endcomment %}
         {% for movie in movies %}
@@ -75,6 +114,13 @@
   <script>
     const forms = document.querySelectorAll('.like-forms')
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    {% comment %} 반드시 수정 {% endcomment %}
+    onscroll = function() {
+      var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if(nVScroll > 40) $("#fin_btn")css("position", "fixed"); 
+      else $("#fin_btn").css("position", "relative");
+    };,
 
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {

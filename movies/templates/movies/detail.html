@@ -1,26 +1,31 @@
 {% extends 'base.html' %}
+{% block style %}
+  img {
+    border-radius: 5%;
+  }
+{% endblock style %}
 
 {% block content %}
+  <h1 text-light>{{ movie_pk }}</h1>
   <h1>Detail</h1>
   <h2>{{ movie.title }}</h2>
-  <img src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
+  <img class="rounded"src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
   <p>장르 : 
-      {% for genre in movie.genres.all %}
-      <span>{{ genre.name }}</span>
-      {% endfor %}
-    </p>
-    <p>{{ movie.popularity }}</p>
-    <p>{{ movie.overview }}</p>
-    <hr>
-    <a href="{% url 'movies:index' %}">back</a>
+    {% for genre in movie.genres.all %}
+    <span>{{ genre.name }}</span>
+    {% endfor %}
+  </p>
+  <p>{{ movie.popularity }}</p>
+  <p>{{ movie.overview }}</p>
+  <hr>
+  <a href="{% url 'movies:index' %}">back</a>
 {% endblock %}
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+    const movie_pk = movie_pk
+    console.log(movie_pk)
     const key = "e67fd4cae34071117f73a8090324311b";
-    movie_pk = [
-      
-    ]
 
     const fetchTrending = async() => {
       const url = "https://api.themoviedb.org/3/movie/" + movie_pk + "?api_key=" + key + "&language=ko-KR"

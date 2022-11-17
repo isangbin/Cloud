@@ -29,32 +29,31 @@
 {% block content %}
 {% comment %} vh : relative to the viewport (height 100vh) {% endcomment %}
 <section class="vh-100 bg-image">
-  {% comment %} <div class="mask d-flex align-items-center h-100 gradient-custom-3"> {% endcomment %}
-    <div class="mask d-flex align-items-center h-100 ">
-      <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="fw-bold text-uppercase text-center mb-5">Sign Up</h2>
-              <form action="{% url 'accounts:signup' %}" method="POST">
-                
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                {% comment %} <button type="submit" class="btn btn-primary justify-content-center">가입</button> {% endcomment %}
-                <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase">Register</button>
-                </div>
-                
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'accounts:login' %}"
-                  class="fw-bold text-body"><u>Login here</u></a></p>
-                  
-                </form>
+  <div class="mask d-flex align-items-center h-100 ">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-5">
+            <h2 class="fw-bold text-uppercase text-center mb-5">Sign Up</h2>
+            <form action="{% url 'accounts:signup' %}" method="POST">
+              
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% comment %} <button type="submit" class="btn btn-primary justify-content-center">가입</button> {% endcomment %}
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase">Register</button>
               </div>
+              
+              <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'accounts:login' %}"
+                class="fw-bold text-body"><u>Login here</u></a></p>
+                
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
   {% endblock content %}
