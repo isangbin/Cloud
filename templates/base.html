@@ -9,12 +9,17 @@
   <style>
     body {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
-      background-color: black;
+      background: black;
       margin-top: 3rem;
     }
+
     nav {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
-      background-color: black;
+      background: transparent;
+    }
+
+    .dropdown > button {
+      background: transparent;
     }
     {% block style %}
     {% endblock style %}
@@ -33,7 +38,7 @@
         <div class="navbar-nav">
           <a class="nav-link active text-light" aria-current="page" href="{% url 'movies:index' %}">Home</a>
           <a class="nav-link text-light" href="#">Community</a>
-          <a class="nav-link text-light" href="#">Game</a>
+          <a class="nav-link text-light" href="{% url 'movies:select' %}">Select</a>
           {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
