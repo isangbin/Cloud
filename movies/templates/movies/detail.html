@@ -14,3 +14,37 @@
     <hr>
     <a href="{% url 'movies:index' %}">back</a>
 {% endblock %}
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const key = "e67fd4cae34071117f73a8090324311b";
+    movie_pk = [
+      
+    ]
+
+    const fetchTrending = async() => {
+      const url = "https://api.themoviedb.org/3/movie/" + movie_pk + "?api_key=" + key + "&language=ko-KR"
+      const response = await axios.get(url);
+      const recUlTag = document.querySelector('#recommended')
+
+      for(let i=0; i<10; i++) {  
+        newliTag = document.createElement('li')
+        newaTag = document.createElement('a')
+        newimgTag = document.createElement('img')
+
+        imgLink = response.data.results[i].poster_path
+        recMovieId = response.data.results[i].id
+        
+        
+        newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200' + imgLink)
+        
+        
+        newaTag.appendChild(newimgTag)
+        newliTag.appendChild(newaTag)
+        recUlTag.appendChild(newliTag)
+      }              
+    }
+    fetchTrending()
+    
+  </script>
+{% endblock script %}
