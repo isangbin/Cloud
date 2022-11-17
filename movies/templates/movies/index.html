@@ -117,6 +117,7 @@
         // console.log(recMovieId)
         // console.log(imgLink)
         newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200'+imgLink)
+        newaTag.setAttribute('href', `http://127.0.0.1:8000/movies/${ recMovieId }`)
         
         
         newaTag.appendChild(newimgTag)
@@ -126,6 +127,5 @@
     }
     fetchTrending()
 
-        
   </script>
 {% endblock script %}

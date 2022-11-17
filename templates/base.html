@@ -8,29 +8,32 @@
   <title>Document</title>
   <style>
     body {
-      background-color: #b6dbdb;
+      {% comment %} background-color: #b6dbdb; {% endcomment %}
+      background-color: black;
       margin-top: 3rem;
     }
     nav {
-      background-color: #b6dbdb;
+      {% comment %} background-color: #b6dbdb; {% endcomment %}
+      background-color: black;
     }
     {% block style %}
     {% endblock style %}
   </style>
 </head>
 
-<body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');">
+{% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
+<body>
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Cloud Movie</a>
+      <a class="navbar-brand text-light" href="#">Cloud Movie</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
-          <a class="nav-link" href="#">Community</a>
-          <a class="nav-link" href="#">Game</a>
+          <a class="nav-link active text-light" aria-current="page" href="{% url 'movies:index' %}">Home</a>
+          <a class="nav-link text-light" href="#">Community</a>
+          <a class="nav-link text-light" href="#">Game</a>
           {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
@@ -40,6 +43,26 @@
         <input class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          ACCOUNT
+        </button>
+        <ul class="dropdown-menu">
+          {% if request.user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 수정</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li>
+            <form action="{% url 'accounts:logout' %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" value="Logout">
+            </form>
+          {% else %}
+            <li><a class="dropdown-item" href="{% url 'accounts:login' %}">로그인</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">회원 가입</a></li>
+          {% endif %}
+        </ul>
+      </div>
 
       {% comment %} 수정 필요 {% endcomment %}
       {% comment %} <div class="nav-item dropdown">
@@ -56,9 +79,9 @@
   </nav>
 
 
-  {% comment %} <div class="bg-image" style="background-image: url('https://image.tmdb.org/t/p/w400/sv1xJUazXeYqALzczSZ3O6nkH75.jpg'); height: 50vh;"> {% endcomment %}
+  {% comment %} <div class="bg-image" style="background-image: url('https://image.tmdb.org/t/p/w400/sv1xJUazXeYqALzczSZ3O6nkH75.jpg'); height: 50vh;">
     <div class="container" id="topDiv">
-      {% comment %} login 했을 때 화면 구성 {% endcomment %}
+      login 했을 때 화면 구성
       {% if request.user.is_authenticated %}
         <h3>Hello, {{ user }}</h3>
         <a href="{% url 'accounts:profile' user.username %}">내 프로필</a>
@@ -71,14 +94,14 @@
           {% csrf_token %}
           <input type="submit" value="회원 탈퇴">
         </form>
-      {% comment %} login 안 했을 때 화면 구성 {% endcomment %}
+      login 안 했을 때 화면 구성
       {% else %}
         <a href="{% url 'accounts:login' %}">Login</a>
         <a href="{% url 'accounts:signup' %}">Signup</a>
       {% endif %}
       <hr>
-    </div>
-  {% comment %} </div> {% endcomment %}
+    </div> {% endcomment %}
+  </div>
   {% block content %}
   {% endblock content %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
