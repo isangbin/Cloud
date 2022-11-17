@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% block style %}
-  *{margin:0; padding:0;}
-  ul{list-style:none;}
-  a{text-decoration:none; color:inherit;}
-  #tab ul{white-space:nowrap; 
-  overflow-x: auto; text-align:center}
-  #tab ul li{display:inline-block; padding: 5px 10px; margin-right:10px;}
+  * {
+    margin:0; padding:0;
+  }
+  ul {
+    list-style:none;
+  }
+  a {
+    text-decoration:none; color:inherit;
+  }
+  #tab ul { 
+    white-space:nowrap; 
+    overflow-x: auto; text-align:center
+  }
+  #tab ul li {
+    display:inline-block; padding: 5px 10px; margin-right:10px;
+  }
   
 {% endblock style %}
 
@@ -38,7 +48,8 @@
   </div> 
   <hr>
 
-  <h1>장르별 영화</h1>
+  <h1>취향 맞는 영화(가제)</h1>
+  {{ pickedmovies }}
   <div id="tab">
     <ul>
       {% for movie in movies %}    
@@ -95,7 +106,7 @@
       const recUlTag = document.querySelector('#recommended')
 
       for(let i=0; i<10; i++) {  
-        console.log(response.data.results[i])
+        // console.log(response.data.results[i])
         newliTag = document.createElement('li')
         newaTag = document.createElement('a')
         newimgTag = document.createElement('img')
@@ -103,8 +114,8 @@
         imgLink = response.data.results[i].poster_path
         recMovieId = response.data.results[i].id
         
-        console.log(recMovieId)
-        console.log(imgLink)
+        // console.log(recMovieId)
+        // console.log(imgLink)
         newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200'+imgLink)
         
         
@@ -114,6 +125,7 @@
       }              
     }
     fetchTrending()
-    
+
+        
   </script>
 {% endblock script %}

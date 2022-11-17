@@ -2,14 +2,19 @@ from django.shortcuts import render, redirect
 from .models import Movie
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.contrib.auth import get_user_model
 # import requests
 # import json
 
 # Create your views here.
 def index(request):
     movies = Movie.objects.all()
+    # User = get_user_model()
+    # pickedmovies = User.objects.get(pk=user_pk)
+    pickedmovies = request.user.pk
     context = {
         'movies': movies,
+        'pickedmovies': pickedmovies,
     }
     return render(request, 'movies/index.html', context)
 
