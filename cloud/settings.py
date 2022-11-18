@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'movies',
+    'community',
     'accounts.apps.AccountsConfig',
     'bootstrap5',
     'rest_framework',
