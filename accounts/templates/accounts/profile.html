@@ -8,44 +8,54 @@
     border-top: 1px solid #bbb;
     border-bottom: 1px solid #fff;
   }
+
+  img {
+    border-radius: 10%;
+  }
 {% endblock style %}
 {% block content %}
 
 <div class="container text-light">
-  <div class="row">
-    <h1 class="text-light mt-5">{{ person.username }}</h1>
+  <h2 class="text-light pt-3">{{ person.username }}님의 프로필</h2>
+  <div class="row justify-content-center align-items-center my-5 pb-3">
+    <div class="col-4 my-3 d-flex justify-content-center">
+      <img src="{{ person.profile.image.url }}" alt="">  
+    </div>
     {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
     <img src="{% static 'sample2.png' %}" alt=""> {% endcomment %}
-    <div class="offset-4 col-2 justify-content-center text-center">
+    <div class="col-2 text-center">
       <h2>{{ person.followings.all|length }}</h2>
-      <h3>팔로잉</h3>
+      <h5 class="m-0">팔로잉</h5>
     </div>
 
-    <div class="col-2">
+    <div class="col-2 text-center">
       <h2>{{ person.followers.all|length }}</h2>
-      <h3>팔로워</h3>
+      <h5 class="m-0">팔로워</h5>
     </div>
 
+    <div class="col-2 text-center">
+      <h2>바꾸기</h2>
+      <h5 class="m-0">작성한 글 수</h5>
+    </div>
+
+    <div class="col-2 text-center">
+      <h2>바꾸기</h2>
+      <h5 class="m-0">좋아요한 글 수</h5>
+    </div>
   </div>
-  <img src="{{ person.profile.image.url }}" alt="" class="rounded-circle article-img">
   {% comment %} {{ person.profile.image.url }} {% endcomment %}
   {% if request.user != person %}
-  <div>
-    <form action="{% url 'accounts:follow' person.pk %}" method="POST">
-      {% csrf_token %}
-      {% if request.user in person.followers.all %}
-        <input type="submit" value="Unfollow">
-      {% else %}
-        <input type="submit" value="Follow">
-      {% endif %}
-    </form>
-
-  </div>
+    <div>
+      <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in person.followers.all %}
+          <input type="submit" value="Unfollow">
+        {% else %}
+          <input type="submit" value="Follow">
+        {% endif %}
+      </form>
+    </div>
   {% endif %}
-</div>
-
-<div class="text-light">
-  <h1 class="text-light"> </h1>
 </div>
 
 <div class="container">

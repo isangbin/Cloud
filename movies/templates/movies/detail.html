@@ -3,10 +3,17 @@
   img {
     border-radius: 5%;
   }
+
+  hr {
+    height: 5px;
+    background-color: white;
+    {% comment %} border-top: 1px solid #bbb;
+    border-bottom: 1px solid #fff; {% endcomment %}
+  }
 {% endblock style %}
 
 {% block content %}
-  <h1 text-light>{{ movie_pk }}</h1>
+  {% comment %} <h1 text-light>{{ movie_pk }}</h1>
   <h1>Detail</h1>
   <h2>{{ movie.title }}</h2>
   <img class="rounded"src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
@@ -17,37 +24,66 @@
   </p>
   <p>{{ movie.popularity }}</p>
   <p>{{ movie.overview }}</p>
+  <hr> {% endcomment %}
+  <h1 id='movie-id' data-movie-id={{ movie_pk }}></h1>
+
+  <div class="container justify-contet-center">
+    <div class="card enable-shadow mb-3 align-items-center bg-secondary my-5" sytle="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4 my-3 d-flex justify-content-center">
+          <img src="" alt="" class="img-fulid rounded-start">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 id="title" class="card-title text-dark"></h5>
+            <p id="overview" class="card-text text-dark">
+            </p>
+            <p id="" class="card-text text-dark">
+              개봉일
+            </p>
+            <p id="" class="card-text text-dark">
+              관객 수
+            </p>
+            <p id="" class="card-text text-dark">
+              관람 후기 등등
+            </p>
+            <p>
+              <small class="text-muted">
+                작고 흐린 글씨
+              </small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="offset-10" href="{% url 'movies:index' %}">back</a>
+  </div>
   <hr>
-  <a href="{% url 'movies:index' %}">back</a>
 {% endblock %}
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    const movie_pk = movie_pk
-    console.log(movie_pk)
+    {% comment %} const $('#h1_movie-id').val('{{movie_id}}').text;   movie_pk = movie_pk {% endcomment %}
     const key = "e67fd4cae34071117f73a8090324311b";
+    const movie = document.querySelector('#movie-id')
 
     const fetchTrending = async() => {
-      const url = "https://api.themoviedb.org/3/movie/" + movie_pk + "?api_key=" + key + "&language=ko-KR"
-      const response = await axios.get(url);
-      const recUlTag = document.querySelector('#recommended')
+      const movieId = movie.dataset.movieId
+      const url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + key + "&language=ko-KR"
 
-      for(let i=0; i<10; i++) {  
-        newliTag = document.createElement('li')
-        newaTag = document.createElement('a')
-        newimgTag = document.createElement('img')
+      const response = await axios.get(url)
+      
+      const titleTag = document.querySelector('#title')
+      titleTag.innerText = response.data.title
 
-        imgLink = response.data.results[i].poster_path
-        recMovieId = response.data.results[i].id
-        
-        
-        newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200' + imgLink)
-        
-        
-        newaTag.appendChild(newimgTag)
-        newliTag.appendChild(newaTag)
-        recUlTag.appendChild(newliTag)
-      }              
+      const imgTag = document.querySelector('img')
+      const imgLink = response.data.poster_path
+      imgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w400' + imgLink)
+
+      const overviewTag = document.querySelector('#overview')
+      overviewTag.innerText = response.data.overview
+      
+      
     }
     fetchTrending()
     
