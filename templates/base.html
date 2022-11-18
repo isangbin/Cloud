@@ -16,7 +16,7 @@
 
     nav {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
-      background: transparent;
+      background: black;
     }
 
     .dropdown > button {
@@ -37,7 +37,7 @@
   </div>
 </body>
 <body>
-  <nav class="navbar navbar-expand-lg sticky-top">
+  <nav class="navbar navbar-expand-lg sticky-top border-bottom">
     <div class="container-fluid">
       <a class="navbar-brand text-light" href="#">Cloud Movie</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,22 +58,22 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown mx-5">
+        <button class="btn btn-secondary dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           ACCOUNT
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-menu-dark">
           {% if request.user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 수정</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li>
-            <form action="{% url 'accounts:logout' %}" method="POST">
+            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
+            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:update' %}">회원 수정</a></li>
+            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li>
+            <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:logout' %}" method="POST">
               {% csrf_token %}
-              <input type="submit" value="Logout">
+              <input class="btn btn-warning" type="submit" value="Logout">
             </form>
           {% else %}
-            <li><a class="dropdown-item" href="{% url 'accounts:login' %}">로그인</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">회원 가입</a></li>
+            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:login' %}">로그인</a></li>
+            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:signup' %}">회원 가입</a></li>
           {% endif %}
         </ul>
       </div>

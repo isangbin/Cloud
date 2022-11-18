@@ -1,26 +1,81 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block style %}
+  hr {
+    height: 5px;
+    background-color: white;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #fff;
+  }
+{% endblock style %}
 {% block content %}
-  <h1>{{ person.username }}님의 프로필</h1>
 
-  <div>
-    팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }}
-  </div>
-  {% if request.user != person %}
-    <div>
-      <form action="{% url 'accounts:follow' person.pk %}" method="POST">
-        {% csrf_token %}
-        {% if request.user in person.followers.all %}
-          <input type="submit" value="Unfollow">
-        {% else %}
-          <input type="submit" value="Follow">
-        {% endif %}
-      </form>
+<div class="container text-light">
+  <div class="row">
+    <h1 class="text-light mt-5">{{ person.username }}</h1>
+    {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
+    <img src="{% static 'sample2.png' %}" alt=""> {% endcomment %}
+    <div class="offset-4 col-2 justify-content-center text-center">
+      <h2>{{ person.followings.all|length }}</h2>
+      <h3>팔로잉</h3>
     </div>
-  {% endif %}
 
-  {% comment %} <h2>{{ person.username }}'s 게시글</h2>
-  {% for article in person.article_set.all %}
-    <div>{{ article.title }}</div>
-  {% endfor %} {% endcomment %}
+    <div class="col-2">
+      <h2>{{ person.followers.all|length }}</h2>
+      <h3>팔로워</h3>
+    </div>
+
+  </div>
+  <img src="{{ person.profile.image.url }}" alt="" class="rounded-circle article-img">
+  {% comment %} {{ person.profile.image.url }} {% endcomment %}
+  {% if request.user != person %}
+  <div>
+    <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+      {% csrf_token %}
+      {% if request.user in person.followers.all %}
+        <input type="submit" value="Unfollow">
+      {% else %}
+        <input type="submit" value="Follow">
+      {% endif %}
+    </form>
+
+  </div>
+  {% endif %}
+</div>
+
+<div class="text-light">
+  <h1 class="text-light"> </h1>
+</div>
+
+<div class="container">
+  <h1 class="text-light text-center">Liked Movies</h1>
+  <div class="row justify-content-center">
+    {% for pickedmovie in pickedmovies %}
+      <div class="col-2 m_container align-items-center py-3 mx-2">
+        <div class="container">
+          <img src="https://image.tmdb.org/t/p/w500{{ pickedmovie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% comment %} <h1 class="text-light">좋아요 누른 영화(가제)</h1>
+<div id="tab">
+  <ul>
+    {% for pickedmovie in pickedmovies %}
+      <li>         
+        <a href="#">
+          <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="">
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>  {% endcomment %}
+
+{% comment %} <h2>{{ person.username }}'s 게시글</h2>
+{% for article in person.article_set.all %}
+  <div>{{ article.title }}</div>
+{% endfor %} {% endcomment %}
 {% endblock content %}

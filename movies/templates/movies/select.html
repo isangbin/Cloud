@@ -45,31 +45,22 @@
     border-radius: 5%;
   }
 
-  .floating {
-    position: fixed; 
-    right: 50%; 
-    top: 180px; 
-    margin-right: -720px;
-    text-align:center;
-    width: 120px;
-  }
-
   .finBtn {
     position: absolute;
-    top: 13%;
+    top: 40%;
     right: 10%;
     color: #fffffff;
+    z-index: 1;
   }
   
   .container {
     position: relative;
-    z-index: -1;
   }
 {% endblock style %}
 {% block content %}
     <h1 class="text-center text-light mt-5 my-5">Select Movies</h1>
     <div class="finBtn">
-      <button class="btn btn-dark" type="button" onclick="location.href='{% url 'movies:index' %}'" class="my-3">End<br>Selection</button>
+      <button class="btn btn-dark border-light" type="button" onclick="location.href='{% url 'movies:index' %}'" class="my-3">End<br>Selection</button>
     </div>
     <div class="container">
       <div class="row justify-content-center">
@@ -84,9 +75,9 @@
                 <form class="like-forms middle" data-movie-id="{{ movie.pk }}">
                   {% csrf_token %}
                   {% if request.user in movie.like_users.all %}
-                  <input type="submit" value="좋아요 취소" id="like-{{ movie.pk }}">
+                    <input class="btn btn-dark" type="submit" value="좋아요 취소" id="like-{{ movie.pk }}">
                   {% else %}
-                  <input type="submit" value="좋아요" id="like-{{ movie.pk }}">
+                    <input class="btn btn-light" type="submit" value="좋아요" id="like-{{ movie.pk }}">
                   {% endif %}
                 </form>
               </div>
@@ -136,8 +127,10 @@
           const likeBtn = document.querySelector(`#like-${movieId}`)
           if (isLiked === true) {
             likeBtn.value = '좋아요 취소'
+            likeBtn.setAttribute('class', 'btn btn-dark')
           } else {
             likeBtn.value ='좋아요'
+            likeBtn.setAttribute('class', 'btn btn-light')
           }
           })
           .catch((error) => {

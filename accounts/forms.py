@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django import forms
+from .models import User, Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -50,3 +51,9 @@ class CustomAuthenticationForm(AuthenticationForm):
             "placeholder": "비밀번호(8자 이상)",
         })
     )
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
