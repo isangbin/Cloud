@@ -43,10 +43,17 @@ def index(request):
     return redirect('accounts:login')
 
 
+# def detail(request, movie_pk):
+#     movie = Movie.objects.get(pk=movie_pk)
+#     context = {
+#         'movie': movie,
+#     }
+#     return render(request, 'movies/detail.html', context)
+
+
 def detail(request, movie_pk):
-    movie = Movie.objects.get(pk=movie_pk)
     context = {
-        'movie': movie,
+        'movie_pk': movie_pk,
     }
     return render(request, 'movies/detail.html', context)
 
