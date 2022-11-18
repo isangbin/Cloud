@@ -4,10 +4,15 @@
   <div class="container d-flex justify-content-center">
     <div class="row">
       <h1 class="col text-center text-white">Edit</h1>
-      <form action="{% url 'accounts:update' %}" method="POST">
+      <form action="{% url 'accounts:update' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary justify-content-center">변경</button>
+        <fieldset class="form-group">
+          {% bootstrap_form form %}
+          {% bootstrap_form p_form %}
+        </fieldset>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary justify-content-center">변경</button>
+        </div>
       </form>
     </div>
   </div>
