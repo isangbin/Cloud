@@ -53,11 +53,11 @@
 {% endblock style %}
 
 {% block content %}
-  <h1>Community</h1>
-  <a href="{% url 'community:create' %}">New review</a>
+  <h1 class="my-3">Community</h1>
   <hr>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <div class="container">
+      <a class="btn btn-secondary" href="{% url 'community:create' %}">New review</a>
       <div class="row">
         {% for review in reviews %}
           <div class="col-md-10">
