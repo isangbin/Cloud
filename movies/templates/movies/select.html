@@ -45,6 +45,10 @@
     border-radius: 5%;
   }
 
+  .transparent {
+    opacity: 0.3;
+  }
+
   .finBtn {
     position: absolute;
     top: 40%;
@@ -70,7 +74,11 @@
           <div class="col-3 m_container align-items-center py-3">
           {% comment %} 이미지hover시  {% endcomment %}
             <div class="container">
-              <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
+              {% if request.user in movie.like_users.all %}
+                <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="transparent image img-fluid rounded m-auto">
+              {% else %}
+                <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="image img-fluid  rounded m-auto">
+              {% endif %}
               <div class="middle">
                 <form class="like-forms middle" data-movie-id="{{ movie.pk }}">
                   {% csrf_token %}
@@ -125,12 +133,16 @@
           .then((response) => {
           const isLiked = response.data.is_liked
           const likeBtn = document.querySelector(`#like-${movieId}`)
+          const imgTag = document.querySelector(`#img-${movieId}`)
+
           if (isLiked === true) {
             likeBtn.value = '좋아요 취소'
             likeBtn.setAttribute('class', 'btn btn-dark')
+            imgTag.setAttribute('class', 'transparent image img-fluid rounded m-auto')
           } else {
             likeBtn.value ='좋아요'
             likeBtn.setAttribute('class', 'btn btn-light')
+            imgTag.setAttribute('class', 'image img-fluid rounded m-auto')
           }
           })
           .catch((error) => {

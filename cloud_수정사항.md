@@ -48,7 +48,7 @@ django-rest-framework(djangorestframework)
 
 end 셀렉션 안따라옴
 
-실시간으로 안따라옴
+
 
 
 
@@ -57,3 +57,6 @@ profile
 community 이쁘게
 
 movie_pk
+
+community 새 글 쓸 때 영화에 대한 기반으로 쓰는것도 나쁘지 않을 거같음
+영화 후기 게시판이랑 영화 자유게시판 따로 만들어서 하는것도?
