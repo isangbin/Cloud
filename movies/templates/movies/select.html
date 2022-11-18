@@ -96,10 +96,10 @@
 
     // Jquery 사용 불가 시 변경
     // 기본 위치(top)값
-    {% comment %} var floatPosition = parseInt($(".finBtn").css('top')) {% endcomment %}
+    var floatPosition = parseInt($(".finBtn").css('top'))
 
     // scroll 인식
-    {% comment %} $(window).scroll(function() {
+    $(window).scroll(function() {
       
       // 현재 스크롤 위치
       var currentTop = $(window).scrollTop();
@@ -110,7 +110,7 @@
         "top" : bannerTop
       }, 500);
 
-    }).scroll(); {% endcomment %}
+    }).scroll();
 
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {
