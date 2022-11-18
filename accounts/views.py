@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
-from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm, ProfileUpdateForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib.auth import get_user_model
+
+from movies.models import Movie
+
+import operator
 
 # Create your views here.
 @require_http_methods(['GET', 'POST'])
@@ -67,13 +71,17 @@ def signup(request):
 def update(request):
     if request.method == "POST":
         form = CustomUserChangeForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
+            p_form.save()
             return redirect('movies:index')
     else:
         form = CustomUserChangeForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'form': form,
+        'p_form': p_form,
     }
     return render(request, 'accounts/update.html', context)
 
@@ -96,11 +104,16 @@ def change_password(request):
 
 
 def profile(request, username):
+    movies = Movie.objects.all()
     User = get_user_model()
     person = User.objects.get(username=username)
+    pickedmovies = person.like_movies.all()
+
     context = {
         'person': person,
+        'pickedmovies': pickedmovies,
     }
+
     return render(request, 'accounts/profile.html', context)
 
 
