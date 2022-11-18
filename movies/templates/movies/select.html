@@ -105,10 +105,10 @@
 
     // Jquery 사용 불가 시 변경
     // 기본 위치(top)값
-    var floatPosition = parseInt($(".finBtn").css('top'))
+    {% comment %} var floatPosition = parseInt($(".finBtn").css('top')) {% endcomment %}
 
     // scroll 인식
-    $(window).scroll(function() {
+    {% comment %} $(window).scroll(function() {
       
       // 현재 스크롤 위치
       var currentTop = $(window).scrollTop();
@@ -119,7 +119,7 @@
         "top" : bannerTop
       }, 500);
 
-    }).scroll();
+    }).scroll(); {% endcomment %}
 
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {
@@ -128,7 +128,7 @@
 
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/movies/${movieId}/likes/`,
+          url: `/movies/${movieId}/likes/`,
           headers: {'X-CSRFToken': csrftoken,},
         })
           .then((response) => {
