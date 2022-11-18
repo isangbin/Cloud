@@ -116,11 +116,11 @@
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
     {% comment %} 반드시 수정 {% endcomment %}
-    onscroll = function() {
+    {% comment %} onscroll = function() {
       var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
       if(nVScroll > 40) $("#fin_btn")css("position", "fixed"); 
       else $("#fin_btn").css("position", "relative");
-    };,
+    };, {% endcomment %}
 
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {
