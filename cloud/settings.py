@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'movies',
     'accounts',
+    'community',
     'bootstrap5',
     'rest_framework',
     'django.contrib.admin',
