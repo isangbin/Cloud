@@ -44,7 +44,7 @@ def delete(request):
     if request.user.is_authenticated:
         request.user.delete()
         auth_logout(request)
-    return redirect('movies:index')
+    return redirect('accounts:login')
 
 
 @require_http_methods(['GET', 'POST'])

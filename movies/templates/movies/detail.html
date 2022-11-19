@@ -10,55 +10,52 @@
     {% comment %} border-top: 1px solid #bbb;
     border-bottom: 1px solid #fff; {% endcomment %}
   }
+  #card {
+    background-color: #5e5c5c;
+  }
 {% endblock style %}
 
 {% block content %}
-  {% comment %} <h1 text-light>{{ movie_pk }}</h1>
-  <h1>Detail</h1>
-  <h2>{{ movie.title }}</h2>
-  <img class="rounded"src="https://image.tmdb.org/t/p/w400{{ movie.poster_path }}" alt="">
-  <p>장르 : 
-    {% for genre in movie.genres.all %}
-    <span>{{ genre.name }}</span>
-    {% endfor %}
-  </p>
-  <p>{{ movie.popularity }}</p>
-  <p>{{ movie.overview }}</p>
-  <hr> {% endcomment %}
+  {% comment %} 정보 전달용 {% endcomment %}
   <h1 id='movie-id' data-movie-id={{ movie_pk }}></h1>
 
-  <div class="container justify-contet-center">
-    <div class="card enable-shadow mb-3 align-items-center bg-secondary my-5" sytle="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-4 my-3 d-flex justify-content-center">
-          <img src="" alt="" class="img-fulid rounded-start">
+  <div class="container my-5 rounded border border-solid border-secondary">
+    {% comment %} <div class="card justify-content-center align-items-center bg-secondary my-5"> {% endcomment %}
+      <div class="row">
+        <div class="col-5 d-flex justify-content-center my-3">
+          <img src="" alt="" class="col-8 img-fulid rounded-start">
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 id="title" class="card-title text-dark"></h5>
-            <p id="overview" class="card-text text-dark">
+        <div id="card" class="col-6 custom_gray my-3 mx-3 rounded d-flex align-items-center">
+          <div class="card-body p-3">
+            <h2 id="title" class="card-title text-light"></h2>
+            <hr>
+            <p id="overview" class="card-text text-light mx-3 my-3">
             </p>
-            <p id="" class="card-text text-dark">
-              개봉일
-            </p>
-            <p id="" class="card-text text-dark">
-              관객 수
-            </p>
-            <p id="" class="card-text text-dark">
-              관람 후기 등등
-            </p>
-            <p>
-              <small class="text-muted">
-                작고 흐린 글씨
-              </small>
-            </p>
+            <hr>
+            <div class="row d-flex justify-content-center">
+              <h4 class="text-center">INFO</h4>
+              <div class="col-5">
+                <p id="release_date" class="card-text text-light">개봉일 |&nbsp</p>
+                <p id="runtime" class="card-text text-light">상영시간 |&nbsp</p>
+                <p id="vote_average" class="card-text text-light">평점 |&nbsp</p>
+                <p id="vote_count" class="card-text text-light"></p>
+                {% comment %} <p id="genres"card-text text-light""></p> {% endcomment %}
+              </div>
+              <div class="col-5">
+                <p id="adult" class="card-text text-light"></p>
+                <p id="genres" class="card-text text-light">장르 |&nbsp</p>
+              </div>
+              <div class = "col-10">
+                <p id="production_companies" class="card-text text-light">제작사 |</p>
+              </div>
+            </div>
+            <a class="offset-10 btn btn-dark my-3" href="{% url 'movies:index' %}">back</a>
           </div>
         </div>
       </div>
-    </div>
-    <a class="offset-10" href="{% url 'movies:index' %}">back</a>
+    {% comment %} </div> {% endcomment %}
+    
   </div>
-  <hr>
 {% endblock %}
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -73,6 +70,8 @@
 
       const response = await axios.get(url)
       
+      console.log(response.data)
+
       const titleTag = document.querySelector('#title')
       titleTag.innerText = response.data.title
 
@@ -81,9 +80,33 @@
       imgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w400' + imgLink)
 
       const overviewTag = document.querySelector('#overview')
-      overviewTag.innerText = response.data.overview
+      overviewTag.innerText += response.data.overview
+
+      const releaseTag = document.querySelector('#release_date')
+      releaseTag.innerText += `${response.data.release_date}`
       
+      const runtimeTag = document.querySelector('#runtime')
+      runtimeTag.innerText += `${response.data.runtime}분`
       
+      const vote_averageTag = document.querySelector('#vote_average')
+      vote_averageTag.innerText += `${response.data.vote_average}`
+      
+      const adultTag = document.querySelector('#adult')
+      if (response.data.adult === true) {
+        adultTag.innerText += `19세 이상 관람 가능`
+      } else {
+        adultTag.innerText += `19세 이하 관람 가능`
+      }
+
+      const genresTag = document.querySelector('#genres')
+      for (const genre of response.data.genres) {
+      genresTag.innerText += `\u00A0${genre.name}\u00A0/`
+      }
+
+      const production_companiesTag = document.querySelector('#production_companies')
+      for (const production_company of response.data.production_companies) {
+        production_companiesTag.innerText += `\u00A0 ${production_company.name} |`
+      }
     }
     fetchTrending()
     

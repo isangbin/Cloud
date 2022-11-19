@@ -16,7 +16,7 @@ def get_movie():
                 'overview': movie['overview'],
                 'poster_path': movie['poster_path'],
                 'genres': movie['genre_ids'],
-                # 'actors': movie[]
+                'vote_average': movie['vote_average'],
             }
 
             data = {
