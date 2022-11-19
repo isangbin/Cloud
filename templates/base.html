@@ -59,7 +59,11 @@
           {% if request.user.is_authenticated %}
             <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
             <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:update' %}">회원 수정</a></li>
-            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li>
+            {% comment %} <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li> {% endcomment %}
+            <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:delete' %}" method="POST">
+              {% csrf_token %}
+              <button id="delete" type="submit" class="btn btn-danger">회원탈퇴</button>
+            </form>
             <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:logout' %}" method="POST">
               {% csrf_token %}
               <input class="btn btn-warning" type="submit" value="Logout">
@@ -70,18 +74,6 @@
           {% endif %}
         </ul>
       </div>
-
-      {% comment %} 수정 필요 {% endcomment %}
-      {% comment %} <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div> {% endcomment %}
     </div>
   </nav>
 
@@ -113,6 +105,15 @@
   {% endblock content %}
   <script src="https://kit.fontawesome.com/761e7b0f1d.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  
+  <script>
+    const deleteBtn = document.querySelector('#delete')
+    deleteBtn.addEventListener('click', function() {
+      if (confirm("계정을 삭제하시면 다시 복구할 수 없습니다.\n정말로 삭제하시겠습니까?") == false){
+        event.preventDefault()
+      }
+    })
+  </script>
   {% block script %}
   {% endblock script %}
 

@@ -12,14 +12,17 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
-    movie_id = models.IntegerField()
-    title = models.CharField(max_length=100)
+    genres = models.ManyToManyField(Genre, related_name='movies')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
+    poster_path = models.TextField()
     overview = models.TextField()
     released_date = models.DateTimeField()
+    movie_id = models.IntegerField()
+    title = models.CharField(max_length=100)
     popularity = models.IntegerField()
-    poster_path = models.TextField()
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
-    genres = models.ManyToManyField(Genre, related_name='movies')
+    runtime = models.IntegerField(null=True)
+    vote_average = models.IntegerField()
+    
     # actors = models.ManyToManyField(Actor, related_name='movies')
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
