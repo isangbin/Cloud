@@ -77,7 +77,7 @@
                       <form class="like-forms" data-review-id="{{ review.pk }}">
                         {% csrf_token %}
                         {% if user in review.like_users.all %}
-                          <button><i id="like-{{ review.pk }}" class="fa-solid fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></button>
+                          <button><i id="like-{{ review.pk }}" class="fa-solid fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
                         {% else %}
                           <button><i id="like-{{ review.pk }}" class="fa-regular fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
                         {% endif %}
