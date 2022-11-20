@@ -69,30 +69,30 @@
                   <span class="g-color-gray-dark-v4 g-font-size-12">{{ review.created_at }}</span>
                   <hr class="my-0">
                   
-                <ul class="list-inline d-sm-flex my-0">
-                  <li class="list-inline-item g-mr-20">
-                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                      <form class="like-forms" data-review-id="{{ review.pk }}">
-                        {% csrf_token %}
-                        {% if user in review.like_users.all %}
-                          <button><i id="like-{{ review.pk }}" class="fa-solid fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
-                        {% else %}
-                          <button><i id="like-{{ review.pk }}" class="fa-regular fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
-                        {% endif %}
-                      </form>
-                    </a>
-                  </li>
-                  <li class="list-inline-item g-mr-20">
-                    <p><span id="likes-count-{{ review.pk }}">{{ review.like_users.all|length }}</span></p>
-                  </li>
-                  <li class="list-inline-item ml-auto">
-                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{% url 'community:detail' review.pk %}">
-                      <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                      Detail
-                    </a>
-                  </li>
-                </ul>
-                
+                  <ul class="list-inline d-sm-flex my-0">
+                    <li class="list-inline-item g-mr-20">
+                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                        <form class="like-forms" data-review-id="{{ review.pk }}">
+                          {% csrf_token %}
+                          {% if user in review.like_users.all %}
+                            <button><i id="like-{{ review.pk }}" class="fa-solid fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
+                          {% else %}
+                            <button><i id="like-{{ review.pk }}" class="fa-regular fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
+                          {% endif %}
+                        </form>
+                      </a>
+                    </li>
+                    <li class="list-inline-item g-mr-20">
+                      <p><span id="likes-count-{{ review.pk }}">{{ review.like_users.all|length }}</span></p>
+                    </li>
+                    <li class="list-inline-item ml-auto">
+                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{% url 'community:detail' review.pk %}">
+                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                        Detail
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
