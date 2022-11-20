@@ -10,8 +10,9 @@
     body {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
       {% comment %} background: black; {% endcomment %}
-      background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1));
-      margin-top: 3rem;
+      {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
+      background: linear-gradient(to top, rgba(136, 216, 242, 1), rgba(195, 225, 235, 1));
+      {% comment %} margin-top: 2rem; {% endcomment %}
       color: white;
     }
 
@@ -54,15 +55,15 @@
 <body>
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Cloud Movie</a>
+      <a class="navbar-brand" href="#">Cloud Movie</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active text-light" aria-current="page" href="{% url 'movies:index' %}">Home</a>
-          <a class="nav-link text-light" href="{% url 'community:index' %}">Community</a>
-          <a class="nav-link text-light" href="{% url 'movies:select' %}">Select</a>
+        <div class="navbar-nav  text-light">
+          <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
+          <a class="nav-link" href="{% url 'community:index' %}">Community</a>
+          <a class="nav-link" href="{% url 'movies:select' %}">Select</a>
           {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
