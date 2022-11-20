@@ -62,6 +62,55 @@ def create_comment(request, review_pk):
     return render(request, 'community/detail.html', context)
 
 
+def delete(request, pk):
+    review = Review.objects.get(pk=pk)
+    if request.user.is_authenticated:
+        if request.user == review.user:
+            review.delete()
+            return redirect('community:index')
+    return redirect('community:detail', review.pk)
+
+
+def edit(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    if request.user == review.user:
+        if request.method =="POST":
+            form = ReviewForm(request.POST, instance=review)
+            if form.is_valid():
+                review 
+                form.save()
+                return redirect('community:detail', review.pk)
+            # review = Review.objects.get(pk=pk)
+        else:
+            form = ReviewForm(instance=review)
+    else:
+        return redirect('community:index')
+        
+    context = {
+        'form': form,
+        'review': review,
+    }
+    return render(request, 'community/edit.html', context)
+
+
+# def update(request):
+#     if request.method == "POST":
+#         form = CustomUserChangeForm(request.POST, instance=request.user)
+#         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+#         if form.is_valid():
+#             form.save()
+#             p_form.save()
+#             return redirect('movies:index')
+#     else:
+#         form = CustomUserChangeForm(instance=request.user)
+#         p_form = ProfileUpdateForm(instance=request.user.profile)
+#     context = {
+#         'form': form,
+#         'p_form': p_form,
+#     }
+#     return render(request, 'accounts/update.html', context)
+
+
 @require_POST
 def like(request, review_pk):
     if request.user.is_authenticated:
