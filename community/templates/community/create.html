@@ -10,25 +10,48 @@
 {% endblock style %}
 
 {% block content %}
-<div class="container d-flex justify-content-center py-3">
-  <div class="col-8 rounded-5 bg-secondary">
-    <h1 class="text-center my-3">CREATE</h1>
-    <div class="row justify-content-center">
-      <div class="col-10">
-        <form action="" method="POST">
-          {% csrf_token %}
-          {% bootstrap_form form %}
-          <div class="d-flex justify-content-end ">
-            <div class="d-flex justify-content-between">
-              <a class="btn btn-dark btn-lg my-3" href="{% url 'community:index' %}">뒤로가기</a>
-              <input type="submit" class="btn btn-lg btn-dark my-3 mx-3">
+{% comment %} <section class="vh-100">
+  <div class="container d-flex justify-content-center py-3">
+    <div class="col-8 rounded-5 bg-secondary">
+      <h1 class="text-center my-3">CREATE</h1>
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <form action="" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="d-flex justify-content-end ">
+              <div class="d-flex justify-content-between">
+                <a class="btn btn-dark btn-lg my-3" href="{% url 'community:index' %}">뒤로가기</a>
+                <input type="submit" class="btn btn-lg btn-dark my-3 mx-3">
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+</section> {% endcomment %}
+<section class="vh-100">
+  <div class="mask d-flex align-items-center h-100 ">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="fw-bold text-uppercase text-center text-dark mb-5">게시글 작성</h2>
+              <form class="text-dark" action="{% url 'community:create' %}" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase mx-3">제출</button>
+                  <a class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase mx-3" href="{% url 'community:index' %}">뒤로</a>
+              </div>                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <hr>
-  
+</section>  
 {% endblock %}
