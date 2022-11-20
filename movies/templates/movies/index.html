@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block style %}
-  * {
-    margin:0; padding:0;
+  body{
+    margin-top:3rem;
   }
+  {% comment %} * {
+    margin:0; padding:0;
+  } {% endcomment %}
   ul {
     list-style:none;
   }
@@ -18,64 +21,79 @@
   }
   img {
     border-radius: 5%;
-  }  
+  }
+  hr {
+    border-top: 3px solid #15394a;
+  }
+  h1 {
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #142a4f;
+    font-weight: bold;
+  }
 {% endblock style %}
 
   
 {% block content %}
-  <h1>MOVIE</h1>
-  <h1>추천 영화</h1>
-  <div id="tab">
-    <ul id="recommended">
-      
-    </ul>
-  </div> 
-  <hr>
+<div class="row px-5 justify-content-center">
+  <div class="col-11">
+    <h1>MOVIE</h1>
+    <hr>
+    <h1>추천 영화</h1>
+    <div id="tab">
+      <ul id="recommended">
+        
+      </ul>
+    </div> 
+    <hr>
 
-  <h1>좋아요 누른 영화(가제)</h1>
-  <div id="tab">
-    <ul>
-      {% for pickedmovie in pickedmovies %}
-        {% for genre in pickedmovie.genres.all %}
-          {{ genre.id }}
+    <h1>좋아요 누른 영화(가제)</h1>
+    <div id="tab">
+      <ul>
+        {% for pickedmovie in pickedmovies %}
+          {% for genre in pickedmovie.genres.all %}
+            {{ genre.id }}
+          {% endfor %}
+          <li>         
+            <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
+              <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="">
+            </a>
+          </li>
         {% endfor %}
-        <li>         
-          <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
-            <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="">
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div> 
-  <hr>
+      </ul>
+    </div> 
+    <hr>
 
-  <h1>나에게 맞을지도 모르는 영화(가제)</h1>
-  <div id="tab">
-    <ul>
-      {% for recommend in recommends %}
-        <li>         
-          <a href="{% url 'movies:detail' recommend.movie_id %}">
-            <img src="https://image.tmdb.org/t/p/w200{{ recommend.poster_path }}" alt="">
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div> 
-  <hr>
+    <h1>나에게 맞을지도 모르는 영화(가제)</h1>
+    <div id="tab">
+      <ul>
+        {% for recommend in recommends %}
+          <li>         
+            <a href="{% url 'movies:detail' recommend.movie_id %}">
+              <img src="https://image.tmdb.org/t/p/w200{{ recommend.poster_path }}" alt="">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div> 
+    <hr>
 
-  <h1>모든 영화</h1>
-  <div id="tab">
-    <ul>
-      {% for movie in movies %}    
-        <li>
-          <a href="{% url 'movies:detail' movie.pk %}">
-            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div> 
-  <hr>
+    <h1>모든 영화</h1>
+    <div id="tab">
+      <ul>
+        {% for movie in movies %}    
+          <li>
+            <a href="{% url 'movies:detail' movie.pk %}">
+              <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div> 
+    <hr>
+  </div>
+</div>
 {% endblock content %}
 
 

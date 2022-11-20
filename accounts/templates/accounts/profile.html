@@ -14,12 +14,15 @@
   }
 {% endblock style %}
 {% block content %}
-
-<div class="container text-light">
-  <h2 class="text-light pt-3">{{ person.username }}님의 프로필</h2>
+<br>
+<div class="my-5 container">
+  <h2 class="pt-3 text-dark">{{ person.username }}님의 프로필</h2>
   <div class="row justify-content-center align-items-center my-5 pb-3">
     <div class="col-4 my-3 d-flex justify-content-center">
-      <img src="{{ person.profile.image.url }}" alt="">  
+      <div class="row justify-content-center">
+        <img src="{{ person.profile.image.url }}" alt="">  
+        <a class="col-3 btn btn-sm btn-secondary my-3" href="{% url 'accounts:update' %}">사진 변경</a>
+      </div>
     </div>
     {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
     <img src="{% static 'sample2.png' %}" alt=""> {% endcomment %}
@@ -34,14 +37,15 @@
     </div>
 
     <div class="col-2 text-center">
-      <h2>바꾸기</h2>
-      <h5 class="m-0">작성한 글 수</h5>
+      <h2>{{ person.like_reviews.all|length}}</h2>
+      <h5 class="m-0">좋아요한 글 수</h5>
     </div>
 
     <div class="col-2 text-center">
-      <h2>바꾸기</h2>
-      <h5 class="m-0">좋아요한 글 수</h5>
+      <h2>{{ person.comment_set.all|length }}</h2>
+      <h5 class="m-0">작성한 댓글 수</h5>
     </div>
+
   </div>
   {% comment %} {{ person.profile.image.url }} {% endcomment %}
   {% if request.user != person %}

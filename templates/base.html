@@ -15,20 +15,31 @@
     }
     body {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
-      background: #eae5da;
-      margin-top: 3rem;
-      color: #0074ff;
-      font-family: 'Pretendard-Regular';
+
+      {% comment %} background: #eae5da; {% endcomment %}
+      {% comment %} margin-top: 3rem; {% endcomment %}
+      {% comment %} color: #0074ff; {% endcomment %}
+      {% comment %} font-family: 'Pretendard-Regular'; {% endcomment %}
+
+      {% comment %} background: black; {% endcomment %}
+      {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
+      background: linear-gradient(to top, rgba(136, 216, 242, 1), rgba(195, 225, 235, 1));
+      {% comment %} margin-top: 2rem; {% endcomment %}
+      color: white;
     }
 
     nav {
+      background-color: rgba(0, 0, 0, 0)
       {% comment %} background-color: #b6dbdb; {% endcomment %}
-      background: #e6decf;
+
+      {% comment %} background: #e6decf; {% endcomment %}
+      {% comment %} background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1)); {% endcomment %}
     }
 
     .dropdown > button {
       background: transparent;
     }
+
     {% comment %} ul {
       width: 250px;
       height: 140px;
@@ -46,6 +57,28 @@
       border-radius: 10px;
       box-shadow: inset 0px 0px 5px white;
     }
+
+    .gradient-custom-3 {
+      background: #84fab0;
+      
+      background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+      
+      background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+      }
+  
+    .gradient-custom-4 {
+      /* fallback for old browsers */
+      background: #6c7075;
+      
+      {% comment %} /* Chrome 10-25, Safari 5.1-6 */ {% endcomment %}
+      {% comment %} background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1)); {% endcomment %}
+      
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
+  
+      border: 0
+      }
+
     {% block style %}
     {% endblock style %}
   </style>
@@ -54,17 +87,17 @@
 {% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
 <body>
-  <nav class="navbar navbar-expand-lg sticky-top border-top border-bottom">
+  <nav class="mx-3 navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Cloud Movie</a>
+      <a class="navbar-brand" href="#">Cloud Movie</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active text-light" aria-current="page" href="{% url 'movies:index' %}">Home</a>
-          <a class="nav-link text-light" href="{% url 'community:index' %}">Community</a>
-          <a class="nav-link text-light" href="{% url 'movies:select' %}">Select</a>
+        <div class="navbar-nav  text-light">
+          <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
+          <a class="nav-link" href="{% url 'community:index' %}">Community</a>
+          <a class="nav-link" href="{% url 'movies:select' %}">Select</a>
           {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
