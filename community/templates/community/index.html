@@ -52,9 +52,7 @@
 {% endblock style %}
 
 {% block content %}
-<section class="vh-100">
   <h1 class="my-3 text-center">Community</h1>
-  <hr>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <div class="container">
     <a class="btn btn-secondary" href="{% url 'community:create' %}">New review</a>
@@ -99,7 +97,6 @@
       {% endfor %}
     </div>
   </div>
-</section>
   {% comment %} {% for review in reviews %}
     <p>작성자 : <a href="{% url 'accounts:profile' review.user.username %}">{{ review.user }}</a></p>
     <p>글 번호: {{ review.pk }}</p>

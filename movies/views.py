@@ -3,11 +3,13 @@ from .models import Movie
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 import operator
 # import requests
 # import json
 
 # Create your views here.
+
 def index(request):
     if request.user.is_authenticated:
         movies = Movie.objects.all()
@@ -58,6 +60,7 @@ def detail(request, movie_pk):
     return render(request, 'movies/detail.html', context)
 
 
+@login_required
 def select(request):
     movies = Movie.objects.all()
     context = {

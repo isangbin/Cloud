@@ -11,10 +11,19 @@
       {% comment %} background-color: #b6dbdb; {% endcomment %}
       {% comment %} background: black; {% endcomment %}
       {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
-      background: linear-gradient(to top, rgba(136, 216, 242, 1), rgba(195, 225, 235, 1));
+      background-image: linear-gradient(to top, rgba(136, 216, 242, 1), rgba(195, 225, 235, 1));
+      background-attachment: fixed;
+      {% comment %} margin: 0;
+      margin-top: 0; {% endcomment %}
+      {% comment %} margin: auto; {% endcomment %}
+      {% comment %} margin: 0; {% endcomment %}
       {% comment %} margin-top: 2rem; {% endcomment %}
-      color: white;
+      {% comment %} color: white; {% endcomment %}
     }
+
+    {% comment %} html {
+      height: 100%;
+    } {% endcomment %}
 
     nav {
       background-color: rgba(0, 0, 0, 0)
@@ -25,13 +34,14 @@
     .dropdown > button {
       background: transparent;
     }
+
     .gradient-custom-3 {
       background: #84fab0;
       
       background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
       
       background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
-      }
+    }
   
     .gradient-custom-4 {
       /* fallback for old browsers */
@@ -44,7 +54,9 @@
       background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
   
       border: 0
-      }
+    }
+
+
     {% block style %}
     {% endblock style %}
   </style>
@@ -52,8 +64,8 @@
 
 {% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
-<body>
-  <nav class="mx-3 navbar navbar-expand-lg fixed-top">
+<body class="my-0">
+  <nav class="mx-3 navbar navbar-expand-lg sticky-top ">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Cloud Movie</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,11 +83,11 @@
       
       <form class="d-flex mx-3" role="search">
         <input class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
 
       <div class="dropdown mx-5">
-        <button class="btn btn-secondary dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-primary dropdown-toggle my-3 text-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           ACCOUNT
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
@@ -99,7 +111,6 @@
       </div>
     </div>
   </nav>
-
 
   {% comment %} <div class="bg-image" style="background-image: url('https://image.tmdb.org/t/p/w400/sv1xJUazXeYqALzczSZ3O6nkH75.jpg'); height: 50vh;">
     <div class="container" id="topDiv">
