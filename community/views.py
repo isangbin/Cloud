@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import Review, Comment
 from .forms import ReviewForm, CommentForm
 
-
+@login_required
 @require_GET
 def index(request):
     reviews = Review.objects.order_by('-pk')
@@ -14,34 +15,39 @@ def index(request):
     return render(request, 'community/index.html', context)
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def create(request):
-    if request.method == 'POST':
-        form = ReviewForm(request.POST) 
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.save()
-            return redirect('community:detail', review.pk)
-    else:
-        form = ReviewForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'community/create.html', context)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST) 
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.save()
+                return redirect('community:detail', review.pk)
+        else:
+            form = ReviewForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'community/create.html', context)
+    return redirect('accounts:login')
 
 
 @require_GET
 def detail(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    comments = review.comment_set.all()
-    comment_form = CommentForm()
-    context = {
-        'review': review,
-        'comment_form': comment_form,
-        'comments': comments,
-    }
-    return render(request, 'community/detail.html', context)
+    if request.user.is_authenticated:
+        review = get_object_or_404(Review, pk=review_pk)
+        comments = review.comment_set.all()
+        comment_form = CommentForm()
+        context = {
+            'review': review,
+            'comment_form': comment_form,
+            'comments': comments,
+        }
+        return render(request, 'community/detail.html', context)
+    return redirect('accounts:login')
 
 
 @require_POST

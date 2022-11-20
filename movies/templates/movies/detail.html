@@ -18,8 +18,7 @@
 {% block content %}
   {% comment %} 정보 전달용 {% endcomment %}
   <h1 id='movie-id' data-movie-id={{ movie_pk }}></h1>
-
-  <div class="container my-5 rounded border border-solid border-secondary">
+  <div class="container center my-5 rounded border-secondary">
     {% comment %} <div class="card justify-content-center align-items-center bg-secondary my-5"> {% endcomment %}
       <div class="row">
         <div class="col-5 d-flex justify-content-center my-3">
@@ -54,9 +53,8 @@
         </div>
       </div>
     {% comment %} </div> {% endcomment %}
-    
   </div>
-{% endblock %}
+  </div>{% endblock %}
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
