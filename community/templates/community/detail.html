@@ -20,99 +20,113 @@
   border: none;
   background: linear-gradient(to right, rgba(20, 33, 56, 0.5), rgba(20, 48, 56, 0.5))
   }
+  #review {
+    background-color: rgba(256, 256, 256, 0.2);
+  }
 
 {% endblock style %}
 {% block content %}
-<section class="vh-100 row align-items-center">
+  <h1 class="pt-3 text-light text-center">DETAIL</h1>
+  
   <div class="container">
-    <h1 class="text-center my-3 text-dark">DETAIL</h1>
-    <div class="container my-3 border-left">
-      <div class="row">
-      </div>
-        {% comment %} <h3>{{ review.pk }} 번째 글</h3> {% endcomment %}
-      <div class="row text-dark">
-          <h2>{{ review.pk }}번 글 | {{ review.title }}</h2>
-      </div>
-      {% comment %} style="background-color: #204a99; {% endcomment %}
-      <div class="bg row rounded p-3 my-4">
-        <h3>{{ review.movie_title }}</h3>
-        <p>내용 : {{ review.content }}</p>
-        <p>평점 : {{ review.rank }}</p>
-        <p>작성 시각 : {{ review.created_at }}</p>
-        <p>수정 시각 : {{ review.updated_at }}</p>
-
-        {% if request.user == review.user %}
-          <div class="row d-flex justify-content-center">
-            <div class="col-2">
-              <a class="btn btn-success gradient-custom text-uppercase mx-3" href="{% url 'community:edit' review.pk %}">게시글 수정</a>
+    <div class="row d-flex justify-content-center">
+      <div class="col-10">
+        <div class="my-2">
+          <div id="review" class="p-4 rounded text-light">
+            <div class="row d-flex p-3">
+                <h2 class="col-7">{{ review.movie_title }} : {{ review.title }}</h2>
+                <div class="col-5">
+                  <p class="text-end m-0">작성 : {{ review.created_at }}</p>
+                  <p class="text-end m-0">수정 : {{ review.updated_at }}</p>
+                </div>
+                <hr>
+                <p class="text-light m-0">{{ review.content }}</p>
             </div>
-            <form class="col-2" action="{% url 'community:delete' review.pk %}" method="POST">
-              {% csrf_token %}
-              <input type="submit" class="btn btn-success gradient-custom text-uppercase mx-3" value="게시글 삭제">
-            </form>
+            {% comment %} <p>평점 : {{ review.rank }}</p> {% endcomment %}
+
+          {% if request.user == review.user %}
+            <div class="row d-flex justify-content-center">
+              <div class="col-2 d-flex justify-content-center">
+                <a class="btn btn-dark opacity-75 text-light border border-light" href="{% url 'community:create' %}">게시글 수정</a>
+              </div>
+              <form class="col-2 d-flex justify-content-center" action="{% url 'community:delete' review.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-dark opacity-75 text-light border border-light" value="게시글 삭제">
+              </form>
+            </div>
+          {% endif %}
           </div>
-        {% endif %}
-
-      </div>
-
-      <h4>댓글</h4>
-      <div class="bg row bg-secondary rounded p-3">
-        {% if comments|length %}
-          <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
-        {% endif %}
-        {% for comment in comments %}
-          <div>
-            <span id="comment-{{ comment.pk }}">{{ comment.user }} - {{ comment.content }} </span>
-            <span>
-              <form class="like-forms" data-comment-id="{{ comment.pk }}">
-                {% csrf_token %}
-                {% if user in comment.like_users.all %}
-                  <button id="like-{{ comment.pk }}" class="btn btn-dark m-1">좋아요 취소</button>
-                {% else %}
-                  <button id="like-{{ comment.pk }}" class="btn btn-dark m-1">좋아요</button>
-                {% endif %}
-              </form>
-            </span>
-            {% comment %} <span>
-              <form class="edit-comment" data-comment-id="{{ comment.pk }}">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-success m-1" value="댓글 수정">
-              </form>
-            </span> {% endcomment %}
-            <span>
-              <form action="{% url 'community:delete_comment' review.pk comment.pk %}" method="POST">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-danger m-1" value="댓글 삭제">
-              </form>
-            </span>
-            <span id="likes-count-{{ comment.pk }}">{{ comment.like_users.all|length }} likes</span>
-      
-            <hr class="color-dark">
-          </div>
-        {% empty %}
-          <p><b>댓글이 없어요..</b></p>
-        {% endfor %}
-
-        {% if user.is_authenticated %}
-          <form action="{% url 'community:create_comment' review.pk %}" method="POST">
-            {% csrf_token %}
-            {% comment %} {{ bootstrap_form form }} {% endcomment %}
-            {{ comment_form }}
-            <input class="btn btn-dark"type="submit">
-          </form>
-        {% else %}
-          <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
-        {% endif %}
-        <div class="col">
-
         </div>
       </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-10">
+        <div class="my-2">
+          <h4 class="text-light mx-3 my-3">댓글</h4>
+          <div id="review" class="p-4 rounded text-light">
+            {% if comments|length %}
+              <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
+              <hr>
+            {% endif %}
+
+            {% for comment in comments %}
+              <div class="row justify-content-center align-items-center">
+                <span class="col-6">{{ comment.user }} - {{ comment.content }} </span>
+
+                <span class="col-3">
+                  <form class="like-forms" data-comment-id="{{ comment.pk }}">
+                    {% csrf_token %}
+                    <span id="likes-count-{{ comment.pk }}">{{ comment.like_users.all|length }} likes</span>
+                    {% if user in comment.like_users.all %}
+                      <button id="like-{{ comment.pk }}" class="btn btn-dark m-1">좋아요 취소</button>
+                      {% else %}
+                      <button id="like-{{ comment.pk }}" class="btn btn-dark m-1">좋아요</button>
+                    {% endif %}
+                  </form>
+                </span>
+                {% comment %} <span>
+                  <form class="edit-comment" data-comment-id="{{ comment.pk }}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-success m-1" value="댓글 수정">
+                  </form>
+                </span> {% endcomment %}
+                <span class="col-2">
+                  <form action="{% url 'community:delete_comment' review.pk comment.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger m-1" value="댓글 삭제">
+                  </form>
+                </span>
+              </div>
+              <hr>
+            {% empty %}
+              <p><b>댓글이 없어요..</b></p>
+            {% endfor %}
+                
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-center">
+              <form class="rounded" action="{% url 'community:create_comment' review.pk %}" method="POST">
+                {% csrf_token %}
+                {% comment %} {{ bootstrap_form form }} {% endcomment %}
+                {{ comment_form }}
+              <input class="btn btn-dark"type="submit">
+              </form>
+            </div>
+            {% else %}
+            <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+            {% endif %}
+          </div>
+        </div>
+        </div>
+      </div>
+        </div>
+      </div>
+
       <div class="row my-3">
         <a class="btn btn-dark " href="{% url 'community:index' %}">뒤로가기</a>
       </div>
     </div>
-  </div>
-</section>
+
 {% endblock  %}
 
 {% block script %}
@@ -125,6 +139,7 @@
       form.addEventListener('submit', function (event) {
         event.preventDefault()
         const commentId = event.target.dataset.commentId
+        
 
         axios({
           method: 'post',
@@ -150,7 +165,7 @@
         })
       })
     })
-
+    
     {% comment %} const editCommentForm = document.querySelector('.edit-comment')
 
     editCommentForm.addEventListener('submit', function (event) {
