@@ -62,7 +62,7 @@
       <ul>
         {% for pickedmovie in pickedmovies %}
           {% for genre in pickedmovie.genres.all %}
-            {{ genre.id }}
+            {{ genre.name }}
           {% endfor %}
           <li>         
             <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
