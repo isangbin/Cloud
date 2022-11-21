@@ -124,22 +124,22 @@
       </div>
 
       
-      <form class="d-flex mx-3" role="search" method="get" action="{% url "movies:search" %}">
+      <form id="searchForm" class="d-flex mx-3" role="search" method="get" action="{% url "movies:search" %}">
         <select style="width: 6em;" class="border rounded custom-select custom-select-md mx-2" name="type">
             <option value="all">전체</option>
             <option value="title">제목</option>
             <option value="genres">장르</option>
         </select>
-        <input class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search" name="movie">
+        <input id="search" class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search" name="movie">
 
         {% comment %} <div class="col" style="margin-top: 10px;">
         </div> {% endcomment %}
 
-        <button id="search_btn"class="btn btn-outline-light" type="submit">Search</button>
+        <button class="btn border border-secondary text-light" type="submit">Search</button>
       </form>
 
       <div class="dropdown mx-5">
-        <button class="btn btn-light text-light dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn border border-secondary text-light dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           ACCOUNT
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
@@ -199,6 +199,31 @@
         event.preventDefault()
       }
     })
+
+    {% comment %} function doSearch() {
+      
+      if (searchTag.value.length == 0) {
+        alert('검색어를 입력하세요')
+        return false;
+      }
+      
+      return true;
+    } {% endcomment %}
+    
+    const searchForm = document.querySelector("#searchForm")
+    const searchTag = document.querySelector("#search")
+
+    searchForm.addEventListener("submit", function(event){
+      if(searchTag.value === '') {
+        alert('검색어를 입력하세요')
+        event.preventDefault()
+      }
+      else if(searchTag.value.length == 1) {
+        alert('두 글자 이상 입력하세요')
+        event.preventDefault()
+      }
+    })
+
   </script>
   {% block script %}
   {% endblock script %}

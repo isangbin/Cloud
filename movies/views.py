@@ -116,6 +116,9 @@ def search(request):
 
             elif searched_type == 'title':
                 movies = Movie.objects.filter(title__icontains=searched)
+        
+        # else:
+        #     return redirect("movies:index")
 
         context = {
             "movies": movies,
