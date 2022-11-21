@@ -137,19 +137,22 @@ def follow(request, user_pk):
 def modeselect(request, user_pk):
     if request.user.is_authenticated:
         user = User.objects.get(pk=user_pk)
-        if len(request.POST.getlist('modeselect')) == 0:
-            user.modeselect = False
-        else:
-            user.modeselect = True
-        # if user.modeselect == False:
-        #     user.modeselect == True
-        #     modeselect = True
+        # if len(request.POST.getlist('modeselect')) == 0:
+        #     user.modeselect = False
         # else:
-        #     user.modeselect == False
-        #     modeselect = False
+        #     user.modeselect = True
+        modeselect = user.modeselect
+        if modeselect == False:
+            modeselect = True
+            user.save()
+            # modeselect = True
+        else:
+            modeselect = False
+            user.save()
+            # modeselect = False
         context = {
             # 'mode': user.modeselect,
-            'modeselect': user.modeselect,
+            'modeselect': modeselect,
         }
         return JsonResponse(context)
     return redirect('accounts:login')

@@ -61,9 +61,9 @@
     <div id="tab">
       <ul>
         {% for pickedmovie in pickedmovies %}
-          {% for genre in pickedmovie.genres.all %}
+          {% comment %} {% for genre in pickedmovie.genres.all %}
             {{ genre.name }}
-          {% endfor %}
+          {% endfor %} {% endcomment %}
           <li>         
             <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
               <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">

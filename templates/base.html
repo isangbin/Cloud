@@ -17,7 +17,20 @@
       font-weight: 400;
       font-style: normal;
     }
-    #lightmode {
+    @font-face {
+      font-family: 'S-CoreDream-3Light';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'twayair';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    body {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
 
       {% comment %} background: #eae5da; {% endcomment %}
@@ -30,10 +43,14 @@
       {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
 
       {% comment %} background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1)); {% endcomment %}
-      background-image: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
+      background-image: linear-gradient(to top, rgba(128, 133, 138, 1), rgba(8, 11, 15, 1));
       background-attachment: fixed;
       align-items: center;
       justify-content: center;
+      {% comment %} font-family: 'Pretendard-Regular'; {% endcomment %}
+      font-family: 'S-CoreDream-3Light';
+      {% comment %} font-family: 'twayair'; {% endcomment %}
+      
 
       {% comment %} margin: 0; {% endcomment %}
       {% comment %} margin-top: 0; {% endcomment %}
@@ -41,6 +58,11 @@
       {% comment %} margin: 0; {% endcomment %}
       {% comment %} margin-top: 2rem; {% endcomment %}
       {% comment %} color: white; {% endcomment %}
+    }
+
+    #lightmode {
+      background-image: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
+      background-attachment: fixed;
     }
     #darkmode {
       background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1));
@@ -227,7 +249,7 @@
         headers: {'X-CSRFToken': csrftoken1},
       })
       .then((response) => {
-        const modeselect = response.modeselect
+        const modeselect = response.data.modeselect
         if (modeselect === false) {
           bodyTag.setAttribute('id', 'lightmode')
           console.log(modeselect)
@@ -235,6 +257,7 @@
           bodyTag.setAttribute('id', 'darkmode')
           console.log(userId)
           console.log(response)
+          console.log(modeselect)
         }
       })
       .catch((error) => {
