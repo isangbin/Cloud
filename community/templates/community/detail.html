@@ -73,6 +73,12 @@
                 {% endif %}
               </form>
             </span>
+            <span>
+              <form action="{% url 'community:delete_comment' review.pk comment.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger m-1" value="댓글 삭제">
+              </form>
+            </span>
             <span id="likes-count-{{ comment.pk }}">{{ comment.like_users.all|length }} likes</span>
       
             <hr class="color-dark">

@@ -68,6 +68,15 @@ def create_comment(request, review_pk):
     return render(request, 'community/detail.html', context)
 
 
+@require_POST
+def delete_comment(request, review_pk, comment_pk):
+    if request.user.is_authenticated:
+        comment = Comment.objects.get(pk=comment_pk)
+        if request.user == comment.user:
+            comment.delete()
+    return redirect('community:detail', review_pk)
+
+
 def delete(request, pk):
     review = Review.objects.get(pk=pk)
     if request.user.is_authenticated:
