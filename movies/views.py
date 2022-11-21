@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Movie
+from .models import Movie, Genre
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
@@ -85,3 +85,52 @@ def likes(request, movie_pk):
         }
         return JsonResponse(context)
     return redirect('accounts:login')
+
+
+def search(request):
+    if request.method=='GET':
+        searched = request.GET.get("movie")
+        searched_type = request.GET.get("type")
+        
+
+        if len(searched) > 1 :
+            # genres = Genre.objects.all()
+            # movie = Movie.objects.get(pk=505642)
+            if searched_type == 'all':
+                # print(movie.genres.all())
+                # genre = Genre.objects.all()
+                genre = Genre.objects.filter(name__icontains=searched)
+                # print(genre[0].name)
+                if genre:
+                    movies = Movie.objects.filter(genres__name__icontains=genre[0].name)
+                # movie = Movie.objects.get(pk=505642)
+                # print(movie)
+                    # print(name)
+                else:
+                    movies = Movie.objects.filter(title__icontains=searched)
+
+            elif searched_type == 'genres':
+                genre = Genre.objects.filter(name__icontains=searched)
+                if genre:
+                    movies = Movie.objects.filter(genres__name__icontains=genre[0].name)
+
+            elif searched_type == 'title':
+                movies = Movie.objects.filter(title__icontains=searched)
+
+        context = {
+            "movies": movies,
+            "searched": searched
+        }
+        return render(request, "movies/search.html", context)
+
+    return render(request, 'movies/index.html')
+
+
+# def search(request):
+#     searched = request.GET.get("movie")
+#     if len(searched) > 1:
+#         movie = Movie.objects.filter(title__icontains=searched)
+#         context = {
+#             "movie": movie
+#         }
+#     return render(request, "movies/search.html", context)
