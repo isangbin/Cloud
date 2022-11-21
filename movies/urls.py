@@ -8,4 +8,5 @@ urlpatterns = [
     # path('<int:')
     path('select/', views.select, name='select'),
     path('<int:movie_pk>/likes/', views.likes, name='likes'),
+    path('search/', views.search, name="search"),
 ]

@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block style %}
-  body{
-    margin-top:3rem;
+  body {
+    margin:0 auto;
+    height: 100vh;
+    {% comment %} background: url("/media/—Pngtree—romantic cosmic background_1337153.png"); {% endcomment %}
   }
   {% comment %} * {
     margin:0; padding:0;
@@ -17,38 +19,45 @@
     overflow-x: auto; text-align:center
   }
   #tab ul li {
-    display:inline-block; padding: 5px 10px; margin-right:10px;
+    display:inline-block; padding: 2rem; margin-right:10px;
   }
   img {
     border-radius: 5%;
+    overflow: hidden;
   }
   hr {
-    border-top: 3px solid #15394a;
+    border-top: 3px solid #918f87;
   }
   h1 {
     margin-left: 100px;
     margin-top: 20px;
     margin-bottom: 20px;
-    color: #142a4f;
+    {% comment %} color: #f5f4f0; {% endcomment %}
+    color: #ddeaeb;
     font-weight: bold;
+    {% comment %} border-left: 5px solid #918f87; {% endcomment %}
+    padding: 3px;
   }
 {% endblock style %}
 
   
 {% block content %}
+{% comment %} <div class="position-relative">
+  <img src="/media/—Pngtree—romantic cosmic background_1337153.png" alt="">
+</div> {% endcomment %}
 <div class="row px-5 justify-content-center">
   <div class="col-11">
-    <h1>MOVIE</h1>
+    {% comment %} <h1>MOVIE</h1> {% endcomment %}
     <hr>
-    <h1>추천 영화</h1>
+    <h1>POPULAR</h1>
     <div id="tab">
-      <ul id="recommended">
+      <ul id="popular">
         
       </ul>
     </div> 
     <hr>
 
-    <h1>좋아요 누른 영화(가제)</h1>
+    <h1>{{ user }}님이 좋아요 한 영화</h1>
     <div id="tab">
       <ul>
         {% for pickedmovie in pickedmovies %}
@@ -57,7 +66,7 @@
           {% endfor %}
           <li>         
             <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
-              <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="">
+              <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
             </a>
           </li>
         {% endfor %}
@@ -65,13 +74,13 @@
     </div> 
     <hr>
 
-    <h1>나에게 맞을지도 모르는 영화(가제)</h1>
+    <h1>내가 좋아하는 장르 영화</h1>
     <div id="tab">
       <ul>
         {% for recommend in recommends %}
           <li>         
             <a href="{% url 'movies:detail' recommend.movie_id %}">
-              <img src="https://image.tmdb.org/t/p/w200{{ recommend.poster_path }}" alt="">
+              <img src="https://image.tmdb.org/t/p/w200{{ recommend.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
             </a>
           </li>
         {% endfor %}
@@ -85,7 +94,7 @@
         {% for movie in movies %}    
           <li>
             <a href="{% url 'movies:detail' movie.pk %}">
-              <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="">
+              <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
             </a>
           </li>
         {% endfor %}
@@ -106,27 +115,51 @@
     const fetchTrending = async() => {
       const url = "https://api.themoviedb.org/3/trending/all/week?api_key=" + key + "&language=ko-KR"
       const response = await axios.get(url);
-      const recUlTag = document.querySelector('#recommended')
-      console.log(response.data.results)
+      const recUlTag = document.querySelector('#popular')
+      console.log(response.data)
 
-      for(let i=0; i<30; i++) {  
-        newliTag = document.createElement('li')
-        newaTag = document.createElement('a')
-        newimgTag = document.createElement('img')
+      for(let i=0; i<12; i++) {  
+        movieId = response.data.results[i].id
+        const detail_url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + key + "&language=ko-KR"
+        const detail_response = await axios.get(detail_url)
 
-        imgLink = response.data.results[i].poster_path
-        recMovieId = response.data.results[i].id
-        
-        newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200'+imgLink)
-        newaTag.setAttribute('href', `/movies/${ recMovieId }`)
-        
-        
-        newaTag.appendChild(newimgTag)
-        newliTag.appendChild(newaTag)
-        recUlTag.appendChild(newliTag)
+        if (detail_response.data.title === response.data.results[i].title) {
+          newliTag = document.createElement('li')
+          newaTag = document.createElement('a')
+          newimgTag = document.createElement('img')
+  
+          imgLink = response.data.results[i].poster_path
+          recMovieId = response.data.results[i].id
+          
+          newimgTag.setAttribute('src', 'https://image.tmdb.org/t/p/w200'+imgLink)
+          newimgTag.setAttribute('onmouseenter', 'zoomIn(event)')
+          newimgTag.setAttribute('onmouseleave', 'zoomOut(event)')
+
+          newaTag.setAttribute('href', `/movies/${ recMovieId }`)
+
+          
+          
+          
+          newaTag.appendChild(newimgTag)
+          newliTag.appendChild(newaTag)
+          recUlTag.appendChild(newliTag)
+        }
+
       }              
     }
+
     fetchTrending()
 
+    function zoomIn(event) {
+      event.target.style.transform = "scale(1.2)";
+      event.target.style.zIndex =1;
+      event.target.style.transition = "all 0.5s";
+    }
+
+    function zoomOut(event) {
+      event.target.style.transform = "scale(1)";
+      event.target.style.zIndex =0;
+      event.target.style.transition = "all 0.5s";
+    }
   </script>
 {% endblock script %}

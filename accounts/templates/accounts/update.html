@@ -12,6 +12,9 @@
   form {
     color: black;
   }
+  body {
+    padding-top: 0px;
+  }
 {% endblock style %}
 {% block content %}
   <section class="vh-100 bg-image">
@@ -21,7 +24,7 @@
           <div class="col-12 col-md-9 col-lg-7 col-xl-6">
             <div class="card" style="border-radius: 15px;">
               <div class="card-body p-5">
-                <h2 class="fw-bold text-uppercase text-center mb-5">Edit</h2>
+                <h2 class="fw-bold text-uppercase text-center mb-5">회원 수정</h2>
                 <form action="{% url 'accounts:update' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   {% bootstrap_form form %}

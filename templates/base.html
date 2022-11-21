@@ -7,6 +7,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <title>Document</title>
   <style>
+    html {
+      width: 100%; 
+      height: 100%;
+    }
     @font-face {
       font-family: 'Pretendard-Regular';
       src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -17,16 +21,22 @@
       {% comment %} background-color: #b6dbdb; {% endcomment %}
 
       {% comment %} background: #eae5da; {% endcomment %}
-      {% comment %} margin-top: 3rem; {% endcomment %}
+      padding-top: 5rem;
+      {% comment %} margin:0 auto; {% endcomment %}
       {% comment %} color: #0074ff; {% endcomment %}
       {% comment %} font-family: 'Pretendard-Regular'; {% endcomment %}
 
       {% comment %} background: black; {% endcomment %}
       {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
-      background-image: linear-gradient(to top, rgba(136, 216, 242, 1), rgba(195, 225, 235, 1));
+
+      {% comment %} background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1)); {% endcomment %}
+      background-image: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
       background-attachment: fixed;
-      {% comment %} margin: 0;
-      margin-top: 0; {% endcomment %}
+      align-items: center;
+      justify-content: center;
+
+      {% comment %} margin: 0; {% endcomment %}
+      {% comment %} margin-top: 0; {% endcomment %}
       {% comment %} margin: auto; {% endcomment %}
       {% comment %} margin: 0; {% endcomment %}
       {% comment %} margin-top: 2rem; {% endcomment %}
@@ -38,7 +48,8 @@
     } {% endcomment %}
 
     nav {
-      background-color: rgba(0, 0, 0, 0)
+      {% comment %} background-color: rgba(0, 0, 0, 0); {% endcomment %}
+      background-color: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
       {% comment %} background-color: #b6dbdb; {% endcomment %}
 
       {% comment %} background: #e6decf; {% endcomment %}
@@ -67,58 +78,68 @@
       box-shadow: inset 0px 0px 5px white;
     }
 
-    .gradient-custom-3 {
-      background: #84fab0;
-      
-      background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
-      
-      background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+    #search_btn {
+      background-color: rgba(0, 0, 0, 0.8);
     }
+    {% comment %} .gradient-custom-3 {
+      background: #84fab0;
+
+      background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+    } {% endcomment %}
   
-    .gradient-custom-4 {
-      /* fallback for old browsers */
+    {% comment %} .gradient-custom-4 {
       background: #6c7075;
       
-      {% comment %} /* Chrome 10-25, Safari 5.1-6 */ {% endcomment %}
-      {% comment %} background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1)); {% endcomment %}
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
       
-      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
   
       border: 0
-    }
+    } {% endcomment %}
 
     {% block style %}
     {% endblock style %}
   </style>
-</head>
+</head class="mt-0 d-flex">
 
 {% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
-<body class="my-0">
-  <nav class="mx-3 navbar navbar-expand-lg sticky-top ">
+<body>
+  <nav class="mx-3 navbar navbar-expand-lg fixed-top ">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Cloud Movie</a>
+      <a class="m-2 navbar-brand" href="{% url 'movies:index' %}">
+        <img src="/media/cloudie_white.png" alt="" width="100" height="60">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav  text-light">
-          <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
-          <a class="nav-link" href="{% url 'community:index' %}">Community</a>
-          <a class="nav-link" href="{% url 'movies:select' %}">Select</a>
+        <div class="navbar-nav">
+          <a class="text-light nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
+          <a class="text-light nav-link" href="{% url 'community:index' %}">Community</a>
+          <a class="text-light nav-link" href="{% url 'movies:select' %}">Select</a>
           {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
 
       
-      <form class="d-flex mx-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
+      <form class="d-flex mx-3" role="search" method="get" action="{% url "movies:search" %}">
+        <select style="width: 6em;" class="border rounded custom-select custom-select-md mx-2" name="type">
+            <option value="all">전체</option>
+            <option value="title">제목</option>
+            <option value="genres">장르</option>
+        </select>
+        <input class="form-control me-2" type="search" placeholder="Search movie" aria-label="Search" name="movie">
+
+        {% comment %} <div class="col" style="margin-top: 10px;">
+        </div> {% endcomment %}
+
+        <button id="search_btn"class="btn btn-outline-light" type="submit">Search</button>
       </form>
 
       <div class="dropdown mx-5">
-        <button class="btn btn-primary dropdown-toggle my-3 text-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-light text-light dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           ACCOUNT
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
