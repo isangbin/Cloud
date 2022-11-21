@@ -68,6 +68,17 @@ def create_comment(request, review_pk):
     return render(request, 'community/detail.html', context)
 
 
+# @require_POST
+# def edit_comment(request, comment_pk):
+#     if request.user.is_authenticated:
+#         comment = Comment.objects.get(pk=comment_pk)
+#         context = {
+#             'comment_content': comment.content, 
+#         }
+#         return JsonResponse(context)
+#     return redirect('accounts:login')
+
+
 @require_POST
 def delete_comment(request, review_pk, comment_pk):
     if request.user.is_authenticated:
