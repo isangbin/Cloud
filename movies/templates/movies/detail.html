@@ -11,7 +11,10 @@
     border-bottom: 1px solid #fff; {% endcomment %}
   }
   #card {
-    background-color: #5e5c5c;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  #poster {
+    border: 1px solid white;
   }
   html {
     display: flex;
@@ -25,19 +28,19 @@
   <h1 id='movie-id' data-movie-id={{ movie_pk }}></h1>
   <div class="container center my-5 rounded border-secondary">
     {% comment %} <div class="card justify-content-center align-items-center bg-secondary my-5"> {% endcomment %}
-      <div class="row">
-        <div class="col-5 d-flex justify-content-center my-3">
-          <img id="poster"src="" alt="" class="col-8 img-fulid rounded-start">
+      <div class="row d-flex justify-content-center">
+        <div class="px-0 col-5 d-flex justify-content-center my-3">
+          <img id="poster" src="" alt="" class="col-8 img-fulid rounded">
         </div>
-        <div id="card" class="col-6 custom_gray my-3 mx-3 rounded d-flex align-items-center">
+        <div id="card" class="border border-white col-6 custom_gray my-3 mx-3 rounded d-flex align-items-center">
           <div class="card-body p-3">
-            <h2 id="title" class="card-title text-light"></h2>
+            <h2 id="title" class="card-title text-light text-center mb-4"></h2>
             <hr>
             <p id="overview" class="card-text text-light mx-3 my-3">
             </p>
             <hr>
-            <div class="row d-flex justify-content-center">
-              <h4 class="text-center">INFO</h4>
+            <div id=""class="row d-flex justify-content-center">
+              <h3 class="text-center text-light mb-3">INFO</h3>
               <div class="col-5">
                 <p id="release_date" class="card-text text-light">개봉일 |&nbsp</p>
                 <p id="runtime" class="card-text text-light">상영시간 |&nbsp</p>
@@ -70,10 +73,8 @@
     const fetchTrending = async() => {
       const movieId = movie.dataset.movieId
       const url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + key + "&language=ko-KR"
-
       const response = await axios.get(url)
       
-      console.log(response.data)
 
       const titleTag = document.querySelector('#title')
       titleTag.innerText = response.data.title
@@ -95,6 +96,7 @@
       vote_averageTag.innerText += `${response.data.vote_average}`
       
       const adultTag = document.querySelector('#adult')
+
       if (response.data.adult === true) {
         adultTag.innerText += `19세 이상 관람 가능`
       } else {

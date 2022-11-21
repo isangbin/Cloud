@@ -8,7 +8,7 @@
   <title>Document</title>
   <style>
     html {
-      width: 100%; 
+      width: 99%; 
       height: 100%;
     }
     @font-face {
@@ -43,7 +43,7 @@
       {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
 
       {% comment %} background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1)); {% endcomment %}
-      background-image: linear-gradient(to top, rgba(128, 133, 138, 1), rgba(8, 11, 15, 1));
+      background-image: linear-gradient(to top, rgba(240, 244, 247, 1), rgba(129, 185, 227, 1));
       background-attachment: fixed;
       align-items: center;
       justify-content: center;
@@ -59,15 +59,18 @@
       {% comment %} margin-top: 2rem; {% endcomment %}
       {% comment %} color: white; {% endcomment %}
     }
+    .dark-mode {
+      background-image: linear-gradient(to top, rgba(128, 133, 138, 1) , rgba(8, 11, 15, 1));
+    }
 
-    #lightmode {
+    {% comment %} #lightmode {
       background-image: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
       background-attachment: fixed;
     }
     #darkmode {
       background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1));
       background-attachment: fixed;
-    }
+    } {% endcomment %}
 
     {% comment %} html {
       height: 100%;
@@ -107,6 +110,10 @@
     #search_btn {
       background-color: rgba(0, 0, 0, 0.8);
     }
+    .toggler {
+      border-color: white;
+      background-color: white;
+    }
     {% comment %} .gradient-custom-3 {
       background: #84fab0;
 
@@ -127,7 +134,7 @@
     {% block style %}
     {% endblock style %}
   </style>
-</head class="mt-0 d-flex">
+</head>
 
 {% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
@@ -136,10 +143,10 @@
   <nav class="mx-3 navbar navbar-expand-lg fixed-top ">
     <div class="container-fluid">
       <a class="m-2 navbar-brand" href="{% url 'movies:index' %}">
-        <img src="/media/cloudie_white.png" alt="" width="100" height="60">
+        <img id="logo" src="/media/cloudie_white.png" alt="" width="100" height="60">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon toggler"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
@@ -165,11 +172,12 @@
         <button class="btn border border-secondary text-light" type="submit">Search</button>
       </form>
 
-      <form id="modeselect-form" data-user-id="{{ user.pk }}">
+      {% comment %} <form id="modeselect-form" data-user-id="{{ user.pk }}">
         {% csrf_token %}
+        <button id="modeselect-{{ user.pk }}" class="btn btn-outline-primary">Mode</button>
+      </form> {% endcomment %}
         
-          <button id="modeselect-{{ user.pk }}" class="btn btn-outline-primary">Mode</button>
-      </form>
+      <button id="modeselect" class="btn border border-secondary text-light">다크모드 활성화</button>
 
       <div class="dropdown mx-5">
         <button class="btn border border-secondary text-light dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -263,7 +271,7 @@
     const csrftoken1 = document.querySelector('[name=csrfmiddlewaretoken]').value
 
     
-    modeForm.addEventListener('submit', function (event) {
+    {% comment %} modeForm.addEventListener('submit', function (event) {
       event.preventDefault()
       const userId = event.target.dataset.userId
 
@@ -287,8 +295,47 @@
       .catch((error) => {
         console.log(error.response)
       })
+    }) {% endcomment %}
+    let darkMode = localStorage.getItem('darkMode');
+    const darkModeToggle = document.querySelector('#modeselect')
+
+    const enableDark = () => {
+      document.body.classList.add("dark-mode")
+      localStorage.setItem('darkMode', 'enabled')
+    }
+
+    const disableDark = () => {
+      document.body.classList.remove("dark-mode")
+      localStorage.setItem('darkMode', null)
+    }
+
+    if (darkMode === 'enabled') {
+      enableDark()
+      darkModeToggle.innerText = '다크모드 비활성화'
+    } else {
+      darkModeToggle.innerText = '다크모드 활성화'
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      darkMode = localStorage.getItem('darkMode');
+      if (darkMode !== 'enabled') {
+        enableDark()
+        darkModeToggle.innerText = '다크모드 비활성화'
+      } else {
+        disableDark()
+        darkModeToggle.innerText = '다크모드 활성화'
+      }
     })
-    
+
+    {% comment %} document.getElementById('modeselect').addEventListener("click", function() {
+      if(document.querySelector('body').dataset.theme == 'dark') {
+        document.body.classList.add("dark-mode");
+        document.querySelector('body').dataset.theme = ''
+    } else {
+        document.body.classList.clear;
+        document.querySelector('body').dataset.theme = 'dark'
+    }
+    }) {% endcomment %}
 
     
     {% comment %} modeBtn.addEventListener('click', function() {

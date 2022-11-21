@@ -2,7 +2,8 @@
 {% block style %}
   body {
     margin:0 auto;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
     {% comment %} background: url("/media/—Pngtree—romantic cosmic background_1337153.png"); {% endcomment %}
   }
   {% comment %} * {
@@ -19,12 +20,19 @@
     overflow-x: auto; text-align:center
   }
   #tab ul li {
-    display:inline-block; padding: 2rem; margin-right:10px;
+    display:inline-block;
+    padding: 2rem;
+  }
+  #logo {
+    border: none;
   }
   img {
     border-radius: 5%;
     overflow: hidden;
+    border: 2px solid white;
   }
+
+
   hr {
     border-top: 3px solid #918f87;
   }
@@ -37,6 +45,7 @@
     font-weight: bold;
     {% comment %} border-left: 5px solid #918f87; {% endcomment %}
     padding: 3px;
+    text-align: center;
   }
 {% endblock style %}
 
@@ -45,7 +54,8 @@
 {% comment %} <div class="position-relative">
   <img src="/media/—Pngtree—romantic cosmic background_1337153.png" alt="">
 </div> {% endcomment %}
-<div class="row px-5 justify-content-center">
+{% comment %} <div style="cursor:pointer;" class="position-fixed-bottom" onclick="window.scrollTo(0,0);">TOP</div> {% endcomment %}
+<div class="row justify-content-center">
   <div class="col-11">
     {% comment %} <h1>MOVIE</h1> {% endcomment %}
     <hr>
@@ -102,6 +112,7 @@
     </div> 
     <hr>
   </div>
+</div>
 </div>
 {% endblock content %}
 
