@@ -44,17 +44,17 @@
             </div>
             {% comment %} <p>평점 : {{ review.rank }}</p> {% endcomment %}
 
-          {% if request.user == review.user %}
-            <div class="row d-flex justify-content-center">
-              <div class="col-2 d-flex justify-content-center">
-                <a class="btn btn-dark opacity-75 text-light border border-light" href="{% url 'community:create' %}">게시글 수정</a>
+            {% if request.user == review.user %}
+              <div class="row d-flex justify-content-center">
+                <div class="col-2 d-flex justify-content-center">
+                  <a class="btn btn-dark opacity-75 text-light border border-light" href="{% url 'community:create' %}">게시글 수정</a>
+                </div>
+                <form class="col-2 d-flex justify-content-center" action="{% url 'community:delete' review.pk %}" method="POST">
+                  {% csrf_token %}
+                  <input type="submit" class="btn btn-dark opacity-75 text-light border border-light" value="게시글 삭제">
+                </form>
               </div>
-              <form class="col-2 d-flex justify-content-center" action="{% url 'community:delete' review.pk %}" method="POST">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-dark opacity-75 text-light border border-light" value="게시글 삭제">
-              </form>
-            </div>
-          {% endif %}
+            {% endif %}
           </div>
         </div>
       </div>

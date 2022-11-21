@@ -106,7 +106,7 @@ def change_password(request):
 
 
 def profile(request, username):
-    movies = Movie.objects.all()
+    # movies = Movie.objects.all()
     User = get_user_model()
     person = User.objects.get(username=username)
     pickedmovies = person.like_movies.all()
@@ -156,3 +156,14 @@ def modeselect(request, user_pk):
         }
         return JsonResponse(context)
     return redirect('accounts:login')
+
+
+def match(request):
+    if request.user.is_authenticated:
+        context = {
+            
+        }
+        return render(request, 'accounts/match.html')
+
+
+    
