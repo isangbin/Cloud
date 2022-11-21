@@ -85,7 +85,12 @@
                     {% endif %}
                   </form>
                 </span>
-
+                {% comment %} <span>
+                  <form class="edit-comment" data-comment-id="{{ comment.pk }}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-success m-1" value="댓글 수정">
+                  </form>
+                </span> {% endcomment %}
                 <span class="col-2">
                   <form action="{% url 'community:delete_comment' review.pk comment.pk %}" method="POST">
                     {% csrf_token %}
@@ -160,5 +165,29 @@
         })
       })
     })
+    
+    {% comment %} const editCommentForm = document.querySelector('.edit-comment')
+
+    editCommentForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+      const commentId = event.target.dataset.commentId
+
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/community/comments/edit/${commentId}/`,
+        headers: {'X-CSRFToken': csrftoken},
+      })
+      .then((response) => {
+        console.log('댓글수정')
+        const commentLocation = document.querySelector(`#comment-${commentId}`)
+        textbox = createElement('input')
+        textbox.setAttribute('type', 'text')
+        commentLocation.innerText = ''
+        commentLocation.appendChild(textbox)
+      })
+      .catch((error) => {
+        console.log(error.response)
+      })
+    }) {% endcomment %}
   </script>
 {% endblock script %}
