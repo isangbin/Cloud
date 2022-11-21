@@ -12,16 +12,21 @@
   img {
     border-radius: 10%;
   }
+  {% comment %} .img {
+    border-radius: 10%;
+    border: solid 3px white;
+    padding-top: 1rem;
+  } {% endcomment %}
 {% endblock style %}
 {% block content %}
 <br>
 <div class="my-5 container">
-  <h2 class="pt-3 text-dark">{{ person.username }}님의 프로필</h2>
-  <div class="row justify-content-center align-items-center my-5 pb-3">
+  <h2 class="pt-3 text-light">{{ person.username }}님의 프로필</h2>
+  <div class="row justify-content-center align-items-center my-5 pb-3 text-light">
     <div class="col-4 my-3 d-flex justify-content-center">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center img">
         <img src="{{ person.profile.image.url }}" alt="">  
-        <a class="col-3 btn btn-sm btn-secondary my-3" href="{% url 'accounts:update' %}">사진 변경</a>
+        <a id="btn" class="col-3 btn btn-secondary btn-sm my-3 text-light opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
       </div>
     </div>
     {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
@@ -63,7 +68,7 @@
 </div>
 
 <div class="container">
-  <h1 class="text-light text-center">Liked Movies</h1>
+  <h1 class="text-light text-center">좋아하는 영화</h1>
   <div class="row justify-content-center">
     {% for pickedmovie in pickedmovies %}
       <div class="col-2 m_container align-items-center py-3 mx-2">

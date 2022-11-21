@@ -3,7 +3,6 @@
   img {
     border-radius: 5%;
   }
-
   hr {
     height: 5px;
     background-color: white;
@@ -29,10 +28,12 @@
   <div class="container center my-5 rounded border-secondary">
     {% comment %} <div class="card justify-content-center align-items-center bg-secondary my-5"> {% endcomment %}
       <div class="row d-flex justify-content-center">
+
         <div class="px-0 col-5 d-flex justify-content-center my-3">
           <img id="poster" src="" alt="" class="col-8 img-fulid rounded">
         </div>
-        <div id="card" class="border border-white col-6 custom_gray my-3 mx-3 rounded d-flex align-items-center">
+
+        <div id="card" class="border border-white col-6 my-3 mx-3 rounded d-flex align-items-center">
           <div class="card-body p-3">
             <h2 id="title" class="card-title text-light text-center mb-4"></h2>
             <hr>
@@ -56,7 +57,7 @@
                 <p id="production_companies" class="card-text text-light">제작사 |</p>
               </div>
             </div>
-            <a class="offset-10 btn btn-dark my-3" href="{% url 'movies:index' %}">back</a>
+            <a class="offset-10 btn btn-dark my-3" href="{% url 'movies:index' %}">뒤로가기</a>
           </div>
         </div>
       </div>

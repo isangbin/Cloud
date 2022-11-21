@@ -188,14 +188,14 @@
             <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
             <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:update' %}">회원 수정</a></li>
             {% comment %} <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li> {% endcomment %}
-            <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:delete' %}" method="POST">
-              {% csrf_token %}
-              <button id="delete" type="submit" class="btn btn-danger">회원탈퇴</button>
-            </form>
-            <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:logout' %}" method="POST">
-              {% csrf_token %}
-              <input class="btn btn-warning" type="submit" value="Logout">
-            </form>
+              <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:delete' %}" method="POST">
+                {% csrf_token %}
+                <button id="delete" type="submit" class="btn btn-danger opacity-75">회원탈퇴</button>
+              </form>
+              <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <input class="btn btn-warning btn-block opacity-75" type="submit" value="로그아웃">
+              </form>
           {% else %}
             <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:login' %}">로그인</a></li>
             <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:signup' %}">회원 가입</a></li>

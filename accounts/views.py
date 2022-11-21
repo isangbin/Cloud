@@ -77,7 +77,7 @@ def update(request):
         if form.is_valid():
             form.save()
             p_form.save()
-            return redirect('movies:index')
+            return redirect('accounts:profile', request.user.username)
     else:
         form = CustomUserChangeForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
