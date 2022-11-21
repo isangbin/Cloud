@@ -7,8 +7,10 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
 from movies.models import Movie
+from .models import User
 
 import operator
 
@@ -128,4 +130,26 @@ def follow(request, user_pk):
             else:
                 person.followers.add(request.user)
         return redirect('accounts:profile', person.username)
+    return redirect('accounts:login')
+
+
+@require_POST
+def modeselect(request, user_pk):
+    if request.user.is_authenticated:
+        user = User.objects.get(pk=user_pk)
+        if len(request.POST.getlist('modeselect')) == 0:
+            user.modeselect = False
+        else:
+            user.modeselect = True
+        # if user.modeselect == False:
+        #     user.modeselect == True
+        #     modeselect = True
+        # else:
+        #     user.modeselect == False
+        #     modeselect = False
+        context = {
+            # 'mode': user.modeselect,
+            'modeselect': user.modeselect,
+        }
+        return JsonResponse(context)
     return redirect('accounts:login')

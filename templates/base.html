@@ -17,7 +17,7 @@
       font-weight: 400;
       font-style: normal;
     }
-    body {
+    #lightmode {
       {% comment %} background-color: #b6dbdb; {% endcomment %}
 
       {% comment %} background: #eae5da; {% endcomment %}
@@ -41,6 +41,10 @@
       {% comment %} margin: 0; {% endcomment %}
       {% comment %} margin-top: 2rem; {% endcomment %}
       {% comment %} color: white; {% endcomment %}
+    }
+    #darkmode {
+      background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1));
+      background-attachment: fixed;
     }
 
     {% comment %} html {
@@ -105,6 +109,7 @@
 
 {% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
+
 <body>
   <nav class="mx-3 navbar navbar-expand-lg fixed-top ">
     <div class="container-fluid">
@@ -136,6 +141,12 @@
         </div> {% endcomment %}
 
         <button id="search_btn"class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+
+      <form id="modeselect-form" data-user-id="{{ user.pk }}">
+        {% csrf_token %}
+        
+          <button id="modeselect-{{ user.pk }}" class="btn btn-outline-primary">Mode</button>
       </form>
 
       <div class="dropdown mx-5">
@@ -199,6 +210,47 @@
         event.preventDefault()
       }
     })
+
+    const modeBtn = document.querySelector('#modeBtn')
+    const modeForm = document.querySelector('#modeselect-form')
+    const bodyTag = document.querySelector('body')
+    const csrftoken1 = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    
+    modeForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+      const userId = event.target.dataset.userId
+
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/accounts/${userId}/modeselect/`,
+        headers: {'X-CSRFToken': csrftoken1},
+      })
+      .then((response) => {
+        const modeselect = response.modeselect
+        if (modeselect === false) {
+          bodyTag.setAttribute('id', 'lightmode')
+          console.log(modeselect)
+        } else {
+          bodyTag.setAttribute('id', 'darkmode')
+          console.log(userId)
+          console.log(response)
+        }
+      })
+      .catch((error) => {
+        console.log(error.response)
+      })
+    })
+    
+
+    
+    {% comment %} modeBtn.addEventListener('click', function() {
+      if (bodyTag.getAttribute('id') === 'lightmode') {
+        bodyTag.setAttribute('id', 'darkmode')
+      } else {
+        bodyTag.setAttribute('id', 'lightmode')
+      }
+    }) {% endcomment %}
   </script>
   {% block script %}
   {% endblock script %}
