@@ -21,12 +21,12 @@
 {% block content %}
 <br>
 <div class="my-5 container">
-  <h2 class="pt-3 text-light text-center">{{ person.username }}님의 프로필</h2>
-  <div class="row justify-content-center align-items-center my-5 pb-3 text-light">
+  <h2 class="pt-3 text-center">{{ person.username }}님의 프로필</h2>
+  <div class="row justify-content-center align-items-center my-5 pb-3">
     <div class="col-4 my-3 d-flex justify-content-center">
       <div class="row justify-content-center img">
         <img src="{{ person.profile.image.url }}" alt="">  
-        <a id="btn" class="col-3 btn btn-secondary btn-sm my-3 text-light opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
+        <a id="btn" class="col-3 btn btn-secondary btn-sm my-3 opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
       </div>
     </div>
     {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
@@ -68,7 +68,7 @@
 </div>
 
 <div class="container">
-  <h1 class="text-light text-center">좋아하는 영화</h1>
+  <h1 class="text-center">좋아하는 영화</h1>
   <div class="row justify-content-center">
     {% for pickedmovie in pickedmovies %}
       <div class="col-2 m_container align-items-center py-3 mx-2">
@@ -80,7 +80,19 @@
   </div>
 </div>
 
-{% comment %} <h1 class="text-light">좋아요 누른 영화(가제)</h1>
+<div class="container">
+  <h1 class="text-center">영화 짝꿍</h1>
+  <div class="row justify-content-center">
+      <div class="col-2 m_container align-items-center py-3 mx-2">
+        <div class="container">
+          {% csrf_token %}
+          <button id="partner">짝꿍 찾기</button>
+          <h1>{{ partners }}</h1>
+        </div>
+      </div>
+  </div>
+</div>
+{% comment %} <h1 class=">좋아요 누른 영화(가제)</h1>
 <div id="tab">
   <ul>
     {% for pickedmovie in pickedmovies %}
@@ -97,6 +109,7 @@
 {% for article in person.article_set.all %}
   <div>{{ article.title }}</div>
 {% endfor %} {% endcomment %}
+
 <div class="container">
   <h1 class="text-light text-center">유저 목록</h1>
   <div class="row justify-content-center">
@@ -126,4 +139,5 @@
       matchTag.setAttribute('style', 'display: block')
     })
   </script>
-  {% endblock script %}
+{% endblock script %}
+{% endblock content %}

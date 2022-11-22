@@ -108,6 +108,7 @@ def change_password(request):
 def profile(request, username):
     # movies = Movie.objects.all()
     User = get_user_model()
+    partners = User.objects.all()
     person = User.objects.get(username=username)
     pickedmovies = person.like_movies.all()
 
@@ -178,16 +179,7 @@ def match(request, user_pk):
 
 
 @require_POST
-def part_list(request, user_pk):
-    if request.user.is_authenticated:
-        users = User.obejcts.all()
-        context = {
-            'users': users
-        }
-        return r
 
-
-@require_POST
 def follow(request, user_pk):
     if request.user.is_authenticated:
         User = get_user_model()
