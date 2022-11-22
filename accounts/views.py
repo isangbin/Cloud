@@ -108,13 +108,13 @@ def change_password(request):
 def profile(request, username):
     # movies = Movie.objects.all()
     User = get_user_model()
-    partners = User.objects.all()
     person = User.objects.get(username=username)
     pickedmovies = person.like_movies.all()
 
     users = User.objects.all()
     me = request.user
     matchings = []
+
     for user in users:
         if me.favorite == user.favorite:
             matchings.append(user)
@@ -168,26 +168,22 @@ def modeselect(request, user_pk):
 
 
 @require_POST
-def match(request, user_pk):
+def love(request, user_pk):
     if request.user.is_authenticated:
         User = get_user_model()
-
-        context = {
-            
-        }
-        return render(request, 'accounts/match.html')
-
-
-@require_POST
-
-def follow(request, user_pk):
-    if request.user.is_authenticated:
-        User = get_user_model()
-        person = User.objects.get(pk=user_pk)
-        if person != request.user:
-            if person.followers.filter(pk=request.user.pk).exists():
-                person.followers.remove(request.user)
+        me = request.user
+        you = User.objects.get(pk=user_pk)
+        print('다녀갑니다')
+        if me != you:
+            if you.lovers.filter(pk=me.pk).exists():
+                you.lovers.remove(me)
+                is_loved = False
             else:
-                person.followers.add(request.user)
-        return redirect('accounts:profile', person.username)
+                you.lovers.add(me)
+                is_loved = True
+            context = {
+                'is_loved': is_loved,
+            }
+            return JsonResponse(context)
+        return redirect('accounts:profile', me.username)
     return redirect('accounts:login')
