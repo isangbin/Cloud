@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'community',
     'bootstrap5',
+    'django_extensions',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -16,7 +16,7 @@ class Movie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     poster_path = models.TextField()
     overview = models.TextField()
-    released_date = models.DateTimeField()
+    released_date = models.DateTimeField(auto_now=False)
     movie_id = models.IntegerField()
     title = models.CharField(max_length=100)
     popularity = models.IntegerField()
