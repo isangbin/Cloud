@@ -83,19 +83,6 @@
     {% endfor %}
   </div>
 </div>
-
-<div class="container">
-  <h1 class="text-center">영화 짝꿍</h1>
-  <div class="row justify-content-center">
-      <div class="col-2 m_container align-items-center py-3 mx-2">
-        <div class="container">
-          {% csrf_token %}
-          <button id="partner">짝꿍 찾기</button>
-          <h1>{{ partners }}</h1>
-        </div>
-      </div>
-  </div>
-</div>
 {% comment %} <h1 class=">좋아요 누른 영화(가제)</h1>
 <div id="tab">
   <ul>
@@ -115,17 +102,64 @@
 {% endfor %} {% endcomment %}
 
 <div class="container">
-  <h1 class="text-light text-center">유저 목록</h1>
+  <h1 class="text-center">유저 목록</h1>
   <div class="row justify-content-center">
     <div class="container">
+      <div class="row">
+        {% for asked in person.lovers.all %}
+        <div class="col">
+          {% if request.user == person %}
+            <div>
+              {{ asked.username }} 님으로 부터 영화 신청이 왔습니다. 수락하시겠습니까?
+            </div>
+            <div>
+              수락
+            </div>
+            <div>
+              거절
+            </div>
+            <div>
+              프로필 가기
+            </div>
+            
+            {% comment %} {{ person.lovers.all }} {% endcomment %}
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="container">
       <button id="matchBtn">영화 파트너 찾기</button>
-      <div class="col-2 m_container align-items-center py-3 mx-2">
+      <div class="m_container align-items-center py-3 mx-2">
         <div id="match" class="container " style="display: none;">
-          {% for matching in matchings %}
-            {% if matching != request.user %}
-              <p>{{ matching.username }}</p>
-            {% endif %}
-          {% endfor %}
+          <div class="container">
+            <div class="row">
+              {% for matching in matchings %}
+                {% if matching != request.user %}
+                  <div class="col-6 my-3">
+                    <div class="card" style="width: 18rem;">
+                      <img src="{{ matching.profile.image.url }}" class="card-img-top" alt="...">
+                      <div class="card-body row justify-content-center">
+                        <p class="text-center">{{ matching.username }}</p>
+                        <p class="card-text">{{ matching.favorite }}자기 소개(이것저것) 내용 넣으면 좋을듯</p>
+                        <div>
+                          {% comment %} <form action="{% url 'accounts:love' person.pk %}" method="POST"> {% endcomment %}
+                          <form id="love-forms" data-user-id="{{ matching.pk }}">
+                            {% csrf_token %}
+                            {% if request.user in matching.lovers.all %}
+                              <input id="love-{{ matching.pk }}" type="submit" value="수락 대기중">
+                            {% else %}
+                              <input id="love-{{ matching.pk }}" type="submit" value="영화 신청 하기">
+                            {% endif %}
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -134,6 +168,48 @@
 {% endblock content %}
 
 {% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const matchBtn = document.querySelector('#matchBtn')
+    const matchTag = document.querySelector('#match')
+
+    matchBtn.addEventListener('click', function () {
+      matchTag.setAttribute('style', 'display: block')
+    })
+
+    const forms = document.querySelectorAll('#love-forms')
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+
+    forms.forEach((form) => {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        const userId = event.target.dataset.userId
+
+        axios({
+          method: 'post',
+          url: `/accounts/${userId}/love/`,
+          headers: {'X-CSRFToken': csrftoken,},
+        })
+        .then((response) => {
+          const isLoved = response.data.is_loved
+          const loveBtn = document.querySelector(`#love-${ userId }`)
+          if (isLoved === true) {
+            loveBtn.value = '수락 대기중'
+          } else {
+            loveBtn.value = '영화 신청 하기'
+          }
+          console.log(isLoved)
+        })
+        .catch((error) => {
+          console.log(error.response)
+        })
+      })
+    })
+  </script>
+{% endblock script %}
+
+ {% comment %}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   const matchBtn = document.querySelector('#matchBtn')
@@ -144,4 +220,4 @@
   })
 </script>
 {% endblock script %}
-
+{% endcomment %}
