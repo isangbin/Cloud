@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block style %}
-  body{
+  body {
     margin-top:3rem;
   }
   #review {
     background-color: rgba(256, 256, 256, 0.2);
   }
-  
+  a {
+    text-decoration-line: none;
+  }
  
   {% comment %} .g-height-50 {
     height: 50px;
@@ -58,8 +60,10 @@
         <div class="media my-2">
           <div id="review" class="media-body p-4 rounded text-light">
             <div class="row d-flex">
-              <h6 class="col-4 text-light m-0">{{ review.user }}</h6>
-              <h6 class="offset-3 col-5 text-end m-0">{{ review.created_at }}</h6>
+              <a class="col-4 m-0" href="{% url 'accounts:profile' review.user.username %}">
+                <h6 class="text-light m-0">{{ review.user }}</h6>
+              </a>
+              <h6 class="col-8 text-end m-0">{{ review.created_at }}</h6>
             </div>
             <hr>
             <h4 class="mx-3"><{{ review.movie_title }}> : {{ review.title }}</h3>

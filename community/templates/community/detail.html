@@ -23,7 +23,11 @@
   #review {
     background-color: rgba(256, 256, 256, 0.2);
   }
-
+a {
+  text-decoration-line: none;
+  color: black;
+  font-weight: 900;
+}
 {% endblock style %}
 {% block content %}
   <h1 class="pt-3 text-light text-center">DETAIL</h1>
@@ -33,14 +37,16 @@
       <div class="col-10">
         <div class="my-2">
           <div id="review" class="p-4 rounded text-light">
+            
+            <h4><a href="{% url 'accounts:profile' review.user.username %}">{{ review.user }}</a>님의 게시글</h4>
             <div class="row d-flex p-3">
-                <h2 class="col-7">{{ review.movie_title }} : {{ review.title }}</h2>
-                <div class="col-5">
-                  <p class="text-end m-0">작성 : {{ review.created_at }}</p>
-                  <p class="text-end m-0">수정 : {{ review.updated_at }}</p>
-                </div>
-                <hr>
-                <p class="text-light m-0">{{ review.content }}</p>
+              <h2 class="col-7">{{ review.movie_title }} : {{ review.title }}</h2>
+              <div class="col-5">
+                <p class="text-end m-0">작성 : {{ review.created_at }}</p>
+                <p class="text-end m-0">수정 : {{ review.updated_at }}</p>
+              </div>
+              <hr>
+              <p class="text-light m-0">{{ review.content }}</p>
             </div>
             {% comment %} <p>평점 : {{ review.rank }}</p> {% endcomment %}
 
