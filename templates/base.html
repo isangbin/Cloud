@@ -22,6 +22,7 @@
       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
       font-weight: bold;
       font-style: normal;
+      {% comment %} color: blue; {% endcomment %}
     }
     @font-face {
       font-family: 'twayair';
@@ -46,6 +47,7 @@
       background-image: linear-gradient(to top, rgba(240, 244, 247, 1), rgba(129, 185, 227, 1));
       background-attachment: fixed;
       align-items: center;
+      color: #1f458f;
       justify-content: center;
       {% comment %} font-family: 'Pretendard-Regular'; {% endcomment %}
       font-family: 'S-CoreDream-3Light';
@@ -61,6 +63,7 @@
     }
     .dark-mode {
       background-image: linear-gradient(to top, rgba(128, 133, 138, 1) , rgba(8, 11, 15, 1));
+      color: white;
     }
 
     {% comment %} #lightmode {
@@ -143,7 +146,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
 
 <body>
-  <nav class="mx-3 navbar navbar-expand-lg fixed-top ">
+  <nav class="mx-3 navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
       <a class="m-2 navbar-brand" href="{% url 'movies:index' %}">
         <img id="logo" src="/media/cloudie_white.png" alt="" width="100" height="60">
@@ -153,10 +156,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="text-light nav-link active" aria-current="page" href="{% url 'movies:index' %}">Home</a>
-          <a class="text-light nav-link" href="{% url 'community:index' %}">Community</a>
-          <a class="text-light nav-link" href="{% url 'movies:select' %}">Select</a>
-          <a class="text-light nav-link" href="{% url 'accounts:match' %}" >Match</a>
+          <a class="nav-link active text-light" aria-current="page" href="{% url 'movies:index' %}">Home</a>
+          <a class="nav-link text-light" href="{% url 'community:index' %}">Community</a>
+          <a class="nav-link text-light" href="{% url 'movies:select' %}">Select</a>
+          <a class="nav-link text-light" href="{% url 'accounts:match' %}" >Match</a>
           {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
@@ -173,7 +176,7 @@
         {% comment %} <div class="col" style="margin-top: 10px;">
         </div> {% endcomment %}
 
-        <button class="btn border border-secondary text-light" type="submit">Search</button>
+        <button class="col-2 btn bg-light" type="submit">검색</button>
       </form>
 
       {% comment %} <form id="modeselect-form" data-user-id="{{ user.pk }}">
@@ -181,16 +184,16 @@
         <button id="modeselect-{{ user.pk }}" class="btn btn-outline-primary">Mode</button>
       </form> {% endcomment %}
         
-      <button id="modeselect" class="btn border border-secondary text-light">다크모드 활성화</button>
+      <button id="modeselect" class="btn border border-light opacity-100 text-light">다크모드 활성화</button>
 
-      <div class="dropdown mx-5">
-        <button class="btn border border-secondary text-light dropdown-toggle my-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown mx-2">
+        <button class="btn border border-light opacity-100 dropdown-toggle my-3 text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           ACCOUNT
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
           {% if request.user.is_authenticated %}
-            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
-            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:update' %}">회원 수정</a></li>
+            <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
+            <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:update' %}">회원 수정</a></li>
             {% comment %} <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li> {% endcomment %}
               <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:delete' %}" method="POST">
                 {% csrf_token %}
@@ -201,8 +204,8 @@
                 <input class="btn btn-warning btn-block opacity-75" type="submit" value="로그아웃">
               </form>
           {% else %}
-            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:login' %}">로그인</a></li>
-            <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:signup' %}">회원 가입</a></li>
+            <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:login' %}">로그인</a></li>
+            <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:signup' %}">회원 가입</a></li>
           {% endif %}
         </ul>
       </div>
@@ -348,6 +351,37 @@
       } else {
         bodyTag.setAttribute('id', 'lightmode')
       }
+    }) {% endcomment %}
+
+    {% comment %} forms.forEach((form) => {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        const movieId = event.target.dataset.movieId
+
+        axios({
+          method: 'post',
+          url: `/movies/${movieId}/likes/`,
+          headers: {'X-CSRFToken': csrftoken,},
+        })
+          .then((response) => {
+          const isLiked = response.data.is_liked
+          const likeBtn = document.querySelector(`#like-${movieId}`)
+          const imgTag = document.querySelector(`#img-${movieId}`)
+
+          if (isLiked === true) {
+            likeBtn.value = '좋아요 취소'
+            likeBtn.setAttribute('class', 'btn btn-dark')
+            imgTag.setAttribute('class', 'transparent image img-fluid rounded m-auto')
+          } else {
+            likeBtn.value ='좋아요'
+            likeBtn.setAttribute('class', 'btn btn-light')
+            imgTag.setAttribute('class', 'image img-fluid rounded m-auto')
+          }
+          })
+          .catch((error) => {
+            console.log(error.response)
+          })
+      })
     }) {% endcomment %}
   </script>
   {% block script %}

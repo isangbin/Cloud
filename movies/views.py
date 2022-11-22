@@ -24,6 +24,9 @@ def index(request):
         
         max_genre = max(genre_ids.items(), key=operator.itemgetter(1))[0]
 
+        user.favorite = max_genre
+        user.save()
+
         # recommends = Movie.objects.filter(genres__contains=max_genre)
         recommends = []
 
