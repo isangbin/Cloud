@@ -173,7 +173,6 @@ def love(request, user_pk):
         User = get_user_model()
         me = request.user
         you = User.objects.get(pk=user_pk)
-        print('다녀갑니다')
         if me != you:
             if you.lovers.filter(pk=me.pk).exists():
                 you.lovers.remove(me)
@@ -186,4 +185,25 @@ def love(request, user_pk):
             }
             return JsonResponse(context)
         return redirect('accounts:profile', me.username)
+    return redirect('accounts:login')
+
+
+@require_POST
+def refuse(request, user_pk):
+    if request.user.is_authenticated:
+        User = get_user_model()
+        me = request.user
+        you = User.objects.get(pk=user_pk)
+        if you != me:
+            if me.lovers.filter(pk=you.pk).exists():
+                me.lovers.remove(you)
+                is_loved = False
+            else:
+                me.lovers.add(you)
+                is_loved = True
+            context = {
+                'is_loved': is_loved,
+            }
+            return JsonResponse(context)
+        return redirect('accounts:profile', you.username)
     return redirect('accounts:login')

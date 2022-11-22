@@ -30,19 +30,19 @@
           <div class="col-12 col-md-9 col-lg-7 col-xl-6">
             <div class="card" style="border-radius: 15px;">
               <div class="card-body p-5">
-                <h2 class="fw-bold text-uppercase text-center mb-5">Log in</h2>
+                <h2 class="fw-bold text-uppercase text-center mb-5">로그인</h2>
                 <form action="{% url 'accounts:login' %}" method="POST">
                   
                   {% csrf_token %}
                   {% bootstrap_form form %}
                   {% comment %} <button type="submit" class="btn btn-primary justify-content-center">가입</button> {% endcomment %}
                   <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom text-uppercase">Login</button>
+                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom text-uppercase">제출</button>
                     {% comment %} <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase">Register</button> {% endcomment %}
                   </div>
                   
-                  <p class="text-center text-muted mt-5 mb-0">First time here? <a href="{% url 'accounts:signup' %}"
-                    class="fw-bold text-body"><u>Signup here</u></a></p>
+                  <p class="text-center text-muted mt-5 mb-0">아직 계정이 없으신가요? <a href="{% url 'accounts:signup' %}"
+                    class="fw-bold text-body"><u>가입하기</u></a></p>
                   
                 </form>
               </div>
