@@ -100,66 +100,63 @@
 {% for article in person.article_set.all %}
   <div>{{ article.title }}</div>
 {% endfor %} {% endcomment %}
-
-<div class="container">
-  <h1 class="text-center">유저 목록</h1>
-  <div class="row justify-content-center">
-    <div class="container">
-      <div class="row">
-        {% for asked in person.lovers.all %}
-        <div class="col">
-          {% if request.user == person %}
-            <div>
-              {{ asked.username }} 님으로 부터 영화 신청이 왔습니다. 수락하시겠습니까?
-            </div>
-            <div>
-              수락
-            </div>
-            <div>
-              거절
-            </div>
-            <div>
-              프로필 가기
-            </div>
-            
-            {% comment %} {{ person.lovers.all }} {% endcomment %}
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
+<hr>
+<div class="container my-5">
+  <h1 class="text-center my-3">영화 친구 신청</h1>
+  {% for asked in person.lovers.all %}
+  <div class="row justify-content-center my-3 bg-dark rounded p-2">
+    {% if request.user == person %}
+    <div class="col-5 d-flex align-items-center">
+      {{ asked.username }} 님으로 부터 영화 신청이 왔습니다. 수락하시겠습니까?
     </div>
-    <div class="container">
-      <button id="matchBtn">영화 파트너 찾기</button>
-      <div class="m_container align-items-center py-3 mx-2">
-        <div id="match" class="container " style="display: none;">
-          <div class="container">
-            <div class="row">
-              {% for matching in matchings %}
-                {% if matching != request.user %}
-                  <div class="col-6 my-3">
-                    <div class="card" style="width: 18rem;">
-                      <img src="{{ matching.profile.image.url }}" class="card-img-top" alt="...">
-                      <div class="card-body row justify-content-center">
-                        <p class="text-center">{{ matching.username }}</p>
-                        <p class="card-text">{{ matching.favorite }}자기 소개(이것저것) 내용 넣으면 좋을듯</p>
-                        <div>
-                          {% comment %} <form action="{% url 'accounts:love' person.pk %}" method="POST"> {% endcomment %}
-                          <form id="love-forms" data-user-id="{{ matching.pk }}">
-                            {% csrf_token %}
-                            {% if request.user in matching.lovers.all %}
-                              <input id="love-{{ matching.pk }}" type="submit" value="수락 대기중">
-                            {% else %}
-                              <input id="love-{{ matching.pk }}" type="submit" value="영화 신청 하기">
-                            {% endif %}
-                          </form>
-                        </div>
-                      </div>
+    <div class="col-1 mx-0 px-0">
+      <a class="btn bg-light" href="{% url 'accounts:profile' asked.username %}">프로필 방문</a>
+    </div>
+    <form id="ask-forms" class="col-2" data-main-id="{{ person.pk }}">
+      {% if request.user in asked.lovers.all %}
+        <input id="approve-{{ asked.pk }}" class="btn bg-light" type="submit" value="수락됨(상대 프로필 가기 연결)">
+      {% else %}
+        <input id="approve" class="btn bg-light" data-user-id="{{ asked.pk }}" type="submit" value="수락">
+        <input id="refuse"  class="btn bg-light" data-user-id="{{ asked.pk }}" type="submit" value="거절">
+      {% endif %}
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+<hr>
+<div class="container my-5">
+  {% comment %} <button id="matchBtn">영화 파트너 찾기</button> {% endcomment %}
+  <h1 class="text-center my-3">영화 파트너 찾기</h1>
+  <div class="m_container align-items-center py-3 mx-2">
+    {% comment %} <div id="match" class="container " style="display: none;"> {% endcomment %}
+    <div id="match" class="container ">
+      <div class="container">
+        <div class="row">
+          {% for matching in matchings %}
+            {% if matching != request.user %}
+              <div class="col-4 my-3 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                  <img src="{{ matching.profile.image.url }}" class="card-img-top" alt="...">
+                  <div class="card-body row justify-content-center">
+                    <p class="text-center">{{ matching.username }}</p>
+                    <p class="card-text">{{ matching.favorite }}자기 소개(이것저것) 내용 넣으면 좋을듯</p>
+                    <div>
+                      {% comment %} <form action="{% url 'accounts:love' person.pk %}" method="POST"> {% endcomment %}
+                      <form id="love-forms" data-user-id="{{ matching.pk }}" class="d-flex justify-content-center">
+                        {% csrf_token %}
+                        {% if request.user in matching.lovers.all %}
+                          <input id="love-{{ matching.pk }}" class="btn bg-light" type="submit" value="수락 대기중">
+                        {% else %}
+                          <input id="love-{{ matching.pk }}" class="btn bg-light" value="영화 신청 하기">
+                        {% endif %}
+                      </form>
                     </div>
                   </div>
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -173,18 +170,53 @@
     const matchBtn = document.querySelector('#matchBtn')
     const matchTag = document.querySelector('#match')
 
-    matchBtn.addEventListener('click', function () {
+    {% comment %} matchBtn.addEventListener('click', function () {
       matchTag.setAttribute('style', 'display: block')
+    }) {% endcomment %}
+
+    const approves = document.querySelectorAll('#approve')
+    const refuses = document.querySelectorAll('#refuse')
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    approves.forEach((approve) => {
+      approve.addEventListener('click', function (event) {
+        event.preventDefault()
+        const userId = event.target.dataset.userId
+
+        axios({
+          method: 'post',
+          url: `/accounts/${userId}/love/`,
+          headers: {'X-CSRFToken': csrftoken,},
+        })
+        .then((response) => {
+          approve.value = '수락됨'
+        })
+      })
+    })
+
+    refuses.forEach((refuse) => {
+      refuse.addEventListener('click', function (event) {
+        event.preventDefault()
+        const userId = event.target.dataset.userId
+
+        axios({
+          method: 'post',
+          url: `/accounts/${userId}/refuse/`,
+          headers: {'X-CSRFToken': csrftoken,},
+        })
+        .then((response) => {
+          refuse.value = '거절됨'
+        })
+      })
     })
 
     const forms = document.querySelectorAll('#love-forms')
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
-
-
+    
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {
         event.preventDefault()
         const userId = event.target.dataset.userId
+        const mainId = event.target.dataset.mainId
 
         axios({
           method: 'post',
@@ -206,6 +238,54 @@
         })
       })
     })
+
+    {% comment %} const askForms = document.querySelectorAll('#ask-forms')
+
+    askForms.forEach((form) => {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        const userId = event.target.dataset.userId
+
+        axios({
+          method: 'post',
+          url: `/accounts/${userId}/love/`,
+          headers: {'X-CSRFToken': csrftoken,},
+        })
+        .then((response) => {
+          const isLoved = response.data.is_loved
+          const approveBtn = document.querySelector(`#approve-${ userId }`)
+          approveBtn.value = '수락됨'
+
+          console.log(isLoved)
+        })
+        .catch((error) => {
+          console.log(error.response)
+        })
+      })
+    })
+
+    askForms.forEach((form) => {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        const mainId = event.target.dataset.mainId
+
+        axios({
+          method: 'post',
+          url: `/accounts/${mainId}/love/`,
+          headers: {'X-CSRFToken': csrftoken,},
+        })
+        .then((response) => {
+          const isLoved = response.data.is_loved
+          const approveBtn = document.querySelector(`#refuse-${ userId }`)
+          approveBtn.value = '거절됨'
+
+          console.log(isLoved)
+        })
+        .catch((error) => {
+          console.log(error.response)
+        })
+      })
+    }) {% endcomment %}
   </script>
 {% endblock script %}
 
