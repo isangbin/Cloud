@@ -36,6 +36,8 @@ def index(request):
                     recommends.append(movie)
                     break
         
+        recommends = random.sample(recommends, 12)
+        
         randommovies = list(movies)
         randommovies = random.sample(randommovies, 12)
 
@@ -68,7 +70,7 @@ def detail(request, movie_pk):
 
 @login_required
 def select(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.all().order_by('-popularity')[:40]
     context = {
         'movies': movies,
     }
