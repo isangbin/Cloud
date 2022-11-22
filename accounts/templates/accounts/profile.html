@@ -134,14 +134,14 @@
 {% endblock content %}
 
 {% block script %}
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    const matchBtn = document.querySelector('#matchBtn')
-    const matchTag = document.querySelector('#match')
-
-    matchBtn.addEventListener('click', function () {
-      matchTag.setAttribute('style', 'display: block')
-    })
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const matchBtn = document.querySelector('#matchBtn')
+  const matchTag = document.querySelector('#match')
+  
+  matchBtn.addEventListener('click', function () {
+    matchTag.setAttribute('style', 'display: block')
+  })
+</script>
 {% endblock script %}
-{% endblock content %}
+

@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-import operator
+import operator, random
 # import requests
 # import json
 
@@ -36,6 +36,8 @@ def index(request):
                     recommends.append(movie)
                     break
         
+        randommovies = list(movies)
+        randommovies = random.sample(randommovies, 12)
 
         context = {
             'movies': movies,
@@ -43,6 +45,7 @@ def index(request):
             'genre_ids': genre_ids,
             'max_genre': max_genre,
             'recommends': recommends,
+            'randommovies': randommovies,
         }
         return render(request, 'movies/index.html', context)
     return redirect('accounts:login')

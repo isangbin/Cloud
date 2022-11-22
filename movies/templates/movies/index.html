@@ -123,13 +123,13 @@
     </div> 
     <hr>
 
-    <h1>모든 영화</h1>
+    <h1>랜덤 영화</h1>
     <div id="tab">
       <ul>
-        {% for movie in movies %}    
+        {% for randommovie in randommovies %}    
           <li>
-            <a href="{% url 'movies:detail' movie.pk %}">
-              <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
+            <a href="{% url 'movies:detail' randommovie.pk %}">
+              <img src="https://image.tmdb.org/t/p/w200{{ randommovie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
             </a>
           </li>
         {% endfor %}
