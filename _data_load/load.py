@@ -3,7 +3,7 @@ import json
 
 def get_movie():
     total_data = []
-    for i in range(1, 51):
+    for i in range(1, 501):
         url = f"https://api.themoviedb.org/3/movie/popular?api_key=e67fd4cae34071117f73a8090324311b&language=ko-KR&page={i}"
         movies = requests.get(url).json()
 
