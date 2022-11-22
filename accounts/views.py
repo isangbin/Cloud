@@ -168,18 +168,6 @@ def modeselect(request, user_pk):
 
 
 @require_POST
-def match(request, user_pk):
-    if request.user.is_authenticated:
-        User = get_user_model()
-
-        context = {
-            
-        }
-        return render(request, 'accounts/match.html')
-
-
-@require_POST
-
 def follow(request, user_pk):
     if request.user.is_authenticated:
         User = get_user_model()
