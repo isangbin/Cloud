@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block style %}
-  body{
+  body {
     margin-top:3rem;
   }
   #review {
     background-color: rgba(256, 256, 256, 0.2);
   }
-  
+  a {
+    text-decoration-line: none;
+  }
  
   {% comment %} .g-height-50 {
     height: 50px;
@@ -58,32 +60,37 @@
         <div class="media my-2">
           <div id="review" class="media-body p-4 rounded">
             <div class="row d-flex">
-              <h6 class="col-4 m-0">{{ review.user }}</h6>
+              <a class="col-4 m-0" href="{% url 'accounts:profile' review.user.username %}">
+                <h6 class="m-0">{{ review.user }}</h6>
+              </a>
               <h6 class="col-8 text-end m-0">{{ review.created_at }}</h6>
             </div>
             <hr>
-            <h4 class="mx-3"><{{ review.movie_title }}> : {{ review.title }}</h3>
+            <h4 class="mx-3">[ {{ review.movie_title }} ] : {{ review.title }}</h3>
             <hr class="">
-            <ul class="list-inline">
-              <li class="list-inline-item">
+            <ul class="row px-3 d-flex align-items-center justify-content-center">
+              {% comment %} <div class="col-1">
+                <p><span id="likes-count-{{ review.pk }}">{{ review.like_users.all|length }} likes</span></p>
+              </div> {% endcomment %}
+              <div class="col-3 px-0">
                 <form class="like-forms" data-review-id="{{ review.pk }}">
                   {% csrf_token %}
                   {% if user in review.like_users.all %}
-                    <button><i id="like-{{ review.pk }}" class="fa-solid fa-thumbs-up"></i></button>
+                    <button id="likeBtn-{{ review.pk }}" class="btn btn-dark opacity-75 text-light border border-light">
+                      <i id="like-{{ review.pk }}" class="fa-solid fa-thumbs-up"></i> <span id="likes-count-{{ review.pk }}">{{ review.like_users.all|length }} likes</span>
+                    </button>
                   {% else %}
-                    <button><i id="like-{{ review.pk }}" class="fa-regular fa-thumbs-up"></i></button>
+                    <button id="likeBtn-{{ review.pk }}" class="btn btn-dark opacity-75 text-light border border-light">
+                      <i id="like-{{ review.pk }}" class="fa-regular fa-thumbs-up"></i> <span id="likes-count-{{ review.pk }}">{{ review.like_users.all|length }} likes</span>
+                    </button>
                   {% endif %}
                 </form>
-              </li>
-              <li class="list-inline-item">
-                <p><span id="likes-count-{{ review.pk }}">{{ review.like_users.all|length }}</span></p>
-              </li>
-              <li class="list-inline-item">
-                <a class=" " href="{% url 'community:detail' review.pk %}">
-                  <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3 opacity-50"></i>
-                  Detail
+              </div>
+              <div class="col-9 px-0 text-end">
+                <a class="btn btn-dark opacity-75 text-light border border-light" href="{% url 'community:detail' review.pk %}">
+                  Detail <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3 opacity-50"></i>
                 </a>
-              </li>
+              </div>
             </ul>
           </div>
         </div>
@@ -130,6 +137,7 @@
         .then((response) => {
           const isLiked = response.data.is_liked
           const likeiTag = document.querySelector(`#like-${reviewId}`)
+          const likeBtn = document.querySelector(`#likeBtn-${reviewId}`)
 
           if (isLiked === true) {
             likeiTag.setAttribute('class', 'fa-solid fa-thumbs-up fa-border-0')
@@ -139,7 +147,7 @@
 
           const likesCountTag = document.querySelector(`#likes-count-${reviewId}`)
           const likesCount = response.data.likes_count
-          likesCountTag.innerText = likesCount
+          likesCountTag.innerText = likesCount + ' likes'
         })
         .catch((error) => {
           console.log(error.response)

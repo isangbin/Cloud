@@ -25,8 +25,21 @@
   <div class="row justify-content-center align-items-center my-5 pb-3">
     <div class="col-4 my-3 d-flex justify-content-center">
       <div class="row justify-content-center img">
-        <img src="{{ person.profile.image.url }}" alt="">  
-        <a id="btn" class="col-3 btn btn-secondary btn-sm my-3 opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
+        <img src="{{ person.profile.image.url }}" alt="">
+        {% if request.user != person %}
+          <div>
+            <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+              {% csrf_token %}
+              {% if request.user in person.followers.all %}
+                <input class="offset-4 col-4 btn btn-secondary btn-sm my-3 text-light opacity-75" type="submit" value="Unfollow">
+              {% else %}
+                <input class="offset-4 col-4 btn btn-secondary btn-sm my-3 text-light opacity-75" type="submit" value="Follow">
+              {% endif %}
+            </form>
+          </div>
+        {% else %}
+          <a id="btn" class="col-3 btn btn-secondary btn-sm my-3 text-light opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
+        {% endif %}         
       </div>
     </div>
     {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
@@ -53,18 +66,7 @@
 
   </div>
   {% comment %} {{ person.profile.image.url }} {% endcomment %}
-  {% if request.user != person %}
-    <div>
-      <form action="{% url 'accounts:follow' person.pk %}" method="POST">
-        {% csrf_token %}
-        {% if request.user in person.followers.all %}
-          <input type="submit" value="Unfollow">
-        {% else %}
-          <input type="submit" value="Follow">
-        {% endif %}
-      </form>
-    </div>
-  {% endif %}
+  
 </div>
 
 <div class="container">
@@ -73,7 +75,9 @@
     {% for pickedmovie in pickedmovies %}
       <div class="col-2 m_container align-items-center py-3 mx-2">
         <div class="container">
-          <img src="https://image.tmdb.org/t/p/w500{{ pickedmovie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
+          <a href="{% url 'movies:detail' pickedmovie.movie_id %}">  
+            <img src="https://image.tmdb.org/t/p/w500{{ pickedmovie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
+          </a>
         </div>
       </div>
     {% endfor %}
@@ -204,3 +208,16 @@
     })
   </script>
 {% endblock script %}
+
+ {% comment %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const matchBtn = document.querySelector('#matchBtn')
+  const matchTag = document.querySelector('#match')
+  
+  matchBtn.addEventListener('click', function () {
+    matchTag.setAttribute('style', 'display: block')
+  })
+</script>
+{% endblock script %}
+{% endcomment %}

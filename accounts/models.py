@@ -8,6 +8,7 @@ class User(AbstractUser):
     lovings = models.ManyToManyField('self', symmetrical=False, related_name='lovers')
     favorite = models.IntegerField(null=True)
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='sample.png', upload_to='static')

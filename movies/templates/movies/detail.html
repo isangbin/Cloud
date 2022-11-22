@@ -57,7 +57,9 @@
                 <p id="production_companies" class="card-text text-light">제작사 |</p>
               </div>
             </div>
-            <a class="offset-10 btn btn-dark my-3" href="{% url 'movies:index' %}">뒤로가기</a>
+            <a class="offset-10 btn btn-dark my-3" href="{{request.META.HTTP_REFERER}}">뒤로가기</a>
+            {% comment %} <a href="javascript:history.go(-1)">Back</a> {% endcomment %}
+            {% comment %} <input type=button value="Previous Page" onClick="javascript:history.go(-1);"> {% endcomment %}
           </div>
         </div>
       </div>
