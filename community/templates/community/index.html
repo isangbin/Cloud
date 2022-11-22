@@ -46,20 +46,20 @@
 {% block content %}
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-<h1 class="my-3 text-center text-light">Community</h1>
+<h1 class="my-3 text-center">Community</h1>
 
 <div class="container">
   <div class="row d-flex justify-content-center">
     <div class="offset-8 col-4 d-flex justify-content-center">
-      <a class="btn btn-dark opacity-75 text-light border border-light" href="{% url 'community:create' %}">게시글 작성</a>
+      <a class="btn btn-dark opacity-75 border border-light" href="{% url 'community:create' %}">게시글 작성</a>
     </div>
     {% for review in reviews %}
       <div class="col-10">
         <div class="media my-2">
-          <div id="review" class="media-body p-4 rounded text-light">
+          <div id="review" class="media-body p-4 rounded">
             <div class="row d-flex">
-              <h6 class="col-4 text-light m-0">{{ review.user }}</h6>
-              <h6 class="offset-3 col-5 text-end m-0">{{ review.created_at }}</h6>
+              <h6 class="col-4 m-0">{{ review.user }}</h6>
+              <h6 class="col-8 text-end m-0">{{ review.created_at }}</h6>
             </div>
             <hr>
             <h4 class="mx-3"><{{ review.movie_title }}> : {{ review.title }}</h3>
@@ -80,7 +80,7 @@
               </li>
               <li class="list-inline-item">
                 <a class=" " href="{% url 'community:detail' review.pk %}">
-                  <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3 opacity-50 text-light"></i>
+                  <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3 opacity-50"></i>
                   Detail
                 </a>
               </li>
