@@ -112,10 +112,17 @@ def profile(request, username):
     person = User.objects.get(username=username)
     pickedmovies = person.like_movies.all()
 
+    users = User.objects.all()
+    me = request.user
+    matchings = []
+    for user in users:
+        if me.favorite == user.favorite:
+            matchings.append(user)
+
     context = {
         'person': person,
         'pickedmovies': pickedmovies,
-        'partners': partners,
+        'matchings': matchings,
     }
 
     return render(request, 'accounts/profile.html', context)
@@ -160,8 +167,11 @@ def modeselect(request, user_pk):
     return redirect('accounts:login')
 
 
-def match(request):
+@require_POST
+def match(request, user_pk):
     if request.user.is_authenticated:
+        User = get_user_model()
+
         context = {
             
         }
@@ -169,6 +179,7 @@ def match(request):
 
 
 @require_POST
+
 def follow(request, user_pk):
     if request.user.is_authenticated:
         User = get_user_model()
