@@ -18,13 +18,17 @@ def index(request):
         pickedmovies = user.like_movies.all()
 
         genre_ids = {28: 0, 12: 0, 16: 0, 35: 0, 80: 0, 99: 0, 18: 0, 10751: 0, 14: 0, 36: 0, 27: 0, 10402: 0, 9648: 0, 10749: 0, 878: 0, 10770: 0, 53: 0, 10752: 0, 37: 0}
+        
         for pickedmovie in pickedmovies:
             for genre in pickedmovie.genres.all():
                 genre_ids[genre.id] += 1
         
-        max_genre = max(genre_ids.items(), key=operator.itemgetter(1))[0]
+        max_genre = max(genre_ids, key=genre_ids.get)
 
-        user.favorite = max_genre
+        if pickedmovies:
+            user.favorite = max_genre
+        else:
+            user.favorite = 0
         user.save()
 
         # recommends = Movie.objects.filter(genres__contains=max_genre)
@@ -36,7 +40,10 @@ def index(request):
                     recommends.append(movie)
                     break
         
-        recommends = random.sample(recommends, 12)
+        if pickedmovies:
+            recommends = random.sample(recommends, 12)
+        else:
+            recommends = []
         
         randommovies = list(movies)
         randommovies = random.sample(randommovies, 12)

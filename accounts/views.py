@@ -115,7 +115,10 @@ def profile(request, username):
     me = request.user
     matchings = []
 
-    genre = Genre.objects.get(pk=person.favorite)
+    if person.favorite:
+        genre = Genre.objects.get(pk=person.favorite)
+    else:
+        genre = 0
 
     for user in users:
         if me.favorite == user.favorite:
