@@ -26,7 +26,12 @@ class CustomUserCreationForm(UserCreationForm):
         })
     )
 
-
+    phone_number = forms.CharField(
+        label="전화번호",
+        widget=forms.TextInput(attrs={
+            "placeholder": "ex) 010-1234-5678",
+        })
+    )
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()

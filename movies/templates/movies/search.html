@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-
+{% block style %}
+ img {
+   filter: drop-shadow(5px 5px 5px #000);
+}
+{% endblock style %}
 {% block content %}
   <h1 class="text-center text-light mt-5 my-5">'{{ searched }}' 검색 결과</h2>
     <div class="container">
@@ -10,15 +14,20 @@
           <div class="col-3 m_container align-items-center py-3">
           {% comment %} 이미지hover시  {% endcomment %}
             <div class="container">
-              {% if request.user in movie.like_users.all %}
-                <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="transparent image img-fluid rounded m-auto">
+              <a href="{% url 'movies:detail' movie.movie_id %}">
+                <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
+              </a>
+              {% comment %} {% if request.user in movie.like_users.all %}
+                <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
               {% else %}
                 <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="image img-fluid  rounded m-auto">
-              {% endif %}
+              {% endif %} {% endcomment %}
             </div>
           </div>
         {% endfor %}
       </div>
     </div>
-
+    {% comment %} <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
+      <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
+    </a> {% endcomment %}
 {% endblock content %}

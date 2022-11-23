@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 
-from movies.models import Movie
+from movies.models import Movie, Genre
 from .models import User
 
 import operator
@@ -115,6 +115,8 @@ def profile(request, username):
     me = request.user
     matchings = []
 
+    genre = Genre.objects.get(pk=person.favorite)
+
     for user in users:
         if me.favorite == user.favorite:
             matchings.append(user)
@@ -123,6 +125,7 @@ def profile(request, username):
         'person': person,
         'pickedmovies': pickedmovies,
         'matchings': matchings,
+        'genre': genre,
     }
 
     return render(request, 'accounts/profile.html', context)

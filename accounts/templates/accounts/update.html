@@ -14,35 +14,36 @@
   }
   body {
     padding-top: 0px;
+    margin-top: 3rem;
   }
   
 {% endblock style %}
 
 {% block content %}
-  <section class="vh-100 bg-image">
-    <div class="mask d-flex align-items-center h-100 ">
-      <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-            <div class="card" style="border-radius: 15px;">
-              <div class="card-body p-5">
-                <h2 class="fw-bold text-uppercase text-center mb-5">회원 수정</h2>
-                <form action="{% url 'accounts:update' %}" method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  {% bootstrap_form form %}
-                  {% bootstrap_form p_form %}
-                  <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom text-uppercase mx-3">변경</button>
-                    <a class="btn btn-success btn-block btn-lg gradient-custom text-uppercase mx-3" href="{% url 'accounts:profile' user.username %}">취소</a>
-                  </div>
-                  {% comment %} <p class="text-center text-muted mt-5 mb-0">Don't want it? <a href="{% url 'movies:index' %}"
-                    class="fw-bold text-body"><u>Back to home</u></a></p> {% endcomment %}
-                </form>
-              </div>
+  {% comment %} <section class="bg-image"> {% endcomment %}
+  <div class="mask ">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="fw-bold text-uppercase text-center mb-5">회원 수정</h2>
+              <form action="{% url 'accounts:update' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_form p_form %}
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom text-uppercase mx-3">변경</button>
+                  <a class="btn btn-success btn-block btn-lg gradient-custom text-uppercase mx-3" href="{% url 'accounts:profile' user.username %}">취소</a>
+                </div>
+                {% comment %} <p class="text-center text-muted mt-5 mb-0">Don't want it? <a href="{% url 'movies:index' %}"
+                  class="fw-bold text-body"><u>Back to home</u></a></p> {% endcomment %}
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+  {% comment %} </section> {% endcomment %}
 {% endblock content %}

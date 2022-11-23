@@ -43,6 +43,7 @@
 
   img {
     border-radius: 5%;
+    filter: drop-shadow(5px 5px 5px #000);
   }
 
   .transparent {
@@ -53,7 +54,8 @@
     position: absolute;
     top: 40%;
     right: 10%;
-    color: #fffffff;
+    {% comment %} color: #fffffff; {% endcomment %}
+    {% comment %} background-color: linear-gradient(to top, rgba(240, 244, 247, 1), rgba(129, 185, 227, 1)); {% endcomment %}
     z-index: 1;
   }
   
@@ -64,7 +66,7 @@
 {% block content %}
     <h1 class="text-center text-light mt-5 my-5">Select Movies</h1>
     <div class="finBtn">
-      <button class="btn btn-dark border-light" type="button" onclick="location.href='{% url 'movies:index' %}'" class="my-3">End<br>Selection</button>
+      <button class="btn btn-dark opacity-75 border-light" type="button" onclick="location.href='{% url 'movies:index' %}'" class="my-3">End<br>Selection</button>
     </div>
     <div class="container">
       <div class="row justify-content-center">
