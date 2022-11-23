@@ -18,11 +18,26 @@
   .card {
     filter: drop-shadow(5px 5px 5px #000);
   }
+  #partner_card {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  #match_card {
+    {% comment %} background-color: rgba(209, 139, 217, 1); {% endcomment %}
+    color: white;
+    background-image: linear-gradient(to top, rgba(229, 181, 235, 1), rgba(236, 225, 237, 1));
+  }
   {% comment %} #card {
     background-color: rgba(0, 0, 0, 0.5);
   } {% endcomment %}
   #text {
     word-wrap: break-word;
+  }
+  #friend {
+    {% comment %} background-image: linear-gradient(to top, rgba(122, 111, 111, 1), rgba(122, 72, 72, 1)); {% endcomment %}
+  }
+  .hide {
+    display: block;
   }
   {% comment %} .img {
     border-radius: 10%;
@@ -151,38 +166,40 @@
 <div class="container my-5">
   <h1 class="text-center my-3">영화 친구 신청</h1>
   {% for asked in person.lovers.all %}
-  <div class="row justify-content-center my-3 bg-secondary rounded p-2">
+  {% if person not in asked.lovers.all %}
+  <div id="friend" class="border border-light row justify-content-center my-3 rounded p-2">
     {% if request.user == person %}
     <div class="col-5 d-flex align-items-center">
       {{ asked.username }} 님으로 부터 영화 신청이 왔습니다. 수락하시겠습니까?
     </div>
     <div class="d-flex justify-content-end align-items-center col-2 mx-0 px-0">
-      <a class="btn btn-dark opacity-75 border border-light" href="{% url 'accounts:profile' asked.username %}">프로필</a>
+      <a class="btn btn-dark opacity-75" href="{% url 'accounts:profile' asked.username %}">프로필</a>
     </div>
-    <form id="ask-forms" class="d-flex align-items-center col-2" data-main-id="{{ person.pk }}">
-      {% if request.user in asked.lovers.all %}
+    <form id="ask-forms" class="d-flex align-items-center col-2" data-user-id="{{ asked.pk }}">
+      {% comment %} {% if request.user in asked.lovers.all %}
         <p class="btn btn-dark opacity-75 border border-light my-0">매칭됨</p>
       {% else %}
-        <input id="approve" class="btn bg-light mx-1" data-user-id="{{ asked.pk }}" type="submit" value="수락">
-        <input id="refuse"  class="btn bg-light" data-user-id="{{ asked.pk }}" type="submit" value="거절">
-      {% endif %}
+      {% endif %} {% endcomment %}
+        <input id="approve-{{ asked.pk }}" class="btn btn-dark opacity-75 border border-light mx-1" type="submit" value="수락">
+        <input id="refuse-{{ asked.pk }}"  class="btn btn-dark opacity-75 border border-light" type="submit" value="거절">
     </form>
     {% endif %}
   </div>
+  {% endif %}
   {% endfor %}
 </div>
 <hr>
 {% endif %}
 
 {% if request.user == person %}
+<h1 class="text-center my-3">매칭 성공 목록</h1>
 <div class="container my-5">
-  <h1 class="text-center my-3">매칭 성공 목록</h1>
   <div class="container">
     <div class="row">
       {% for matched in person.lovers.all %}
         {% if person in matched.lovers.all %}
           <div class="col-6 my-3 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
+            <div id="match_card" class="card" style="width: 18rem;">
               <img src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
               <div class="card-body row justify-content-center">
                 <p class="text-center">{{ matched.username }}</p>
@@ -209,7 +226,7 @@
   <h1 class="text-center my-3">영화 파트너 찾기</h1>
   <div class="m_container align-items-center py-3 mx-2">
     {% comment %} <div id="match" class="container " style="display: none;"> {% endcomment %}
-    <div id="match" class="container ">
+    <div id="match" class="container">
       <div class="container">
         <div class="row">
           {% for matching in matchings %}
@@ -217,7 +234,7 @@
               {% if matching in person.lovers.all %}
               {% else %}
               <div class="col-4 my-3 d-flex justify-content-center">
-                <div class="card" style="width: 18rem;">
+                <div id="partner_card" class="card" style="width: 18rem;">
                   <img src="{{ matching.profile.image.url }}" class="card-img-top rounded" alt="...">
                   <div class="card-body row justify-content-center my-3">
                     <p>이름 : {{ matching.username }}</p>
@@ -268,14 +285,25 @@
       matchTag.setAttribute('style', 'display: block')
     }) {% endcomment %}
 
-    const approves = document.querySelectorAll('#approve')
-    const refuses = document.querySelectorAll('#refuse')
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    {% comment %} const approves = document.querySelectorAll('#approve')
+    const refuses = document.querySelectorAll('#refuse') {% endcomment %}
+    {% comment %} const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    const askForms = document.querySelectorAll('#ask-forms') {% endcomment %}
 
-    approves.forEach((approve) => {
+    
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    const askForms = document.querySelectorAll('#ask-forms')
+
+    askForms.forEach((askform) => {
+
+      const userId = askform.dataset.userId
+      console.log('맞나' + userId)
+      const approve = document.querySelector(`#approve-${userId}`)
+      const refuse = document.querySelector(`#refuse-${userId}`)
+      console.log(approve)
+
       approve.addEventListener('click', function (event) {
         event.preventDefault()
-        const userId = event.target.dataset.userId
 
         axios({
           method: 'post',
@@ -284,14 +312,12 @@
         })
         .then((response) => {
           approve.value = '수락됨'
+          refuse.setAttribute('class', 'hide')
         })
       })
-    })
-
-    refuses.forEach((refuse) => {
+  
       refuse.addEventListener('click', function (event) {
         event.preventDefault()
-        const userId = event.target.dataset.userId
 
         axios({
           method: 'post',
