@@ -25,7 +25,7 @@
   <div class="row justify-content-center align-items-center my-5 pb-3">
     <div class="col-4 my-3 d-flex justify-content-center">
       <div class="row justify-content-center img">
-        <img src="{{ person.profile.image.url }}" alt="">
+        <img src="{{ person.profile.image.url }}" alt="">  
         {% if request.user != person %}
           <div>
             <form action="{% url 'accounts:follow' person.pk %}" method="POST">
@@ -76,7 +76,7 @@
       <div class="col-2 m_container align-items-center py-3 mx-2">
         <div class="container">
           <a href="{% url 'movies:detail' pickedmovie.movie_id %}">  
-            <img src="https://image.tmdb.org/t/p/w500{{ pickedmovie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
+          <img src="https://image.tmdb.org/t/p/w500{{ pickedmovie.poster_path }}" alt="#" class="image img-fluid rounded m-auto">
           </a>
         </div>
       </div>
@@ -100,7 +100,20 @@
 {% for article in person.article_set.all %}
   <div>{{ article.title }}</div>
 {% endfor %} {% endcomment %}
+{% if request.user != person %}
+  <div>
+    <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+      {% csrf_token %}
+      {% if request.user in person.followers.all %}
+        <input type="submit" value="Unfollow">
+      {% else %}
+        <input type="submit" value="Follow">
+      {% endif %}
+    </form>
+  </div>
+{% endif %}
 <hr>
+{% if request.user == person %}
 <div class="container my-5">
   <h1 class="text-center my-3">영화 친구 신청</h1>
   {% for asked in person.lovers.all %}
@@ -109,14 +122,14 @@
     <div class="col-5 d-flex align-items-center">
       {{ asked.username }} 님으로 부터 영화 신청이 왔습니다. 수락하시겠습니까?
     </div>
-    <div class="col-1 mx-0 px-0">
-      <a class="btn bg-light" href="{% url 'accounts:profile' asked.username %}">프로필 방문</a>
+    <div class="d-flex justify-content-end align-items-center col-2 mx-0 px-0">
+      <a class="btn bg-light" href="{% url 'accounts:profile' asked.username %}">프로필</a>
     </div>
-    <form id="ask-forms" class="col-2" data-main-id="{{ person.pk }}">
+    <form id="ask-forms" class="d-flex align-items-center col-2" data-main-id="{{ person.pk }}">
       {% if request.user in asked.lovers.all %}
-        <input id="approve-{{ asked.pk }}" class="btn bg-light" type="submit" value="수락됨(상대 프로필 가기 연결)">
+        <p class="btn btn-light my-0">매칭됨</p>
       {% else %}
-        <input id="approve" class="btn bg-light" data-user-id="{{ asked.pk }}" type="submit" value="수락">
+        <input id="approve" class="btn bg-light mx-1" data-user-id="{{ asked.pk }}" type="submit" value="수락">
         <input id="refuse"  class="btn bg-light" data-user-id="{{ asked.pk }}" type="submit" value="거절">
       {% endif %}
     </form>
@@ -125,6 +138,32 @@
   {% endfor %}
 </div>
 <hr>
+{% endif %}
+
+{% if request.user == person %}
+<div class="container my-5">
+  <h1 class="text-center my-3">매칭 성공 목록</h1>
+  <div class="container">
+    <div class="row">
+      {% for matched in person.lovers.all %}
+        {% if person in matched.lovers.all %}
+          <div class="col-4 my-3 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+              <img src="{{ matched.profile.image.url }}" class="card-img-top" alt="...">
+              <div class="card-body row justify-content-center">
+                <p class="text-center">{{ matched.username }}</p>
+                <p class="card-text">{{ matched.favorite }}자기 소개(이것저것) 내용 넣으면 좋을듯</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<hr>
+{% endif %}
+{% if request.user == person %}
 <div class="container my-5">
   {% comment %} <button id="matchBtn">영화 파트너 찾기</button> {% endcomment %}
   <h1 class="text-center my-3">영화 파트너 찾기</h1>
@@ -135,6 +174,8 @@
         <div class="row">
           {% for matching in matchings %}
             {% if matching != request.user %}
+              {% if matching in person.lovers.all %}
+              {% else %}
               <div class="col-4 my-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
                   <img src="{{ matching.profile.image.url }}" class="card-img-top" alt="...">
@@ -148,13 +189,14 @@
                         {% if request.user in matching.lovers.all %}
                           <input id="love-{{ matching.pk }}" class="btn bg-light" type="submit" value="수락 대기중">
                         {% else %}
-                          <input id="love-{{ matching.pk }}" class="btn bg-light" value="영화 신청 하기">
+                          <input id="love-{{ matching.pk }}" class="btn bg-light" type="submit" value="영화 신청 하기">
                         {% endif %}
                       </form>
                     </div>
                   </div>
                 </div>
               </div>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </div>
@@ -162,6 +204,8 @@
     </div>
   </div>
 </div>
+<hr>
+{% endif %}
 {% endblock content %}
 
 {% block script %}
@@ -211,7 +255,7 @@
     })
 
     const forms = document.querySelectorAll('#love-forms')
-    
+
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {
         event.preventDefault()
