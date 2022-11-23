@@ -33,8 +33,8 @@
                 {% bootstrap_form form %}
                 {% bootstrap_form p_form %}
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom text-uppercase mx-3">변경</button>
-                  <a class="btn btn-success btn-block btn-lg gradient-custom text-uppercase mx-3" href="{% url 'accounts:profile' user.username %}">취소</a>
+                  <button type="submit" class="btn btn-dark opacity-75 border border-light text-uppercase mx-3">변경</button>
+                  <a class="btn btn-dark opacity-75 border border-light text-uppercase mx-3" href="{% url 'accounts:profile' user.username %}">취소</a>
                 </div>
                 {% comment %} <p class="text-center text-muted mt-5 mb-0">Don't want it? <a href="{% url 'movies:index' %}"
                   class="fw-bold text-body"><u>Back to home</u></a></p> {% endcomment %}
