@@ -13,12 +13,11 @@
             <div class="card-body p-5">
               <h2 class="fw-bold text-dark text-uppercase text-center mb-5">게시글 수정</h2>
               <form class="text-dark"action="{% url 'community:edit' review.pk %}" method="POST">
-              
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase mx-3">수정</button>
-                  <a href="{% url 'community:detail' review.pk %}" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase mx-3">취소</a>
+                  <button type="submit" class="btn btn-dark opacity-75 text-light border border-light btn-block btn-lg gradient-custom text-uppercase mx-3">수정</button>
+                  <a href="{% url 'community:detail' review.pk %}" class="btn btn-dark opacity-75 text-light border border-light btn-block btn-lg gradient-custom text-uppercase mx-3">취소</a>
                 </div>
               </form>
             </div>
