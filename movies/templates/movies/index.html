@@ -96,16 +96,20 @@
     <h1>{{ user }}님이 좋아요 한 영화</h1>
     <div id="tab">
       <ul>
-        {% for pickedmovie in pickedmovies %}
+        {% if pickedmovies %}
+          {% for pickedmovie in pickedmovies %}
           {% comment %} {% for genre in pickedmovie.genres.all %}
-            {{ genre.name }}
+          {{ genre.name }}
           {% endfor %} {% endcomment %}
           <li>         
             <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
               <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
             </a>
           </li>
-        {% endfor %}
+          {% endfor %}
+          {% else %}
+            <p>Select로 이동하여 영화를 골라주십시오.</p>
+        {% endif %}
       </ul>
     </div> 
     <hr>
@@ -113,13 +117,17 @@
     <h1>내가 좋아하는 장르 영화</h1>
     <div id="tab">
       <ul>
-        {% for recommend in recommends %}
+        {% if recommends %}
+          {% for recommend in recommends %}
           <li>         
             <a href="{% url 'movies:detail' recommend.movie_id %}">
               <img src="https://image.tmdb.org/t/p/w200{{ recommend.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
             </a>
           </li>
-        {% endfor %}
+          {% endfor %}
+        {% else %}
+          <p>Select로 이동하여 영화를 골라주십시오.</p>
+        {% endif %}
       </ul>
     </div> 
     <hr>

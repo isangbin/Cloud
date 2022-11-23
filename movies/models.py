@@ -12,7 +12,7 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
-    genres = models.ManyToManyField(Genre, related_name='movies')
+    genres = models.ManyToManyField(Genre, related_name='movies', default=0)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     poster_path = models.TextField(null=True)
     overview = models.TextField()
