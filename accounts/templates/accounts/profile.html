@@ -8,8 +8,7 @@
     border-top: 1px solid #bbb;
     border-bottom: 1px solid #fff;
   }
-
-  img {
+  #match_img {
     border-radius: 10%;
     height: 300px;
     object-fit: cover;
@@ -21,7 +20,6 @@
     filter: drop-shadow(5px 5px 5px #000);
   }
   .match_card{
-
     background-image: linear-gradient(to top, rgba(229, 181, 235, 1), rgba(236, 225, 237, 1));
   }
   {% comment %} #partner_card {
@@ -216,7 +214,7 @@
           
             <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center d-none">
               <div data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
-                <img src="{{ matched.profile.image.url }}" class="card-img-top rounded img-fluid" alt="...">
+                <img id="match_img" src="{{ matched.profile.image.url }}" class="card-img-top rounded img-fluid" alt="...">
                 <div class="card-body row justify-content-center">
                   <p class="text-center">{{ matched.username }}</p>
                   <p class="card-text">성별 : {{ matched.gender }}</p>
@@ -251,7 +249,7 @@
           {% if person in matched.lovers.all %}
           <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center">
             <div data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
-              <img src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
+              <img id="match_img" src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
               <div class="card-body row justify-content-center">
                 <p class="text-center">{{ matched.username }}</p>
                 <p class="card-text">성별 : {{ matched.gender }}</p>
