@@ -6,35 +6,38 @@ from .models import User, Profile
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
-        label="",
+        label="이름",
         widget=forms.TextInput(attrs={
             "placeholder": "사용자 이름",
-        })   
+        })  
     )
 
     password1 = forms.CharField(
-        label="",
+        label="비밀번호 설정",
         widget=forms.PasswordInput(attrs={
             "placeholder": "비밀번호(8자 이상)",
         })
     )
     
     password2 = forms.CharField(
-        label="",
+        label="비밀번호 확인",
         widget=forms.PasswordInput(attrs={
             "placeholder": "비밀번호 확인",
         })
     )
 
+
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
+        fields = ('username', 'password1', 'password2', 'age', 'gender', 'email', 'phone_number', 'self_introduce',)
 
 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
-        fields = ('email', 'first_name', 'last_name',)
+        fields = ('username', 'age', 'gender', 'email', 'phone_number', 'self_introduce',)
 
 
 class CustomAuthenticationForm(AuthenticationForm):

@@ -1,12 +1,21 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
+from django.db import models
 from PIL import Image
 
 # Create your models here.
 class User(AbstractUser):
+    class GenderChoices(models.TextChoices):
+        MALE = 'M', '남성'
+        FEMALE = 'W', '여성'
+
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     lovings = models.ManyToManyField('self', symmetrical=False, related_name='lovers')
     favorite = models.IntegerField(null=True)
+    age = models.IntegerField(null=True)
+    gender = models.CharField(choices=GenderChoices.choices, max_length=1, blank=True)
+    phone_number = models.CharField(validators=[RegexValidator(r'010-?[1-9]\d{3}-?\d{4}$')], max_length=13, blank=True)
+    self_introduce = models.TextField(null=True)
 
 
 class Profile(models.Model):
