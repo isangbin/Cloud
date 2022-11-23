@@ -115,7 +115,12 @@
     </div>
     
     <div class="col-4 my-3 d-flex justify-content-center">
-      <p class="card-text text-light">최애 장르 : {{ genre.name }}</p>
+      <span><p class="card-text text-light">최애 장르 : </p></span>
+      {% if genre != 0 %}
+        <span>{{ genre.name }}</span>
+      {% else %}
+        <span>없음</span>
+      {% endif %}
     </div>
   </div>
 </div>
