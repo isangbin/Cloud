@@ -18,15 +18,18 @@
   .card {
     filter: drop-shadow(5px 5px 5px #000);
   }
-  #partner_card {
-    background-color: rgba(255, 255, 255, 0.6);
-  }
+  .match_card{
 
-  #match_card {
-    {% comment %} background-color: rgba(209, 139, 217, 1); {% endcomment %}
-    color: white;
     background-image: linear-gradient(to top, rgba(229, 181, 235, 1), rgba(236, 225, 237, 1));
   }
+  {% comment %} #partner_card {
+    background-color: rgba(255, 255, 255, 0.6);
+  } {% endcomment %}
+
+  {% comment %} #match_card {
+    background-color: rgba(209, 139, 217, 1);
+    background-image: linear-gradient(to top, rgba(229, 181, 235, 1), rgba(236, 225, 237, 1));
+  } {% endcomment %}
   {% comment %} #card {
     background-color: rgba(0, 0, 0, 0.5);
   } {% endcomment %}
@@ -37,7 +40,7 @@
     {% comment %} background-image: linear-gradient(to top, rgba(122, 111, 111, 1), rgba(122, 72, 72, 1)); {% endcomment %}
   }
   .hide {
-    display: block;
+    display: none;
   }
   {% comment %} .img {
     border-radius: 10%;
@@ -197,9 +200,9 @@
   <div class="container">
     <div class="row">
       {% for matched in person.lovers.all %}
-        {% if person in matched.lovers.all %}
-          <div class="col-6 my-3 d-flex justify-content-center">
-            <div id="match_card" class="card" style="width: 18rem;">
+        
+          <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center d-none">
+            <div data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
               <img src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
               <div class="card-body row justify-content-center">
                 <p class="text-center">{{ matched.username }}</p>
@@ -208,11 +211,46 @@
                 <p class="card-text">전화번호 : {{ matched.phone_number }}</p>
                 <p class="card-text">이메일 : {{ matched.email }}</p>
                 <div class="d-flex justify-content-center align-items-center col-12 mx-0 px-0">
-                  <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
+                <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
                 </div>
               </div>
             </div>
           </div>
+        {% comment %} {% else %} {% endcomment %}
+        {% comment %} <div class="col-6 my-3 d-flex justify-content-center d-none">
+          <div id="match_card-{{ matched.pk }}" data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
+            <img src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
+            <div class="card-body row justify-content-center">
+              <p class="text-center">{{ matched.username }}</p>
+              <p class="card-text">성별 : {{ matched.gender }}</p>
+              <p class="card-text">나이 : {{ matched.age }}</p>
+              <p class="card-text">전화번호 : {{ matched.phone_number }}</p>
+              <p class="card-text">이메일 : {{ matched.email }}</p>
+              <div class="d-flex justify-content-center align-items-center col-12 mx-0 px-0">
+              <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
+              </div>
+            </div>
+          </div>
+        </div> {% endcomment %}
+        
+      {% endfor %}
+      {% for matched in person.lovers.all %}
+        {% if person in matched.lovers.all %}
+        <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center">
+          <div data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
+            <img src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
+            <div class="card-body row justify-content-center">
+              <p class="text-center">{{ matched.username }}</p>
+              <p class="card-text">성별 : {{ matched.gender }}</p>
+              <p class="card-text">나이 : {{ matched.age }}</p>
+              <p class="card-text">전화번호 : {{ matched.phone_number }}</p>
+              <p class="card-text">이메일 : {{ matched.email }}</p>
+              <div class="d-flex justify-content-center align-items-center col-12 mx-0 px-0">
+              <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
+              </div>
+            </div>
+          </div>
+        </div>
         {% endif %}
       {% endfor %}
     </div>
@@ -243,7 +281,7 @@
                     {% comment %} <div style=" height: 100px;">
                       <p class="card-text overflow-scroll rounded bg-light text-dark" style="height: 100%;">{{ matching.self_introduce }}</p>
                     </div> {% endcomment %}
-                  <div>
+                    <div>
                       {% comment %} <form action="{% url 'accounts:love' person.pk %}" method="POST"> {% endcomment %}
                       <form id="love-forms" data-user-id="{{ matching.pk }}" class="d-flex justify-content-center">
                         {% csrf_token %}
@@ -300,6 +338,7 @@
       console.log('맞나' + userId)
       const approve = document.querySelector(`#approve-${userId}`)
       const refuse = document.querySelector(`#refuse-${userId}`)
+      const matched = document.querySelector(`#match_card-${userId}`)
       console.log(approve)
 
       approve.addEventListener('click', function (event) {
@@ -313,6 +352,7 @@
         .then((response) => {
           approve.value = '수락됨'
           refuse.setAttribute('class', 'hide')
+          matched.classList.remove('d-none')
         })
       })
   
@@ -326,6 +366,7 @@
         })
         .then((response) => {
           refuse.value = '거절됨'
+          approve.setAttribute('class', 'hide')
         })
       })
     })
