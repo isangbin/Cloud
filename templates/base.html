@@ -185,7 +185,11 @@
 
       <div class="dropdown mx-2">
         <button class="btn border border-light opacity-100 dropdown-toggle my-3 text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ user.username }}
+          {% if user.username %}
+            {{ user.username }}
+          {% else %}
+            Anonymous
+          {% endif %}
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
           {% if request.user.is_authenticated %}
