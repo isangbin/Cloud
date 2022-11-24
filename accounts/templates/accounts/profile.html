@@ -13,6 +13,9 @@
     height: 300px;
     object-fit: cover;
   }
+  #text {
+    word-wrap: break-word;
+  }
   .m_img {
     filter: drop-shadow(5px 5px 5px #000);
   }
@@ -22,31 +25,9 @@
   .match_card{
     background-image: linear-gradient(to top, rgba(229, 181, 235, 1), rgba(236, 225, 237, 1));
   }
-  {% comment %} #partner_card {
-    background-color: rgba(255, 255, 255, 0.6);
-  } {% endcomment %}
-
-  {% comment %} #match_card {
-    background-color: rgba(209, 139, 217, 1);
-    background-image: linear-gradient(to top, rgba(229, 181, 235, 1), rgba(236, 225, 237, 1));
-  } {% endcomment %}
-  {% comment %} #card {
-    background-color: rgba(0, 0, 0, 0.5);
-  } {% endcomment %}
-  #text {
-    word-wrap: break-word;
-  }
-  #friend {
-    {% comment %} background-image: linear-gradient(to top, rgba(122, 111, 111, 1), rgba(122, 72, 72, 1)); {% endcomment %}
-  }
   .hide {
     display: none;
   }
-  {% comment %} .img {
-    border-radius: 10%;
-    border: solid 3px white;
-    padding-top: 1rem;
-  } {% endcomment %}
 {% endblock style %}
 {% block content %}
 <br>
@@ -116,12 +97,14 @@
     
     <div class="col-4 my-3 d-flex justify-content-center">
 
-      <span><p class="card-text text-light">최애 장르 : </p></span>
-      {% if genre != 0 %}
-        <span>{{ genre.name }}</span>
-      {% else %}
-        <span>없음</span>
-      {% endif %}
+      <span><p class="card-text text-light">최애 장르 : 
+        {% if genre != 0 %}
+          {{ genre.name }}
+        {% else %}
+          없음
+        {% endif %}
+      </p></span>
+
     </div>
   </div>
 </div>
