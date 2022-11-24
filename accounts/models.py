@@ -6,8 +6,8 @@ from PIL import Image
 # Create your models here.
 class User(AbstractUser):
     class GenderChoices(models.TextChoices):
-        MALE = 'M', '남성'
-        FEMALE = 'W', '여성'
+        MALE = '남성', '남성'
+        FEMALE = '여성', '여성'
 
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     lovings = models.ManyToManyField('self', symmetrical=False, related_name='lovers')

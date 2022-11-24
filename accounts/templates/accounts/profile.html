@@ -30,15 +30,17 @@
   }
 {% endblock style %}
 {% block content %}
-<br>
 <div class="my-5 container">
+  {% comment %} 개인 정보 {% endcomment %}
   <h2 class="pt-3 text-center">{{ person.username }}님의 프로필</h2>
   <div class="row justify-content-center align-items-center my-5 pb-3">
     <div class="col-4 my-3 d-flex justify-content-center">
+      {% comment %} 프로필 이미지 {% endcomment %}
       <div class="row justify-content-center img">
         <img src="{{ person.profile.image.url }}" alt="">  
         {% if request.user != person %}
           <div>
+            {% comment %} 이미지 변경 / 팔로우 언팔로우 {% endcomment %}
             <form action="{% url 'accounts:follow' person.pk %}" method="POST">
               {% csrf_token %}
               {% if request.user in person.followers.all %}
@@ -53,50 +55,49 @@
         {% endif %}         
       </div>
     </div>
-    {% comment %} <img src="{% static 'accounts/sample.png' %}" alt="">
-    <img src="{% static 'sample2.png' %}" alt=""> {% endcomment %}
+    {% comment %} 팔로잉 수 {% endcomment %}
     <div class="col-2 text-center">
       <h2>{{ person.followings.all|length }}</h2>
       <h5 class="m-0">팔로잉</h5>
     </div>
-
+    {% comment %} 팔로워 수 {% endcomment %}
     <div class="col-2 text-center">
       <h2>{{ person.followers.all|length }}</h2>
       <h5 class="m-0">팔로워</h5>
     </div>
-
+    {% comment %} 좋아요한 글 수 {% endcomment %}
     <div class="col-2 text-center">
       <h2>{{ person.like_reviews.all|length}}</h2>
       <h5 class="m-0">좋아요한 글 수</h5>
     </div>
-
+    {% comment %} 작성한 댓글 수 {% endcomment %}
     <div class="col-2 text-center">
       <h2>{{ person.comment_set.all|length }}</h2>
       <h5 class="m-0">작성한 댓글 수</h5>
     </div>
 
-  </div>
-  {% comment %} {{ person.profile.image.url }} {% endcomment %}
-  
+  </div>  
 </div>
 <hr>
+{% comment %} 자기소개 {% endcomment %}
 <h1 class="text-center mb-3">자기소개</h3>
 <div class="row d-flex justify-content-center">
   <div id="card" class="bg-secondary rounded p-2 col-6 my-3 mx-3 rounded d-flex row">
+    {% comment %} self introduce {% endcomment %}
     <div class="card-body p-3 col-12">
       <p id="text" class="card-text text-light">{{ person.self_introduce }}</p>
     </div>
     <hr>
+    {% comment %} name {% endcomment %}
     <div class="col-4 my-3 d-flex justify-content-center">
       <p class="card-text text-light">이름 : {{ person.username }}</p>
     </div>
-
+    {% comment %} gender {% endcomment %}
     <div class="col-4 my-3 d-flex justify-content-center">
       <p class="card-text text-light">성별 : {{ person.gender }}</p>
     </div>
-    
+    {% comment %} favorite {% endcomment %}
     <div class="col-4 my-3 d-flex justify-content-center">
-
       <span><p class="card-text text-light">최애 장르 : 
         {% if genre != 0 %}
           {{ genre.name }}
@@ -104,12 +105,11 @@
           없음
         {% endif %}
       </p></span>
-
     </div>
   </div>
 </div>
 <hr>
-
+{% comment %} 좋아하는 영화 {% endcomment %}
 <div class="container">
   <h1 class="text-center">좋아하는 영화</h1>
   <div class="row justify-content-center">
@@ -124,39 +124,12 @@
     {% endfor %}
   </div>
 </div>
-{% comment %} <h1 class=">좋아요 누른 영화(가제)</h1>
-<div id="tab">
-  <ul>
-    {% for pickedmovie in pickedmovies %}
-      <li>         
-        <a href="#">
-          <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="">
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>  {% endcomment %}
-
-{% comment %} <h2>{{ person.username }}'s 게시글</h2>
-{% for article in person.article_set.all %}
-  <div>{{ article.title }}</div>
-{% endfor %} {% endcomment %}
-{% comment %} {% if request.user != person %}
-  <div>
-    <form action="{% url 'accounts:follow' person.pk %}" method="POST">
-      {% csrf_token %}
-      {% if request.user in person.followers.all %}
-        <input type="submit" value="Unfollow">
-      {% else %}
-        <input type="submit" value="Follow">
-      {% endif %}
-    </form>
-  </div>
-{% endif %} {% endcomment %}
 <hr>
+{% comment %} 영화 친구 신청 {% endcomment %}
 {% if request.user == person %}
   <div class="container my-5">
     <h1 class="text-center my-3">영화 친구 신청</h1>
+    {% comment %} 친구 신청이 있는 경우 {% endcomment %}
     {% if person.lovers.all %}
       {% for asked in person.lovers.all %}
         {% if person not in asked.lovers.all %}
@@ -169,32 +142,29 @@
               <a class="btn btn-dark opacity-75" href="{% url 'accounts:profile' asked.username %}">프로필</a>
             </div>
             <form id="ask-forms" class="d-flex align-items-center col-2" data-user-id="{{ asked.pk }}">
-              {% comment %} {% if request.user in asked.lovers.all %}
-                <p class="btn btn-dark opacity-75 border border-light my-0">매칭됨</p>
-              {% else %}
-              {% endif %} {% endcomment %}
-                <input id="approve-{{ asked.pk }}" class="btn btn-dark opacity-75 border border-light mx-1" type="submit" value="수락">
-                <input id="refuse-{{ asked.pk }}"  class="btn btn-dark opacity-75 border border-light" type="submit" value="거절">
+              <input id="approve-{{ asked.pk }}" class="btn btn-dark opacity-75 border border-light mx-1" type="submit" value="수락">
+              <input id="refuse-{{ asked.pk }}"  class="btn btn-dark opacity-75 border border-light" type="submit" value="거절">
             </form>
           {% endif %}
           </div>
         {% endif %}
       {% endfor %}
+    {% comment %} 친구 신청이 없는 경우 {% endcomment %}
     {% else %}
       <h6 class="text-center my-5">아직 친구 신청 목록이 없습니다.</h6>
     {% endif %}
   </div>
 <hr>
 {% endif %}
-
+{% comment %} 매칭 성공 {% endcomment %}
 {% if request.user == person %}
 <h1 class="text-center my-3">매칭 성공 목록</h1>
 <div class="container my-5">
   <div class="container">
     <div class="row">
       {% if person.lovers.all %}
+      {% comment %} 매칭 성공/ 영화친구 요청 온 사람 {% endcomment %}
         {% for matched in person.lovers.all %}
-          
             <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center d-none">
               <div data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
                 <img id="match_img" src="{{ matched.profile.image.url }}" class="card-img-top rounded img-fluid" alt="...">
@@ -210,24 +180,8 @@
                 </div>
               </div>
             </div>
-          {% comment %} {% else %} {% endcomment %}
-          {% comment %} <div class="col-6 my-3 d-flex justify-content-center d-none">
-            <div id="match_card-{{ matched.pk }}" data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
-              <img src="{{ matched.profile.image.url }}" class="card-img-top rounded" alt="...">
-              <div class="card-body row justify-content-center">
-                <p class="text-center">{{ matched.username }}</p>
-                <p class="card-text">성별 : {{ matched.gender }}</p>
-                <p class="card-text">나이 : {{ matched.age }}</p>
-                <p class="card-text">전화번호 : {{ matched.phone_number }}</p>
-                <p class="card-text">이메일 : {{ matched.email }}</p>
-                <div class="d-flex justify-content-center align-items-center col-12 mx-0 px-0">
-                <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
-                </div>
-              </div>
-            </div>
-          </div> {% endcomment %}
-          
         {% endfor %}
+        {% comment %} 요청을 수락해 최종 매칭 된 경우 {% endcomment %}
         {% for matched in person.lovers.all %}
           {% if person in matched.lovers.all %}
           <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center">
@@ -247,6 +201,7 @@
           </div>
           {% endif %}
         {% endfor %}
+      {% comment %} 매칭이 안된 경우 {% endcomment %}
       {% else %}
         <h6 class="text-center">아직 매칭 성공한 사람이 없습니다.</h6>
       {% endif %}
@@ -257,16 +212,15 @@
 {% endif %}
 {% if request.user == person %}
 <div class="container my-5">
-  {% comment %} <button id="matchBtn">영화 파트너 찾기</button> {% endcomment %}
+  {% comment %} 영화 파트너 찾기 {% endcomment %}
   <h1 class="text-center my-3">영화 파트너 찾기</h1>
   <div class="m_container align-items-center py-3 mx-2">
-    {% comment %} <div id="match" class="container " style="display: none;"> {% endcomment %}
     <div id="match" class="container">
       <div class="container">
         <div class="row">
-          {% comment %} {% if matchings|length > 1 %} {% endcomment %}
             {% for matching in matchings %}
               {% if matching != request.user %}
+                {% comment %} 매칭 안된 사람만 추천 {% endcomment %}
                 {% if matching in person.lovers.all %}
                 {% else %}
                 <div class="col-4 my-3 d-flex justify-content-center">
@@ -276,11 +230,7 @@
                       <p>이름 : {{ matching.username }}</p>
                       <p>성별 : {{ matching.gender }}</p>
                       <p>나이 : {{ matching.age }}</p>
-                      {% comment %} <div style=" height: 100px;">
-                        <p class="card-text overflow-scroll rounded bg-light text-dark" style="height: 100%;">{{ matching.self_introduce }}</p>
-                      </div> {% endcomment %}
                       <div>
-                        {% comment %} <form action="{% url 'accounts:love' person.pk %}" method="POST"> {% endcomment %}
                         <form id="love-forms" data-user-id="{{ matching.pk }}" class="d-flex justify-content-center">
                           {% csrf_token %}
                           {% if request.user in matching.lovers.all %}
@@ -303,8 +253,6 @@
               {% endif %}
             {% endfor %}
           {% else %}
-            <h1>hi</h1>
-          {% comment %} {% endif %} {% endcomment %}
         </div>
       </div>
     </div>
@@ -316,31 +264,16 @@
 
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    const matchBtn = document.querySelector('#matchBtn')
-    const matchTag = document.querySelector('#match')
-
-    {% comment %} matchBtn.addEventListener('click', function () {
-      matchTag.setAttribute('style', 'display: block')
-    }) {% endcomment %}
-
-    {% comment %} const approves = document.querySelectorAll('#approve')
-    const refuses = document.querySelectorAll('#refuse') {% endcomment %}
-    {% comment %} const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
-    const askForms = document.querySelectorAll('#ask-forms') {% endcomment %}
-
-    
+  <script> 
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
     const askForms = document.querySelectorAll('#ask-forms')
 
+    {% comment %} 영화 친구 요청 비동기(수락/ 거절) {% endcomment %}
     askForms.forEach((askform) => {
-
       const userId = askform.dataset.userId
-      console.log('맞나' + userId)
       const approve = document.querySelector(`#approve-${userId}`)
       const refuse = document.querySelector(`#refuse-${userId}`)
       const matched = document.querySelector(`#match_card-${userId}`)
-      console.log(approve)
 
       approve.addEventListener('click', function (event) {
         event.preventDefault()
@@ -356,7 +289,7 @@
           matched.classList.remove('d-none')
         })
       })
-  
+
       refuse.addEventListener('click', function (event) {
         event.preventDefault()
 
@@ -371,7 +304,7 @@
         })
       })
     })
-
+    {% comment %} 영화 친구 신청 비동기 {% endcomment %}
     const forms = document.querySelectorAll('#love-forms')
 
     forms.forEach((form) => {
@@ -393,73 +326,11 @@
           } else {
             loveBtn.value = '영화 신청 하기'
           }
-          console.log(isLoved)
         })
         .catch((error) => {
           console.log(error.response)
         })
       })
     })
-
-    {% comment %} const askForms = document.querySelectorAll('#ask-forms')
-
-    askForms.forEach((form) => {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault()
-        const userId = event.target.dataset.userId
-
-        axios({
-          method: 'post',
-          url: `/accounts/${userId}/love/`,
-          headers: {'X-CSRFToken': csrftoken,},
-        })
-        .then((response) => {
-          const isLoved = response.data.is_loved
-          const approveBtn = document.querySelector(`#approve-${ userId }`)
-          approveBtn.value = '수락됨'
-
-          console.log(isLoved)
-        })
-        .catch((error) => {
-          console.log(error.response)
-        })
-      })
-    })
-
-    askForms.forEach((form) => {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault()
-        const mainId = event.target.dataset.mainId
-
-        axios({
-          method: 'post',
-          url: `/accounts/${mainId}/love/`,
-          headers: {'X-CSRFToken': csrftoken,},
-        })
-        .then((response) => {
-          const isLoved = response.data.is_loved
-          const approveBtn = document.querySelector(`#refuse-${ userId }`)
-          approveBtn.value = '거절됨'
-
-          console.log(isLoved)
-        })
-        .catch((error) => {
-          console.log(error.response)
-        })
-      })
-    }) {% endcomment %}
   </script>
 {% endblock script %}
-
- {% comment %}
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-  const matchBtn = document.querySelector('#matchBtn')
-  const matchTag = document.querySelector('#match')
-  
-  matchBtn.addEventListener('click', function () {
-    matchTag.setAttribute('style', 'display: block')
-  })
-</script>
-{% endblock script %}
-{% endcomment %}

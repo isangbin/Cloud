@@ -1,39 +1,12 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 {% block style %}
-{% comment %} .container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-right: auto;
-} {% endcomment %}
 body {
   padding-top: 0px;
 }
 {% endblock style %}
 
 {% block content %}
-{% comment %} <section class="vh-100">
-  <div class="container d-flex justify-content-center py-3">
-    <div class="col-8 rounded-5 bg-secondary">
-      <h1 class="text-center my-3">CREATE</h1>
-      <div class="row justify-content-center">
-        <div class="col-10">
-          <form action="" method="POST">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <div class="d-flex justify-content-end ">
-              <div class="d-flex justify-content-between">
-                <a class="btn btn-dark btn-lg my-3" href="{% url 'community:index' %}">뒤로가기</a>
-                <input type="submit" class="btn btn-lg btn-dark my-3 mx-3">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> {% endcomment %}
 <section class="vh-100">
   <div class="mask d-flex align-items-center h-100 ">
     <div class="container h-100">

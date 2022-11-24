@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 {% block style %}
+  img {
+    border-radius: 5%;
+    filter: drop-shadow(5px 5px 5px #000);
+  }
   .m_container {
     position: relative;
   }
   .m_container:hover .image {
     opacity: 0.3;
   }
-
   .m_container:hover .middle {
     opacity: 1;
   }
-
   .image {
     opacity: 1;
     display: block;
@@ -21,7 +23,6 @@
     transition: .5s ease;
     backface-visibility: hidden;
   }
-
   .middle {
     transition: .5s ease;
     opacity: 0;
@@ -32,33 +33,18 @@
     -ms-transform: translate(-50%, -50%);
     text-align: center;
   }
-
-  {% comment %} .container {
-    overflow: hidden;
-  } {% endcomment %}
-
   .container > img {
     width: 100%;
   }
-
-  img {
-    border-radius: 5%;
-    filter: drop-shadow(5px 5px 5px #000);
-  }
-
   .transparent {
     opacity: 0.3;
   }
-
   .finBtn {
     position: absolute;
     top: 40%;
     right: 10%;
-    {% comment %} color: #fffffff; {% endcomment %}
-    {% comment %} background-color: linear-gradient(to top, rgba(240, 244, 247, 1), rgba(129, 185, 227, 1)); {% endcomment %}
     z-index: 1;
   }
-  
   .container {
     position: relative;
   }
@@ -70,17 +56,17 @@
     </div>
     <div class="container">
       <div class="row justify-content-center">
-      {% comment %} </div>
-      <div class="row"> {% endcomment %}
         {% for movie in movies %}
           <div class="col-3 m_container align-items-center py-3">
-          {% comment %} 이미지hover시  {% endcomment %}
             <div class="container">
+              {% comment %} 이미지 좋아요 상태 {% endcomment %}
               {% if request.user in movie.like_users.all %}
                 <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="transparent image img-fluid rounded m-auto">
+              {% comment %} 이미지 좋아요 아닐 때 상태 {% endcomment %}
               {% else %}
                 <img id="img-{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="#" class="image img-fluid  rounded m-auto">
               {% endif %}
+              {% comment %} 좋아요 버튼 {% endcomment %}
               <div class="middle">
                 <form class="like-forms middle" data-movie-id="{{ movie.pk }}">
                   {% csrf_token %}
@@ -103,25 +89,19 @@
   <script>
     const forms = document.querySelectorAll('.like-forms')
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
-
-    // Jquery 사용 불가 시 변경
-    // 기본 위치(top)값
-    var floatPosition = parseInt($(".finBtn").css('top'))
-
-    // scroll 인식
+    {% comment %} end selection {% endcomment %}
+    const floatPosition = parseInt($(".finBtn").css('top'))
+    {% comment %} 스크롤 인식 {% endcomment %}
     $(window).scroll(function() {
-      
-      // 현재 스크롤 위치
       var currentTop = $(window).scrollTop();
       var bannerTop = currentTop + floatPosition + "px";
 
-      //이동 애니메이션
       $(".finBtn").stop().animate({
         "top" : bannerTop
       }, 500);
 
     }).scroll();
-
+    {% comment %} 좋아요 비동기 {% endcomment %}
     forms.forEach((form) => {
       form.addEventListener('submit', function (event) {
         event.preventDefault()
