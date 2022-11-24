@@ -24,7 +24,6 @@ def login(request):
         form = CustomAuthenticationForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            # 로그인 하고 이전 주소로 이동
             return redirect(request.GET.get('next') or 'movies:index')
     else:
         form = CustomAuthenticationForm()
@@ -106,7 +105,6 @@ def change_password(request):
 
 
 def profile(request, username):
-    # movies = Movie.objects.all()
     User = get_user_model()
     person = User.objects.get(username=username)
     pickedmovies = person.like_movies.all()
@@ -152,21 +150,14 @@ def follow(request, user_pk):
 def modeselect(request, user_pk):
     if request.user.is_authenticated:
         user = User.objects.get(pk=user_pk)
-        # if len(request.POST.getlist('modeselect')) == 0:
-        #     user.modeselect = False
-        # else:
-        #     user.modeselect = True
         modeselect = user.modeselect
         if modeselect == False:
             modeselect = True
             user.save()
-            # modeselect = True
         else:
             modeselect = False
             user.save()
-            # modeselect = False
         context = {
-            # 'mode': user.modeselect,
             'modeselect': modeselect,
         }
         return JsonResponse(context)

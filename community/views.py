@@ -68,17 +68,6 @@ def create_comment(request, review_pk):
     return render(request, 'community/detail.html', context)
 
 
-# @require_POST
-# def edit_comment(request, comment_pk):
-#     if request.user.is_authenticated:
-#         comment = Comment.objects.get(pk=comment_pk)
-#         context = {
-#             'comment_content': comment.content, 
-#         }
-#         return JsonResponse(context)
-#     return redirect('accounts:login')
-
-
 @require_POST
 def delete_comment(request, review_pk, comment_pk):
     if request.user.is_authenticated:
@@ -119,24 +108,6 @@ def edit(request, pk):
     return render(request, 'community/edit.html', context)
 
 
-# def update(request):
-#     if request.method == "POST":
-#         form = CustomUserChangeForm(request.POST, instance=request.user)
-#         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-#         if form.is_valid():
-#             form.save()
-#             p_form.save()
-#             return redirect('movies:index')
-#     else:
-#         form = CustomUserChangeForm(instance=request.user)
-#         p_form = ProfileUpdateForm(instance=request.user.profile)
-#     context = {
-#         'form': form,
-#         'p_form': p_form,
-#     }
-#     return render(request, 'accounts/update.html', context)
-
-
 @require_POST
 def like(request, review_pk):
     if request.user.is_authenticated:
@@ -156,14 +127,12 @@ def like(request, review_pk):
             'likes_count': review.like_users.count(),
         }
         return JsonResponse(context)
-        # return redirect('community:index')
     return redirect('accounts:login')
 
 
 @require_POST
 def comment_like(request, comment_pk):
     if request.user.is_authenticated:
-        # review = get_object_or_404(Review, pk=comment_pk)
         comment = get_object_or_404(Comment, pk=comment_pk)
         user = request.user
 
