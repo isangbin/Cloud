@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 {% block style %}
-  .gradient-custom {
-    background: #6c7075;
-    background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
-    border: 0
+  body {
+    padding-top: 0px;
+    margin-top: 3rem;
   }
   h2 {
     color: black;
@@ -12,15 +11,14 @@
   form {
     color: black;
   }
-  body {
-    padding-top: 0px;
-    margin-top: 3rem;
+  .gradient-custom {
+    background: #6c7075;
+    background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
+    border: 0
   }
-  
 {% endblock style %}
 
 {% block content %}
-  {% comment %} <section class="bg-image"> {% endcomment %}
   <div class="mask ">
     <div class="container">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -36,8 +34,6 @@
                   <button type="submit" class="btn btn-dark opacity-75 border border-light text-uppercase mx-3">변경</button>
                   <a class="btn btn-dark opacity-75 border border-light text-uppercase mx-3" href="{% url 'accounts:profile' user.username %}">취소</a>
                 </div>
-                {% comment %} <p class="text-center text-muted mt-5 mb-0">Don't want it? <a href="{% url 'movies:index' %}"
-                  class="fw-bold text-body"><u>Back to home</u></a></p> {% endcomment %}
               </form>
             </div>
           </div>
@@ -45,5 +41,4 @@
       </div>
     </div>
   </div>
-  {% comment %} </section> {% endcomment %}
 {% endblock content %}

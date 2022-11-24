@@ -4,11 +4,23 @@
     margin:0 auto;
     height: 100%;
     width: 100%;
-    {% comment %} background: url("/media/—Pngtree—romantic cosmic background_1337153.png"); {% endcomment %}
   }
-  {% comment %} * {
-    margin:0; padding:0;
-  } {% endcomment %}
+  img {
+    border-radius: 5%;
+    overflow: hidden;
+    border: 2px solid white;
+    filter: drop-shadow(5px 5px 5px #000);
+  }
+  hr {
+    border-top: 3px solid #918f87;
+  }
+  h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    padding: 3px;
+    text-align: center;
+  }
   ul {
     list-style:none;
   }
@@ -26,44 +38,17 @@
   #logo {
     border: none;
   }
-  img {
-    border-radius: 5%;
-    overflow: hidden;
-    border: 2px solid white;
-    filter: drop-shadow(5px 5px 5px #000);
-  }
-
-
-  hr {
-    border-top: 3px solid #918f87;
-  }
-  h1 {
-    {% comment %} margin-left: 100px; {% endcomment %}
-    margin-top: 20px;
-    margin-bottom: 20px;
-    {% comment %} color: #f5f4f0; {% endcomment %}
-    {% comment %} color: #ddeaeb; {% endcomment %}
-    font-weight: bold;
-    {% comment %} border-left: 5px solid #918f87; {% endcomment %}
-    padding: 3px;
-    text-align: center;
-  }
 {% endblock style %}
 
   
 {% block content %}
-{% comment %} <div class="position-relative">
-  <img src="/media/—Pngtree—romantic cosmic background_1337153.png" alt="">
-</div> {% endcomment %}
-{% comment %} <div style="cursor:pointer;" class="position-fixed-bottom" onclick="window.scrollTo(0,0);">TOP</div> {% endcomment %}
 <div class="row justify-content-center">
   <div class="col-11">
-    {% comment %} <h1>MOVIE</h1> {% endcomment %}
     <hr>
+
     <h1>인기 영화</h1>
     <div id="tab">
       <ul id="popular">
-        
       </ul>
     </div> 
     <hr>
@@ -71,7 +56,6 @@
     <h1>현재 상영작</h1>
     <div id="tab">
       <ul id="playing">
-        
       </ul>
     </div> 
     <hr>
@@ -79,16 +63,13 @@
     <h1>상영 예정작</h1>
     <div id="tab">
       <ul id="upcoming">
-        
       </ul>
     </div> 
     <hr>
 
-
     <h1>높은 평점</h1>
     <div id="tab">
-      <ul id="top">
-        
+      <ul id="top">        
       </ul>
     </div> 
     <hr>
@@ -98,9 +79,6 @@
       <ul>
         {% if pickedmovies %}
           {% for pickedmovie in pickedmovies %}
-          {% comment %} {% for genre in pickedmovie.genres.all %}
-          {{ genre.name }}
-          {% endfor %} {% endcomment %}
           <li>         
             <a href="{% url 'movies:detail' pickedmovie.movie_id %}">
               <img src="https://image.tmdb.org/t/p/w200{{ pickedmovie.poster_path }}" alt="" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)">
@@ -147,16 +125,13 @@
     <hr>
   </div>
 </div>
-</div>
 {% endblock content %}
-
-
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script>    
     const key = "e67fd4cae34071117f73a8090324311b";
-
+    {% comment %} 실시간 인기 영화 {% endcomment %}
     const getPopular = async() => {
       const url = "https://api.themoviedb.org/3/movie/popular?api_key=" + key + "&language=ko-KR"
       const response = await axios.get(url);
@@ -184,17 +159,14 @@
           newliTag.appendChild(newaTag)
           recUlTag.appendChild(newliTag)
         }
-
       }              
     }
     getPopular()
-
-
+    {% comment %} 실시간 현재 상영작 {% endcomment %}
     const getPlaying = async() => {
       const url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + key + "&language=ko-KR"
       const response = await axios.get(url);
       const recUlTag = document.querySelector('#playing')
-      console.log(response.data)
 
       for(let i=0; i<12; i++) {  
         movieId = response.data.results[i].id
@@ -221,12 +193,11 @@
       }              
     }
     getPlaying()
-
+    {% comment %} 실시간 높은 평점 {% endcomment %}
     const getTop = async() => {
       const url = "https://api.themoviedb.org/3/movie/top_rated?api_key=" + key + "&language=ko-KR"
       const response = await axios.get(url);
       const recUlTag = document.querySelector('#top')
-      console.log(response.data)
 
       for(let i=0; i<12; i++) {  
         movieId = response.data.results[i].id
@@ -253,12 +224,11 @@
       }              
     }
     getTop()
-
+    {% comment %} 실시간 상영 예정작 {% endcomment %}
     const getUpcoming = async() => {
       const url = "https://api.themoviedb.org/3/movie/upcoming?api_key=" + key + "&language=ko-KR"
       const response = await axios.get(url);
       const recUlTag = document.querySelector('#upcoming')
-      console.log(response.data)
 
       for(let i=0; i<12; i++) {  
         movieId = response.data.results[i].id
@@ -285,12 +255,12 @@
       }              
     }
     getUpcoming()
+    {% comment %} 마우스 오버시 확대 {% endcomment %}
     function zoomIn(event) {
       event.target.style.transform = "scale(1.2)";
       event.target.style.zIndex =1;
       event.target.style.transition = "all 0.5s";
     }
-
     function zoomOut(event) {
       event.target.style.transform = "scale(1)";
       event.target.style.zIndex =0;

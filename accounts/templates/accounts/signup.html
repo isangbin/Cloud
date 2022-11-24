@@ -2,40 +2,19 @@
 {% load bootstrap5 %}
 
 {% block style %}
-  .gradient-custom-3 {
-    /* fallback for old browsers */
-    background: #84fab0;
-    
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
-    
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
-    }
-
-  .gradient-custom-4 {
-    /* fallback for old browsers */
-    background: #6c7075;
-    
-    {% comment %} /* Chrome 10-25, Safari 5.1-6 */ {% endcomment %}
-    {% comment %} background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1)); {% endcomment %}
-    
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
-
-    border: 0
-    }
-
-  h2 {
-    color: black;
-  }
   body {
     padding-top: 0px;
   }
-
+  h2 {
+    color: black;
+  }
+  .gradient-custom-4 {
+    background: #6c7075;    
+    background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
+    border: 0
+    }
 {% endblock style %}
 {% block content %}
-{% comment %} vh : relative to the viewport (height 100vh) {% endcomment %}
 <section class="vh-100">
   <div class="mask d-flex align-items-center h-100 ">
     <div class="container h-100">
@@ -44,15 +23,14 @@
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-5">
               <h2 class="fw-bold text-uppercase text-center mb-5">회원가입</h2>
-              
+              {% comment %} 부트스트랩 회원가입 폼 {% endcomment %}
               <form action="{% url 'accounts:signup' %}" method="POST">
               {% csrf_token %}
               {% bootstrap_form form %}
-              {% comment %} <button type="submit" class="btn btn-primary justify-content-center">가입</button> {% endcomment %}
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-uppercase">등록</button>
               </div>
-              
+              {% comment %} 계정 있는 경우 로그인 이동 {% endcomment %}
               <p class="text-center text-muted mt-5 mb-0">이미 계정이 있으신가요? <a href="{% url 'accounts:login' %}"
                 class="fw-bold text-body"><u>로그인하러 가기</u></a></p>
               </form>
