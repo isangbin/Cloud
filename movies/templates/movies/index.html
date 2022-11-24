@@ -157,12 +157,12 @@
   <script>    
     const key = "e67fd4cae34071117f73a8090324311b";
 
-    const getTrending = async() => {
-      const url = "https://api.themoviedb.org/3/trending/all/week?api_key=" + key + "&language=ko-KR"
+    const getPopular = async() => {
+      const url = "https://api.themoviedb.org/3/movie/popular?api_key=" + key + "&language=ko-KR"
       const response = await axios.get(url);
       const recUlTag = document.querySelector('#popular')
 
-      for(let i=0; i<12; i++) {  
+      for(let i=0; i<20; i++) {  
         movieId = response.data.results[i].id
         const detail_url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + key + "&language=ko-KR"
         const detail_response = await axios.get(detail_url)
@@ -187,7 +187,7 @@
 
       }              
     }
-    getTrending()
+    getPopular()
 
 
     const getPlaying = async() => {
