@@ -1,156 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-  <title>Document</title>
-  <style>
-    html {
-      width: 99%; 
-      height: 100%;
-    }
-    @font-face {
-      font-family: 'Pretendard-Regular';
-      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'S-CoreDream-3Light';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
-      font-weight: bold;
-      font-style: normal;
-      {% comment %} color: blue; {% endcomment %}
-    }
-    @font-face {
-      font-family: 'twayair';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-    
-    body {
-      {% comment %} background-color: #b6dbdb; {% endcomment %}
-
-      {% comment %} background: #eae5da; {% endcomment %}
-      padding-top: 5rem;
-      {% comment %} margin:0 auto; {% endcomment %}
-      {% comment %} color: #0074ff; {% endcomment %}
-      {% comment %} font-family: 'Pretendard-Regular'; {% endcomment %}
-
-      {% comment %} background: black; {% endcomment %}
-      {% comment %} background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(99, 129, 141, 1)); {% endcomment %}
-
-      {% comment %} background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1)); {% endcomment %}
-      background-image: linear-gradient(to top, rgba(240, 244, 247, 1), rgba(129, 185, 227, 1));
-      background-attachment: fixed;
-      align-items: center;
-      color: #1f458f;
-      justify-content: center;
-      {% comment %} font-family: 'Pretendard-Regular'; {% endcomment %}
-      font-family: 'S-CoreDream-3Light';
-      {% comment %} font-family: 'twayair'; {% endcomment %}
-      
-
-      {% comment %} margin: 0; {% endcomment %}
-      {% comment %} margin-top: 0; {% endcomment %}
-      {% comment %} margin: auto; {% endcomment %}
-      {% comment %} margin: 0; {% endcomment %}
-      {% comment %} margin-top: 2rem; {% endcomment %}
-      {% comment %} color: white; {% endcomment %}
-    }
-    .dark-mode {
-      background-image: linear-gradient(to top, rgba(128, 133, 138, 1) , rgba(8, 11, 15, 1));
-      color: white;
-    }
-
-    {% comment %} #lightmode {
-      background-image: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
-      background-attachment: fixed;
-    }
-    #darkmode {
-      background-image: linear-gradient(to top, rgba(8, 11, 15, 1), rgba(128, 133, 138, 1));
-      background-attachment: fixed;
-    } {% endcomment %}
-
-    {% comment %} html {
-      height: 100%;
-    } {% endcomment %}
-
-    nav {
-      {% comment %} background-color: rgba(0, 0, 0, 0); {% endcomment %}
-      background-color: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
-      {% comment %} background-color: #b6dbdb; {% endcomment %}
-
-      {% comment %} background: #e6decf; {% endcomment %}
-      {% comment %} background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1)); {% endcomment %}
-    }
-
-    .dropdown > button {
-      background: transparent;
-    }
-
-    {% comment %} ul {
-      width: 250px;
-      height: 140px;
-      overflow: auto;
-    } {% endcomment %}
-    ul::-webkit-scrollbar {
-      width: 10px;
-    }
-    ul::-webkit-scrollbar-thumb {
-      background-color: #2e2e2d;
-      border-radius: 10px;
-    }
-    ul::-webkit-scrollbar-track {
-      background-color: #eae5da;
-      border-radius: 10px;
-      box-shadow: inset 0px 0px 5px white;
-    }
-
-    #search_btn {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .toggler {
-      border-color: white;
-      background-color: white;
-    }
-    .card {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-    {% comment %} .gradient-custom-3 {
-      background: #84fab0;
-
-      background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
-    } {% endcomment %}
-  
-    {% comment %} .gradient-custom-4 {
-      background: #6c7075;
-      
-      /* Chrome 10-25, Safari 5.1-6 */
-      background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
-      
-      background: linear-gradient(to right, rgba(99, 129, 141, 1), rgba(142, 145, 148, 1));
-  
-      border: 0
-    } {% endcomment %}
-
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+      html {
+        width: 99%; 
+        height: 100%;
+      }
+      body {
+        padding-top: 5rem;
+        background-image: linear-gradient(to top, rgba(240, 244, 247, 1), rgba(129, 185, 227, 1));
+        background-attachment: fixed;
+        align-items: center;
+        color: #1f458f;
+        justify-content: center;
+        font-family: 'S-CoreDream-3Light';
+      }
+      nav {
+        background-color: linear-gradient(to top, rgba(64, 83, 89, 1), rgba(0, 0, 0, 1));
+      }
+      @font-face {
+        font-family: 'S-CoreDream-3Light';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+      }
+      #search_btn {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      .dark-mode {
+        background-image: linear-gradient(to top, rgba(128, 133, 138, 1) , rgba(8, 11, 15, 1));
+        color: white;
+      }
+      .dropdown > button {
+        background: transparent;
+      }
+      .toggler {
+        border-color: white;
+        background-color: white;
+      }
+      .card {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+      ul::-webkit-scrollbar {
+        width: 10px;
+      }
+      ul::-webkit-scrollbar-thumb {
+        background-color: #2e2e2d;
+        border-radius: 10px;
+      }
+      ul::-webkit-scrollbar-track {
+        background-color: #eae5da;
+        border-radius: 10px;
+        box-shadow: inset 0px 0px 5px white;
+      }
     {% block style %}
     {% endblock style %}
   </style>
 </head>
-
-{% comment %} <body style="background-image: url('https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image_1258-85447.jpg?w=1380&t=st=1668602586~exp=1668603186~hmac=d2c281bac0926fa9017d6be19ebe22f65faa25fca18960dda51bba8c3d61102c');"> {% endcomment %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js"></script> 
-
 <body>
+  {% comment %} 네비게이션 바 {% endcomment %}
   <nav class="mx-3 navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
+      {% comment %} 로고 {% endcomment %}
       <a class="m-2 navbar-brand" href="{% url 'movies:index' %}">
         <img id="logo" src="/media/cloudie_white.png" alt="" width="100" height="60">
       </a>
+      {% comment %} 토글 {% endcomment %}
       <button class="navbar-toggler toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon toggler"></span>
       </button>
@@ -159,11 +80,9 @@
           <a class="nav-link active text-light" aria-current="page" href="{% url 'movies:index' %}">Home</a>
           <a class="nav-link text-light" href="{% url 'community:index' %}">Community</a>
           <a class="nav-link text-light" href="{% url 'movies:select' %}">Select</a>
-          {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
         </div>
       </div>
-
-      
+      {% comment %} 검색 {% endcomment %}
       <form id="searchForm" class="d-flex mx-3" role="search" method="get" action="{% url "movies:search" %}">
         <select style="width: 6em;" class="border rounded custom-select custom-select-md mx-2" name="type">
             <option value="all">전체</option>
@@ -171,18 +90,9 @@
             <option value="genres">장르</option>
         </select>
         <input id="search" class="form-control me-2" type="search" placeholder="2글자 이상 입력" aria-label="Search" name="movie">
-
-        {% comment %} <div class="col" style="margin-top: 10px;">
-        </div> {% endcomment %}
-
         <button class="col-2 btn bg-light" type="submit">검색</button>
       </form>
-
-      {% comment %} <form id="modeselect-form" data-user-id="{{ user.pk }}">
-        {% csrf_token %}
-        <button id="modeselect-{{ user.pk }}" class="btn btn-outline-primary">Mode</button>
-      </form> {% endcomment %}
-
+      {% comment %} 계정 드롭다운 {% endcomment %}
       <div class="dropdown mx-2">
         <button class="btn border border-light opacity-100 dropdown-toggle my-3 text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {% if user.username %}
@@ -191,51 +101,29 @@
             Anonymous
           {% endif %}
         </button>
+        {% comment %} 드롭다운 메뉴 {% endcomment %}
         <ul class="dropdown-menu dropdown-menu-dark">
           {% if request.user.is_authenticated %}
             <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
             <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:update' %}">회원 수정</a></li>
-            {% comment %} <li><a class="dropdown-item text-center px-0 text-light" href="{% url 'accounts:delete' %}">회원 탈퇴</a></li> {% endcomment %}
-              <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:delete' %}" method="POST">
-                {% csrf_token %}
-                <button id="delete" type="submit" class="btn btn-danger opacity-75">회원탈퇴</button>
-              </form>
-              <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:logout' %}" method="POST">
-                {% csrf_token %}
-                <input class="btn btn-warning btn-block opacity-75" type="submit" value="로그아웃">
-              </form>
+            <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:delete' %}" method="POST">
+              {% csrf_token %}
+              <button id="delete" type="submit" class="btn btn-danger opacity-75">회원탈퇴</button>
+            </form>
+            <form class="d-flex justify-content-center my-2 mx-0" action="{% url 'accounts:logout' %}" method="POST">
+              {% csrf_token %}
+              <input class="btn btn-warning btn-block opacity-75" type="submit" value="로그아웃">
+            </form>
           {% else %}
             <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:login' %}">로그인</a></li>
             <li><a class="dropdown-item text-center px-0" href="{% url 'accounts:signup' %}">회원 가입</a></li>
           {% endif %}
         </ul>
       </div>
+      {% comment %} 다크모드 {% endcomment %}
       <button id="modeselect" class="btn border border-light opacity-100 text-light">다크모드 활성화</button>
     </div>
   </nav>
-
-  {% comment %} <div class="bg-image" style="background-image: url('https://image.tmdb.org/t/p/w400/sv1xJUazXeYqALzczSZ3O6nkH75.jpg'); height: 50vh;">
-    <div class="container" id="topDiv">
-      login 했을 때 화면 구성
-      {% if request.user.is_authenticated %}
-        <h3>Hello, {{ user }}</h3>
-        <a href="{% url 'accounts:profile' user.username %}">내 프로필</a>
-        <form action="{% url 'accounts:logout' %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="Logout">
-        </form>
-        <a href="{% url 'accounts:update' %}">회원정보 수정</a>
-        <form action="{% url 'accounts:delete' %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="회원 탈퇴">
-        </form>
-      login 안 했을 때 화면 구성
-      {% else %}
-        <a href="{% url 'accounts:login' %}">Login</a>
-        <a href="{% url 'accounts:signup' %}">Signup</a>
-      {% endif %}
-      <hr>
-    </div> {% endcomment %}
   </div>
   {% block content %}
   {% endblock content %}
@@ -243,23 +131,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   
   <script>
-    const deleteBtn = document.querySelector('#delete')
-    deleteBtn.addEventListener('click', function() {
-      if (confirm("계정을 삭제하시면 다시 복구할 수 없습니다.\n정말로 삭제하시겠습니까?") == false){
-        event.preventDefault()
-      }
-    })
-
-    {% comment %} function doSearch() {
-      
-      if (searchTag.value.length == 0) {
-        alert('검색어를 입력하세요')
-        return false;
-      }
-      
-      return true;
-    } {% endcomment %}
-    
+    {% comment %} 검색 {% endcomment %}
     const searchForm = document.querySelector("#searchForm")
     const searchTag = document.querySelector("#search")
 
@@ -273,38 +145,19 @@
         event.preventDefault()
       }
     })
+    
+    {% comment %} 계정 삭제 버튼 {% endcomment %}
+    const deleteBtn = document.querySelector('#delete')
+    deleteBtn.addEventListener('click', function() {
+      if (confirm("계정을 삭제하시면 다시 복구할 수 없습니다.\n정말로 삭제하시겠습니까?") == false){
+        event.preventDefault()
+      }
+    })
 
-    const modeBtn = document.querySelector('#modeBtn')
-    const modeForm = document.querySelector('#modeselect-form')
+    {% comment %} 다크모드 {% endcomment %}
     const bodyTag = document.querySelector('body')
     const csrftoken1 = document.querySelector('[name=csrfmiddlewaretoken]').value
 
-    
-    {% comment %} modeForm.addEventListener('submit', function (event) {
-      event.preventDefault()
-      const userId = event.target.dataset.userId
-
-      axios({
-        method: 'post',
-        url: `http://127.0.0.1:8000/accounts/${userId}/modeselect/`,
-        headers: {'X-CSRFToken': csrftoken1},
-      })
-      .then((response) => {
-        const modeselect = response.data.modeselect
-        if (modeselect === false) {
-          bodyTag.setAttribute('id', 'lightmode')
-          console.log(modeselect)
-        } else {
-          bodyTag.setAttribute('id', 'darkmode')
-          console.log(userId)
-          console.log(response)
-          console.log(modeselect)
-        }
-      })
-      .catch((error) => {
-        console.log(error.response)
-      })
-    }) {% endcomment %}
     let darkMode = localStorage.getItem('darkMode');
     const darkModeToggle = document.querySelector('#modeselect')
 
@@ -335,56 +188,6 @@
         darkModeToggle.innerText = '다크모드 활성화'
       }
     })
-
-    {% comment %} document.getElementById('modeselect').addEventListener("click", function() {
-      if(document.querySelector('body').dataset.theme == 'dark') {
-        document.body.classList.add("dark-mode");
-        document.querySelector('body').dataset.theme = ''
-    } else {
-        document.body.classList.clear;
-        document.querySelector('body').dataset.theme = 'dark'
-    }
-    }) {% endcomment %}
-
-    
-    {% comment %} modeBtn.addEventListener('click', function() {
-      if (bodyTag.getAttribute('id') === 'lightmode') {
-        bodyTag.setAttribute('id', 'darkmode')
-      } else {
-        bodyTag.setAttribute('id', 'lightmode')
-      }
-    }) {% endcomment %}
-
-    {% comment %} forms.forEach((form) => {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault()
-        const movieId = event.target.dataset.movieId
-
-        axios({
-          method: 'post',
-          url: `/movies/${movieId}/likes/`,
-          headers: {'X-CSRFToken': csrftoken,},
-        })
-          .then((response) => {
-          const isLiked = response.data.is_liked
-          const likeBtn = document.querySelector(`#like-${movieId}`)
-          const imgTag = document.querySelector(`#img-${movieId}`)
-
-          if (isLiked === true) {
-            likeBtn.value = '좋아요 취소'
-            likeBtn.setAttribute('class', 'btn btn-dark')
-            imgTag.setAttribute('class', 'transparent image img-fluid rounded m-auto')
-          } else {
-            likeBtn.value ='좋아요'
-            likeBtn.setAttribute('class', 'btn btn-light')
-            imgTag.setAttribute('class', 'image img-fluid rounded m-auto')
-          }
-          })
-          .catch((error) => {
-            console.log(error.response)
-          })
-      })
-    }) {% endcomment %}
   </script>
   {% block script %}
   {% endblock script %}
