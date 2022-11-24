@@ -5,9 +5,6 @@ from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 import operator, random
-# import requests
-# import json
-
 # Create your views here.
 
 def index(request):
@@ -31,7 +28,6 @@ def index(request):
             user.favorite = 0
         user.save()
 
-        # recommends = Movie.objects.filter(genres__contains=max_genre)
         recommends = []
 
         for movie in movies:
@@ -60,14 +56,6 @@ def index(request):
     return redirect('accounts:login')
 
 
-# def detail(request, movie_pk):
-#     movie = Movie.objects.get(pk=movie_pk)
-#     context = {
-#         'movie': movie,
-#     }
-#     return render(request, 'movies/detail.html', context)
-
-
 def detail(request, movie_pk):
     context = {
         'movie_pk': movie_pk,
@@ -77,7 +65,7 @@ def detail(request, movie_pk):
 
 @login_required
 def select(request):
-    movies = Movie.objects.all().order_by('-popularity')[:40]
+    movies = Movie.objects.all().order_by('-popularity')[:100]
     context = {
         'movies': movies,
     }
@@ -109,18 +97,10 @@ def search(request):
         
 
         if len(searched) > 1 :
-            # genres = Genre.objects.all()
-            # movie = Movie.objects.get(pk=505642)
             if searched_type == 'all':
-                # print(movie.genres.all())
-                # genre = Genre.objects.all()
                 genre = Genre.objects.filter(name__icontains=searched)
-                # print(genre[0].name)
                 if genre:
                     movies = Movie.objects.filter(genres__name__icontains=genre[0].name)
-                # movie = Movie.objects.get(pk=505642)
-                # print(movie)
-                    # print(name)
                 else:
                     movies = Movie.objects.filter(title__icontains=searched)
 
@@ -131,9 +111,6 @@ def search(request):
 
             elif searched_type == 'title':
                 movies = Movie.objects.filter(title__icontains=searched)
-        
-        # else:
-        #     return redirect("movies:index")
 
         context = {
             "movies": movies,
@@ -142,13 +119,3 @@ def search(request):
         return render(request, "movies/search.html", context)
 
     return render(request, 'movies/index.html')
-
-
-# def search(request):
-#     searched = request.GET.get("movie")
-#     if len(searched) > 1:
-#         movie = Movie.objects.filter(title__icontains=searched)
-#         context = {
-#             "movie": movie
-#         }
-#     return render(request, "movies/search.html", context)

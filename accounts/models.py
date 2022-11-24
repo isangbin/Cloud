@@ -13,14 +13,14 @@ class User(AbstractUser):
     lovings = models.ManyToManyField('self', symmetrical=False, related_name='lovers')
     favorite = models.IntegerField(null=True)
     age = models.IntegerField(null=True)
-    gender = models.CharField(choices=GenderChoices.choices, max_length=1, blank=True)
+    gender = models.CharField(choices=GenderChoices.choices, max_length=2, blank=True)
     phone_number = models.CharField(validators=[RegexValidator(r'010-?[1-9]\d{3}-?\d{4}$')], max_length=13, blank=True)
     self_introduce = models.TextField(null=True)
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='sample.png', upload_to='static')
+    image = models.ImageField(default='default_profile.png', upload_to='static')
 
     def save(self, **kwargs):
         super().save()

@@ -51,7 +51,7 @@
             </form>
           </div>
         {% else %}
-          <a id="btn" class="col-3 btn btn-secondary btn-sm my-3 text-light opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
+          <a id="btn" class="col-6 btn btn-secondary btn-sm my-3 text-light opacity-50" href="{% url 'accounts:update' %}">사진 변경</a>
         {% endif %}         
       </div>
     </div>
@@ -165,21 +165,21 @@
       {% if person.lovers.all %}
       {% comment %} 매칭 성공/ 영화친구 요청 온 사람 {% endcomment %}
         {% for matched in person.lovers.all %}
-            <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center d-none">
-              <div data-match-id="{{ matched.pk }}" class="card match_card" style="width: 18rem;">
-                <img id="match_img" src="{{ matched.profile.image.url }}" class="card-img-top rounded img-fluid" alt="...">
-                <div class="card-body row justify-content-center">
-                  <p class="text-center">{{ matched.username }}</p>
-                  <p class="card-text">성별 : {{ matched.gender }}</p>
-                  <p class="card-text">나이 : {{ matched.age }}</p>
-                  <p class="card-text">전화번호 : {{ matched.phone_number }}</p>
-                  <p class="card-text">이메일 : {{ matched.email }}</p>
-                  <div class="d-flex justify-content-center align-items-center col-12 mx-0 px-0">
-                  <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
-                  </div>
+          <div id="match_card-{{ matched.pk }}" class="col-4 my-3 d-flex justify-content-center d-none">
+            <div data-match-id="{{ matched.pk }}" class="card match_card match_img" style="width: 18rem;">
+              <img id="match_img" src="{{ matched.profile.image.url }}" class="card-img-top rounded img-fluid" alt="...">
+              <div class="card-body row justify-content-center">
+                <p class="text-center">{{ matched.username }}</p>
+                <p class="card-text">성별 : {{ matched.gender }}</p>
+                <p class="card-text">나이 : {{ matched.age }}</p>
+                <p class="card-text">전화번호 : {{ matched.phone_number }}</p>
+                <p class="card-text">이메일 : {{ matched.email }}</p>
+                <div class="d-flex justify-content-center align-items-center col-12 mx-0 px-0">
+                <a class="btn bg-light" href="{% url 'accounts:profile' matched.username %}">프로필 방문</a>
                 </div>
               </div>
             </div>
+          </div>
         {% endfor %}
         {% comment %} 요청을 수락해 최종 매칭 된 경우 {% endcomment %}
         {% for matched in person.lovers.all %}
@@ -225,7 +225,7 @@
                 {% else %}
                 <div class="col-4 my-3 d-flex justify-content-center">
                   <div id="partner_card" class="card" style="width: 18rem;">
-                    <img src="{{ matching.profile.image.url }}" class="card-img-top rounded" alt="...">
+                    <img id="match_img" src="{{ matching.profile.image.url }}" class="card-img-top rounded" alt="...">
                     <div class="card-body row justify-content-center my-3">
                       <p>이름 : {{ matching.username }}</p>
                       <p>성별 : {{ matching.gender }}</p>
